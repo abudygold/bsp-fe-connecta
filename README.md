@@ -2,6 +2,25 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
 
+## Overview
+
+BSP FE Connecta is an Angular-based frontend application for the Business Services Platform (BSP). It provides a modern, responsive user interface built with Angular 21.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Node.js (v18 or higher)
+- Angular CLI v21.0.2 or higher
+
+## Installation
+
+Install the project dependencies by running:
+
+```bash
+npm install
+```
+
 ## Development server
 
 To start a local development server, run:
