@@ -1,0 +1,14 @@
+<mat-form-field class="tw:w-full" appearance="outline">
+  <mat-label>{{ label() }}</mat-label>
+  <textarea
+    matInput
+    autocomplete="off"
+    [field]="fieldControl"
+    [placeholder]="'Enter your ' + label().toLowerCase()"></textarea>
+</mat-form-field>
+
+@if (fieldControl().touched() && fieldControl().invalid()) {
+  @for (error of fieldControl().errors(); track error) {
+    <mat-error>{{ error.message }}</mat-error>
+  }
+}

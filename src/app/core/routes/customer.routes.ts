@@ -1,0 +1,30 @@
+import { Routes } from '@angular/router';
+import { CUSTOMER_GROUP_BREADCRUMB, CUSTOMER_LIST_BREADCRUMB } from '../../shared/config';
+
+export const CUSTOMER_ROUTES: Routes = [
+  {
+    path: 'customer',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('../../pages/customer/page/customer-list/customer-list').then(
+            (m) => m.CustomerList,
+          ),
+        data: {
+          breadcrumb: CUSTOMER_LIST_BREADCRUMB,
+        },
+      },
+      {
+        path: 'group',
+        loadComponent: () =>
+          import('../../pages/customer/page/customer-group-list/customer-group-list').then(
+            (m) => m.CustomerGroupList,
+          ),
+        data: {
+          breadcrumb: CUSTOMER_GROUP_BREADCRUMB,
+        },
+      },
+    ],
+  },
+];

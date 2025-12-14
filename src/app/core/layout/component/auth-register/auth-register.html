@@ -1,0 +1,64 @@
+<h1
+  class="tw:font-bold tw:text-2xl tw:text-gray-900 tw:leading-5 tw:tracking-tight tw:text-center tw:mb-5">
+  Register
+</h1>
+
+<p class="tw:text-sm tw:font-light tw:text-gray-500 tw:text-center tw:mb-5">
+  Please fill the form below
+</p>
+
+<div class="tw:mb-3">
+  <app-text-input label="Client Name" [field]="loginForm.clientName" />
+</div>
+
+<div class="tw:mb-3">
+  <app-text-input label="Owner Name" [field]="loginForm.ownerName" />
+</div>
+
+<div class="tw:mb-3">
+  <app-select
+    label="Country"
+    [field]="loginForm.country"
+    [key]="{
+      label: 'name',
+    }"
+    [options]="[
+      { id: 'satu_', name: 'satu' },
+      { id: 'dua_', name: 'dua' },
+    ]" />
+</div>
+
+<div class="tw:mb-3">
+  <app-text-area label="Address" [field]="loginForm.address" />
+</div>
+
+<div class="tw:mb-3">
+  <app-text-input label="Email" [field]="loginForm.email" />
+</div>
+
+<div class="tw:mb-3">
+  <app-text-password label="Password" [field]="loginForm.password" />
+</div>
+
+<div class="tw:mb-3">
+  <app-text-password label="Confirm Password" [field]="loginForm.confirmPassword" />
+</div>
+
+<div class="tw:mt-3 tw:space-y-2 tw:text-sm">
+  @for (rule of passwordRule(); track $index) {
+    <div
+      class="tw:flex tw:items-center tw:gap-2"
+      [class]="rule.status ? 'tw:text-green-600' : 'tw:text-red-600'">
+      <span class="material-icons">{{ rule.status ? 'check_circle' : 'cancel' }}</span>
+      {{ rule.message }}
+    </div>
+  }
+</div>
+
+<div class="tw:flex tw:flex-col tw:gap-3 tw:mt-4">
+  <button matButton="filled" class="tw:w-full" (click)="doRegister()">Submit</button>
+  <button matButton class="tw:w-full" (click)="navigateToLogin()">
+    <mat-icon matSuffix>arrow_back</mat-icon>
+    Back to Login
+  </button>
+</div>

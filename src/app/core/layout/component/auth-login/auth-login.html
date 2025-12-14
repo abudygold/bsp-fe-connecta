@@ -1,0 +1,54 @@
+<h1
+  class="tw:font-bold tw:text-2xl tw:text-gray-900 tw:leading-5 tw:tracking-tight tw:text-center tw:mb-5">
+  Login
+</h1>
+
+<div class="tw:mb-3">
+  <app-text-input label="Email" icon="email" [field]="loginForm.email" />
+</div>
+
+<div class="tw:mb-3">
+  <app-text-password label="Password" [field]="loginForm.password" />
+</div>
+
+<div class="divider-with-text-container">
+  <mat-divider></mat-divider>
+  <span class="divider-text">or</span>
+  <mat-divider></mat-divider>
+</div>
+
+<div class="tw:mt-4">
+  <button matFab extended class="tw:w-full!">
+    <img
+      src="./icons/mail/gmail.svg"
+      alt="Gmail Icon"
+      class="tw:inline-flex tw:w-5 tw:mb-1"
+      (click)="doLoginByGoogleAccount()" />
+    Sign in with Google
+  </button>
+</div>
+
+<div class="tw:flex tw:justify-between tw:items-center tw:mt-4">
+  <div class="remember-me">
+    <app-checkbox label="Remember me" [field]="loginForm.rememberMe" />
+  </div>
+
+  <p
+    class="tw:text-blue-500 tw:font-medium tw:text-sm tw:cursor-pointer"
+    (click)="navigateToAuth('forgot')">
+    Forgot password?
+  </p>
+</div>
+
+<div class="tw:my-4">
+  <button matButton="filled" class="tw:w-full" (click)="doLogin()">Login</button>
+</div>
+
+<p class="tw:text-sm tw:font-light tw:text-gray-500 tw:text-center">
+  Don't have an account?
+  <span
+    class="tw:text-blue-500 tw:font-medium tw:cursor-pointer"
+    (click)="navigateToAuth('register')">
+    Sign up
+  </span>
+</p>

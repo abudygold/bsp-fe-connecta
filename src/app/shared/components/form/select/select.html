@@ -1,0 +1,16 @@
+<mat-form-field class="tw:w-full" appearance="outline">
+  <mat-label>{{ label() }}</mat-label>
+  <mat-select [field]="fieldControl" [placeholder]="'Select the ' + label().toLowerCase()">
+    @for (option of options(); track option) {
+      <mat-option [value]="isObject && key()?.value ? option[key()?.value || ''] : option">
+        {{ isObject && key()?.label ? option[key()?.label || ''] : option }}
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>
+
+@if (fieldControl().touched() && fieldControl().invalid()) {
+  @for (error of fieldControl().errors(); track error) {
+    <mat-error>{{ error.message }}</mat-error>
+  }
+}

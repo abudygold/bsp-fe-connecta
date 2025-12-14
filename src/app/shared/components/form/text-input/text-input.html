@@ -1,0 +1,17 @@
+<mat-form-field class="tw:w-full" appearance="outline">
+  <mat-label>{{ label() }}</mat-label>
+  <input
+    matInput
+    autocomplete="off"
+    [field]="fieldControl"
+    [placeholder]="'Enter your ' + label().toLowerCase()" />
+  @if (icon()) {
+    <mat-icon matSuffix>{{ icon() }}</mat-icon>
+  }
+</mat-form-field>
+
+@if (fieldControl().touched() && fieldControl().invalid()) {
+  @for (error of fieldControl().errors(); track error) {
+    <mat-error>{{ error.message }}</mat-error>
+  }
+}

@@ -1,0 +1,9 @@
+/* FIX TAILWIND BREAKING ANGULAR MATERIAL OUTLINE */
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+.mat-mdc-form-field-bottom-align {
+  &::before {
+    display: none !important;
+  }
+}

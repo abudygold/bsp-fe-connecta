@@ -1,0 +1,26 @@
+<mat-nav-list class="sidebar">
+  @for (item of menu(); track $index) {
+    <!-- Parent item -->
+    <mat-list-item
+      class="tw:cursor-pointer"
+      [class.active-item]="isActive(item)"
+      (click)="item.submenu ? toggle(item) : navigate(item)">
+      <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+      <span matListItemTitle>{{ item.label }}</span>
+
+      <!-- Expand/collapse arrow -->
+      @if (item.submenu) {
+        <mat-icon>
+          {{ isExpanded(item) ? 'expand_less' : 'expand_more' }}
+        </mat-icon>
+      }
+    </mat-list-item>
+
+    <!-- Submenu -->
+    @if (item.submenu && isExpanded(item)) {
+      <div class="tw:pl-4">
+        <app-admin-sidebar [menu]="item.submenu" />
+      </div>
+    }
+  }
+</mat-nav-list>

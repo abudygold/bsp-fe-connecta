@@ -1,0 +1,18 @@
+<mat-toolbar
+  class="header tw:gap-5"
+  [ngClass]="{
+    'tw:fixed': isMobile(),
+    'tw:z-10': isMobile(),
+  }">
+  <button matIconButton (click)="toggleMenu.emit()" class="tw:cursor-pointer">
+    <mat-icon class="tw:flex!">menu</mat-icon>
+  </button>
+
+  <img src="./logo/company-logo-white.svg" alt="Connecta Logo" class="tw:max-h-10" />
+
+  <span class="tw:grow"></span>
+
+  <button matIconButton class="tw:cursor-pointer">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

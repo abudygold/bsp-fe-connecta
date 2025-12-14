@@ -1,0 +1,7 @@
+<mat-checkbox [field]="fieldControl">{{ label() }}</mat-checkbox>
+
+@if (fieldControl().touched() && fieldControl().invalid()) {
+  @for (error of fieldControl().errors(); track error) {
+    <mat-error>{{ error.message }}</mat-error>
+  }
+}
