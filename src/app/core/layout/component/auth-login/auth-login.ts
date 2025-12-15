@@ -7,6 +7,7 @@ import { Checkbox } from '../../../../shared/components/form/checkbox';
 import { TextInput } from '../../../../shared/components/form/text-input';
 import { TextPassword } from '../../../../shared/components/form/text-password';
 import { LoginData } from '../../../../shared/form/form-data';
+import { Auth } from '../../../services';
 
 @Component({
   selector: 'app-auth-login',
@@ -17,10 +18,11 @@ import { LoginData } from '../../../../shared/form/form-data';
 export class AuthLogin {
   #router = inject(Router);
   #activatedRoute = inject(ActivatedRoute);
+  #auth = inject(Auth);
 
   loginModel = signal<LoginData>({
-    email: '',
-    password: '',
+    email: 'example@gmail.com',
+    password: '@eX4mPL3@',
     rememberMe: false,
   });
 
@@ -43,6 +45,11 @@ export class AuthLogin {
     if (this.loginForm().invalid()) return;
 
     console.log('-- Submit the form --', formData);
+    this.#auth.setTokens(
+      btoa(this.loginForm.password().value() + 'access'),
+      btoa(this.loginForm.password().value() + 'refresh'),
+    );
+    this.#router.navigate(['./secure']);
   }
 
   navigateToAuth(page: 'forgot' | 'register'): void {

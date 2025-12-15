@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { tap } from 'rxjs';
-import { REFRESH_TOKEN_PATH } from '../../shared/config';
+import { LOGOUT_PATH, REFRESH_TOKEN_PATH } from '../../shared/config';
 import { RefreshTokenResponse } from '../../shared/interface';
 import { API } from './api';
 
@@ -44,5 +44,13 @@ export class Auth {
           this.setTokens(res.accessToken, res.refreshToken);
         }),
       );
+  }
+
+  logoutApi() {
+    return this.#api.post(LOGOUT_PATH, {}).pipe(
+      tap(() => {
+        this.clearTokens();
+      }),
+    );
   }
 }
