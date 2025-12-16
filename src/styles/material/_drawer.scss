@@ -1,7 +1,10 @@
 mat-sidenav-container {
   mat-sidenav {
-    .mat-drawer-inner-container {
-      background: color-mix(in srgb, var(--mat-sys-primary) 20%, transparent);
+    &.mat-drawer {
+      width: 300px;
+      .mat-drawer-inner-container {
+        background: color-mix(in srgb, var(--mat-sys-primary) 20%, transparent);
+      }
     }
   }
 }

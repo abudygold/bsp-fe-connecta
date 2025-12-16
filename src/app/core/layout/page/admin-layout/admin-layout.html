@@ -13,7 +13,10 @@
       [fixedInViewport]="isMobile()"
       fixedTopGap="56"
       class="tw:rounded-none!">
-      <app-admin-sidebar />
+      <app-admin-sidebar
+        [snav]="snav"
+        [isMobile]="isMobile()"
+        (toggleMenu)="isMobile() ? snav.toggle() : null" />
     </mat-sidenav>
 
     <mat-sidenav-content [style.marginTop.px]="isMobile() ? 56 : 0">

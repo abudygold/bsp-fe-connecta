@@ -4,7 +4,7 @@
     <mat-list-item
       class="tw:cursor-pointer"
       [class.active-item]="isActive(item)"
-      (click)="item.submenu ? toggle(item) : navigate(item)">
+      (click)="clickedMenu(item)">
       <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
       <span matListItemTitle>{{ item.label }}</span>
 
@@ -19,7 +19,11 @@
     <!-- Submenu -->
     @if (item.submenu && isExpanded(item)) {
       <div class="tw:pl-4">
-        <app-admin-sidebar [menu]="item.submenu" />
+        <app-admin-sidebar
+          [menu]="item.submenu"
+          [snav]="snav()"
+          [isMobile]="isMobile()"
+          (toggleMenu)="isMobile() ? snav()?.toggle() : null" />
       </div>
     }
   }

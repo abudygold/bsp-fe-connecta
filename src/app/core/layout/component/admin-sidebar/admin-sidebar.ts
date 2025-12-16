@@ -1,6 +1,7 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, model, OnInit, output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { NAVIGATION_MENU, NavItem } from '../../../navigation';
 
@@ -13,10 +14,14 @@ import { NAVIGATION_MENU, NavItem } from '../../../navigation';
 export class AdminSidebar implements OnInit {
   readonly router = inject(Router);
 
+  toggleMenu = output<void>();
+
   expanded: Set<string> = new Set();
   currentUrl: string = '';
 
   menu = input<NavItem[]>(NAVIGATION_MENU);
+  isMobile = input<boolean>();
+  snav = model<MatSidenav>();
 
   constructor() {
     this.router.events.subscribe(() => {
@@ -27,6 +32,10 @@ export class AdminSidebar implements OnInit {
   ngOnInit() {
     this.currentUrl = this.router.url;
     this.#expandParentsWithActiveRoute(this.menu());
+  }
+
+  clickedMenu(item: NavItem): void {
+    item.submenu ? this.toggle(item) : this.navigate(item);
   }
 
   toggle(item: NavItem) {
@@ -44,8 +53,11 @@ export class AdminSidebar implements OnInit {
   }
 
   navigate(item: NavItem) {
-    if (item.path) this.router.navigate([item.path]);
-    if (item.url) window.open(item.url, '_blank');
+    if (item.path) {
+      this.router.navigate([item.path]);
+      this.toggleMenu.emit();
+    }
+    // if (item.url) window.open(item.url, '_blank');
   }
 
   /** Check if this menu item is active */
