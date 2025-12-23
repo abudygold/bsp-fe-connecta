@@ -66,3 +66,9 @@ export const CUSTOMER_GROUP_BREADCRUMB: BreadcrumbModel[] = [
   DASHBOARD_LINK,
   { label: 'Customer Groups', icon: 'groups' },
 ];
+
+/* FLOW BUILDER MENU */
+export const FLOW_BUILDER_LIST_BREADCRUMB: BreadcrumbModel[] = [
+  DASHBOARD_LINK,
+  { label: 'Flow Builder', icon: 'account_tree' },
+];

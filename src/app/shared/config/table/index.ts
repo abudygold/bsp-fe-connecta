@@ -6,3 +6,4 @@ export * from './channel-sms-table';
 export * from './channel-whatsapp-table';
 export * from './customer-group-table';
 export * from './customer-table';
+export * from './flow-builder-table';

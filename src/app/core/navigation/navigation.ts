@@ -119,7 +119,7 @@ export const NAVIGATION_MENU: NavItem[] = [
   {
     label: 'Flow Builder',
     icon: 'account_tree',
-    url: 'https://your-support-page.com',
+    path: '/secure/flow-builder',
   },
   {
     label: 'Reports',

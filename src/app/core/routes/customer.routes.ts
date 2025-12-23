@@ -1,5 +1,10 @@
 import { Routes } from '@angular/router';
-import { CUSTOMER_GROUP_BREADCRUMB, CUSTOMER_LIST_BREADCRUMB } from '../../shared/config';
+import {
+  CUSTOMER_GROUP_BREADCRUMB,
+  CUSTOMER_GROUP_LIST_TITLE,
+  CUSTOMER_LIST_BREADCRUMB,
+  CUSTOMER_LIST_TITLE,
+} from '../../shared/config';
 
 export const CUSTOMER_ROUTES: Routes = [
   {
@@ -13,6 +18,7 @@ export const CUSTOMER_ROUTES: Routes = [
           ),
         data: {
           breadcrumb: CUSTOMER_LIST_BREADCRUMB,
+          title: CUSTOMER_LIST_TITLE,
         },
       },
       {
@@ -23,6 +29,7 @@ export const CUSTOMER_ROUTES: Routes = [
           ),
         data: {
           breadcrumb: CUSTOMER_GROUP_BREADCRUMB,
+          title: CUSTOMER_GROUP_LIST_TITLE,
         },
       },
     ],

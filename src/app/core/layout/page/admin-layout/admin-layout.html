@@ -23,6 +23,11 @@
       <div class="tw:w-full tw:p-6">
         <app-breadcrumb [breadcrumbs]="breadcrumbs" />
 
+        <div class="tw:mb-4">
+          <p class="tw:text-2xl tw:font-semibold tw:mb-1">{{ titles?.title }}</p>
+          <p class="tw:text-sm">{{ titles?.subtitle }}</p>
+        </div>
+
         <router-outlet />
       </div>
     </mat-sidenav-content>

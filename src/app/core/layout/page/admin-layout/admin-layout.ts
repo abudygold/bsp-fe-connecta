@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { Breadcrumb } from '../../../../shared/components/breadcrumb';
+import { ITitle } from '../../../../shared/config';
 import { BreadcrumbModel } from '../../../../shared/model';
 import { AdminHeader } from '../../component/admin-header';
 import { AdminSidebar } from '../../component/admin-sidebar';
@@ -26,6 +27,7 @@ export class AdminLayout {
   protected readonly isMobile = signal(true);
 
   breadcrumbs: BreadcrumbModel[] = [];
+  titles: ITitle | null = null;
 
   constructor() {
     this._mobileQuery = this.#media.matchMedia('(max-width: 600px)');
@@ -42,9 +44,13 @@ export class AdminLayout {
   buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
     if (!route) return;
 
-    const breadcrumbs = route.data['breadcrumb'];
+    const _breadcrumbs = route.data['breadcrumb'];
+    const _title = route.data['title'];
 
-    if (breadcrumbs) this.breadcrumbs = breadcrumbs;
+    this.titles = null;
+
+    if (_breadcrumbs) this.breadcrumbs = _breadcrumbs;
+    if (_title) this.titles = _title;
 
     this.buildBreadcrumbs(route.firstChild);
   }

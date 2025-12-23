@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { BROADCAST_LIST_BREADCRUMB } from '../../shared/config';
+import { BROADCAST_LIST_BREADCRUMB, BROADCAST_LIST_TITLE } from '../../shared/config';
 
 export const BROADCAST_ROUTES: Routes = [
   {
@@ -13,6 +13,7 @@ export const BROADCAST_ROUTES: Routes = [
           ),
         data: {
           breadcrumb: BROADCAST_LIST_BREADCRUMB,
+          title: BROADCAST_LIST_TITLE,
         },
       },
     ],

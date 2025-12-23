@@ -4,6 +4,7 @@ import { authGuard } from '../guard';
 import { BROADCAST_ROUTES } from './broadcast.routes';
 import { CHANNEL_ROUTES } from './channel.routes';
 import { CUSTOMER_ROUTES } from './customer.routes';
+import { FLOW_BUILDER_ROUTES } from './flow-builder.routes';
 
 export const LAYOUT_ROUTES: Routes = [
   {
@@ -15,7 +16,7 @@ export const LAYOUT_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../core/layout/component/auth-login/auth-login').then((m) => m.AuthLogin),
+          import('../../pages/dashboard/page/dashboard/dashboard').then((m) => m.Dashboard),
         data: {
           breadcrumb: DASHBOARD_BREADCRUMB,
         },
@@ -23,6 +24,7 @@ export const LAYOUT_ROUTES: Routes = [
       ...CHANNEL_ROUTES,
       ...CUSTOMER_ROUTES,
       ...BROADCAST_ROUTES,
+      ...FLOW_BUILDER_ROUTES,
     ],
   },
 ];

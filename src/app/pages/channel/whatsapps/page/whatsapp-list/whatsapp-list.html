@@ -1,0 +1,34 @@
+<app-table
+  [config]="tableModel"
+  (sortChange)="sortChange($event)"
+  (pageChange)="pageChange($event)">
+  <ng-template #customTemplate let-data="data" let-key="key">
+    @if (key === 'selection') {
+      <div [class.show-checkbox]="data.isSelected">
+        <mat-checkbox
+          class="check-box check__file"
+          [checked]="tableModel.isSelected(data)"
+          (change)="onRowSelection(data)" />
+      </div>
+    } @else if (key === 'statusName') {
+      <div
+        class="tw-px-4 tw-py-2 tw-text-white tw-font-medium tw-w-max tw-rounded-full"
+        [class.tw-bg-green-700]="data.statusName?.toLowerCase() === 'active'"
+        [class.tw-bg-red-700]="data.statusName?.toLowerCase() === 'inactive'"
+        [class.tw-bg-gray-700]="data.statusName?.toLowerCase() === 'pending'">
+        {{ data.statusName }}
+      </div>
+    } @else if (key === 'actions') {
+      <div class="tw-flex tw-gap-3">
+        <mat-icon class="tw-cursor-pointer" (click)="onAction()">edit</mat-icon>
+        <mat-icon class="tw-cursor-pointer" (click)="onAction()">delete</mat-icon>
+      </div>
+    }
+  </ng-template>
+
+  <ng-template #selectionTemplate>
+    <div class="filter-list">
+      <mat-checkbox class="check__file" (change)="onAllSelection($event.checked)" />
+    </div>
+  </ng-template>
+</app-table>
