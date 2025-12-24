@@ -1,5 +1,5 @@
 <div class="tw:flex tw:justify-end tw:my-3">
-  <app-button [config]="button.addNewAccount()" />
+  <app-button [config]="button.addNewAccount()" (onClick)="openDialog()" />
 </div>
 
 <app-table

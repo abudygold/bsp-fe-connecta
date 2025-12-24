@@ -1,9 +1,10 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { NgClass } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { Breadcrumb } from '../../../../shared/components/breadcrumb';
 import { ITitle } from '../../../../shared/config';
 import { BreadcrumbModel } from '../../../../shared/model';
@@ -19,7 +20,6 @@ import { AdminSidebar } from '../../component/admin-sidebar';
 export class AdminLayout {
   #router = inject(Router);
   #media = inject(MediaMatcher);
-  // readonly dialog = inject(MatDialog);
 
   private readonly _mobileQuery: MediaQueryList;
   private readonly _mobileQueryListener: () => void;
@@ -29,41 +29,33 @@ export class AdminLayout {
   breadcrumbs: BreadcrumbModel[] = [];
   titles: ITitle | null = null;
 
+  routeData = toSignal(
+    this.#router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map(() => {
+        const root = this.#router.routerState.root;
+        this.buildBreadcrumbs(root.snapshot);
+      }),
+    ),
+    {
+      initialValue: null,
+    },
+  );
+
   constructor() {
     this._mobileQuery = this.#media.matchMedia('(max-width: 600px)');
     this.isMobile.set(this._mobileQuery.matches);
     this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
     this._mobileQuery.addEventListener('change', this._mobileQueryListener);
-
-    this.#router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe(() => {
-      const root = this.#router.routerState.root;
-      this.buildBreadcrumbs(root.snapshot);
-    });
   }
 
   buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
     if (!route) return;
 
-    const _breadcrumbs = route.data['breadcrumb'];
-    const _title = route.data['title'];
-
-    this.titles = null;
-
-    if (_breadcrumbs) this.breadcrumbs = _breadcrumbs;
-    if (_title) this.titles = _title;
-
+    this.breadcrumbs = route.data['breadcrumb'] || '';
+    this.titles = route.data['title'] || '';
     this.buildBreadcrumbs(route.firstChild);
   }
-
-  /* openDialog() {
-    const dialogRef = this.dialog.open(Confirmation, {
-      ...CONFIRMATION_DIALOG_CONFIG,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  } */
 
   ngOnDestroy(): void {
     this._mobileQuery.removeEventListener('change', this._mobileQueryListener);
