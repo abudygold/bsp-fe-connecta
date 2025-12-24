@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Sort } from '@angular/material/sort';
@@ -7,11 +7,13 @@ import { API } from '../../../../../core/services';
 import { Table } from '../../../../../shared/components/table';
 import { EXAMPLE_DUMMY_DATA } from '../../../../../shared/config';
 import { CHANNEL_SMS_TEMPLATE_TABLE } from '../../../../../shared/config/table';
-import { TableModel } from '../../../../../shared/model';
+import { ButtonModel, TableModel } from '../../../../../shared/model';
+import { Button } from '../../../../../shared/components/button';
+import { CREATE_BUTTON } from '../../../../../shared/config/button';
 
 @Component({
   selector: 'app-sms-template',
-  imports: [MatCheckboxModule, MatIconModule, Table],
+  imports: [MatCheckboxModule, MatIconModule, Table, Button],
   templateUrl: './sms-template.html',
   styleUrl: './sms-template.css',
 })
@@ -22,6 +24,12 @@ export class SmsTemplate {
 
   tableModel: TableModel = CHANNEL_SMS_TEMPLATE_TABLE;
   searchControl = '';
+
+  button = {
+    addNewTemplate: signal<ButtonModel>(
+      CREATE_BUTTON('Add New Template', 'flat', false, '', '', 'add'),
+    ),
+  };
 
   constructor() {
     this.#getSourceData();

@@ -1,17 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { API } from '../../../../core/services';
 import { Table } from '../../../../shared/components/table';
+import { CREATE_BUTTON } from '../../../../shared/config/button';
 import { EXAMPLE_DUMMY_DATA } from '../../../../shared/config/dummy-data';
 import { CUSTOMER_TABLE } from '../../../../shared/config/table';
-import { TableModel } from '../../../../shared/model';
+import { ButtonModel, TableModel } from '../../../../shared/model';
+import { Button } from '../../../../shared/components/button';
 
 @Component({
   selector: 'app-customer-list',
-  imports: [MatCheckboxModule, MatIconModule, Table],
+  imports: [MatCheckboxModule, MatIconModule, Table, Button],
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.css',
 })
@@ -22,6 +24,12 @@ export class CustomerList {
 
   tableModel: TableModel = CUSTOMER_TABLE;
   searchControl = '';
+
+  button = {
+    addNewCustomer: signal<ButtonModel>(
+      CREATE_BUTTON('Add New Customer', 'flat', false, '', '', 'add'),
+    ),
+  };
 
   constructor() {
     this.#getSourceData();

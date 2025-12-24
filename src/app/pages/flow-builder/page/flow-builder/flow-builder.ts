@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Sort } from '@angular/material/sort';
@@ -7,11 +7,13 @@ import { API } from '../../../../core/services';
 import { Table } from '../../../../shared/components/table';
 import { EXAMPLE_DUMMY_DATA } from '../../../../shared/config';
 import { FLOW_BUILDER_TABLE } from '../../../../shared/config/table';
-import { TableModel } from '../../../../shared/model';
+import { ButtonModel, TableModel } from '../../../../shared/model';
+import { CREATE_BUTTON } from '../../../../shared/config/button';
+import { Button } from '../../../../shared/components/button';
 
 @Component({
   selector: 'app-flow-builder',
-  imports: [MatCheckboxModule, MatIconModule, Table],
+  imports: [MatCheckboxModule, MatIconModule, Table, Button],
   templateUrl: './flow-builder.html',
   styleUrl: './flow-builder.css',
 })
@@ -22,6 +24,12 @@ export class FlowBuilder {
 
   tableModel: TableModel = FLOW_BUILDER_TABLE;
   searchControl = '';
+
+  button = {
+    addNewFlow: signal<ButtonModel>(
+      CREATE_BUTTON('Add New Flow', 'flat', false, '', '', 'add'),
+    ),
+  };
 
   constructor() {
     this.#getSourceData();

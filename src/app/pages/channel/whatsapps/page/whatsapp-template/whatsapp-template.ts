@@ -1,17 +1,19 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { API } from '../../../../../core/services';
+import { Button } from '../../../../../shared/components/button';
 import { Table } from '../../../../../shared/components/table';
 import { EXAMPLE_DUMMY_DATA } from '../../../../../shared/config';
+import { CREATE_BUTTON } from '../../../../../shared/config/button';
 import { CHANNEL_WHATSAPP_TEMPLATE_TABLE } from '../../../../../shared/config/table';
-import { TableModel } from '../../../../../shared/model';
+import { ButtonModel, TableModel } from '../../../../../shared/model';
 
 @Component({
   selector: 'app-whatsapp-template',
-  imports: [MatCheckboxModule, MatIconModule, Table],
+  imports: [MatCheckboxModule, MatIconModule, Table, Button],
   templateUrl: './whatsapp-template.html',
   styleUrl: './whatsapp-template.css',
 })
@@ -22,6 +24,12 @@ export class WhatsappTemplate {
 
   tableModel: TableModel = CHANNEL_WHATSAPP_TEMPLATE_TABLE;
   searchControl = '';
+
+  button = {
+    addNewTemplate: signal<ButtonModel>(
+      CREATE_BUTTON('Add New Template', 'flat', false, '', '', 'add'),
+    ),
+  };
 
   constructor() {
     this.#getSourceData();

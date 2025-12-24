@@ -1,8 +1,9 @@
 mat-nav-list {
   &.sidebar {
-    padding: 16px 6px;
+    padding: 0 6px;
     .mat-mdc-list-item {
       padding-right: 0;
+      margin: 10px 0;
       &:hover,
       &:focus,
       &.active-item {

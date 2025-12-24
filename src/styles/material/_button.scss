@@ -1,0 +1,25 @@
+button {
+  .mdc-button {
+    &__label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+  &[mat-icon-button] {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@keyframes pulsate-16 {
+  0% {
+    transform: scale(1.04, 1.08);
+  }
+  50% {
+    transform: scale(1.08, 1.12);
+  }
+  100% {
+    transform: scale(1.04, 1.08);
+  }
+}
