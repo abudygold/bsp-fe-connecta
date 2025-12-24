@@ -23,17 +23,17 @@ export const NAVIGATION_MENU: NavItem[] = [
         icon: 'send',
         submenu: [
           {
-            label: 'Whatsapp Accounts',
+            label: 'Accounts',
             icon: 'view_list',
             path: '/secure/whatsapp',
           },
           {
-            label: 'Whatsapp Templates',
+            label: 'Templates',
             icon: 'table_chart',
             path: '/secure/whatsapp/template',
           },
           {
-            label: 'Whatsapp Flows',
+            label: 'Flows',
             icon: 'account_tree',
             path: '/secure/whatsapp/flow',
           },
@@ -44,7 +44,7 @@ export const NAVIGATION_MENU: NavItem[] = [
         icon: 'send',
         submenu: [
           {
-            label: 'Instagram Accounts',
+            label: 'Accounts',
             icon: 'view_list',
             path: '/secure/instagram',
           },
@@ -55,7 +55,7 @@ export const NAVIGATION_MENU: NavItem[] = [
         icon: 'send',
         submenu: [
           {
-            label: 'Facebook Accounts',
+            label: 'Accounts',
             icon: 'view_list',
             path: '/secure/facebook',
           },
@@ -66,12 +66,12 @@ export const NAVIGATION_MENU: NavItem[] = [
         icon: 'sms',
         submenu: [
           {
-            label: 'SMS Accounts',
+            label: 'Accounts',
             icon: 'view_list',
             path: '/secure/sms',
           },
           {
-            label: 'SMS Templates',
+            label: 'Templates',
             icon: 'table_chart',
             path: '/secure/sms/template',
           },
@@ -82,12 +82,12 @@ export const NAVIGATION_MENU: NavItem[] = [
         icon: 'mail',
         submenu: [
           {
-            label: 'Email Accounts',
+            label: 'Accounts',
             icon: 'view_list',
             path: '/secure/email',
           },
           {
-            label: 'Email Templates',
+            label: 'sTemplates',
             icon: 'table_chart',
             path: '/secure/email/template',
           },

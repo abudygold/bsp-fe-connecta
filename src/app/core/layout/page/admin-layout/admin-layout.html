@@ -20,7 +20,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content [style.marginTop.px]="isMobile() ? 56 : 0">
-      <div class="tw:w-full tw:p-6">
+      <div
+        class="tw:w-full tw:p-6 page-wrapper"
+        [class.page-enter]="isNavigating"
+        (animationend)="onAnimationEnd()">
         <app-breadcrumb [breadcrumbs]="breadcrumbs" />
 
         <div class="tw:mb-4">

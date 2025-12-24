@@ -3,7 +3,13 @@ import { NgClass } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
 import { filter, map } from 'rxjs';
 import { Breadcrumb } from '../../../../shared/components/breadcrumb';
 import { ITitle } from '../../../../shared/config';
@@ -28,6 +34,7 @@ export class AdminLayout {
 
   breadcrumbs: BreadcrumbModel[] = [];
   titles: ITitle | null = null;
+  isNavigating: boolean = false;
 
   routeData = toSignal(
     this.#router.events.pipe(
@@ -42,11 +49,36 @@ export class AdminLayout {
     },
   );
 
+  navigate = toSignal(
+    this.#router.events.pipe(
+      map((event) => {
+        if (event instanceof NavigationStart) this.isNavigating = true;
+        if (event instanceof NavigationEnd) setTimeout(() => (this.isNavigating = false), 300);
+      }),
+    ),
+    {
+      initialValue: null,
+    },
+  );
+
   constructor() {
     this._mobileQuery = this.#media.matchMedia('(max-width: 600px)');
     this.isMobile.set(this._mobileQuery.matches);
     this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
     this._mobileQuery.addEventListener('change', this._mobileQueryListener);
+
+    /* this.#router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.isNavigating = true;
+      }
+
+      if (event instanceof NavigationEnd) {
+        // Let CSS animation finish
+        setTimeout(() => {
+          this.isNavigating = false;
+        }, 300);
+      }
+    }); */
   }
 
   buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
@@ -55,6 +87,10 @@ export class AdminLayout {
     this.breadcrumbs = route.data['breadcrumb'] || '';
     this.titles = route.data['title'] || '';
     this.buildBreadcrumbs(route.firstChild);
+  }
+
+  onAnimationEnd() {
+    this.isNavigating = false;
   }
 
   ngOnDestroy(): void {
