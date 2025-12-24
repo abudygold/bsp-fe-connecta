@@ -66,19 +66,6 @@ export class AdminLayout {
     this.isMobile.set(this._mobileQuery.matches);
     this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
     this._mobileQuery.addEventListener('change', this._mobileQueryListener);
-
-    /* this.#router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.isNavigating = true;
-      }
-
-      if (event instanceof NavigationEnd) {
-        // Let CSS animation finish
-        setTimeout(() => {
-          this.isNavigating = false;
-        }, 300);
-      }
-    }); */
   }
 
   buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
