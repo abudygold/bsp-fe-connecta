@@ -1,0 +1,57 @@
+<div
+  mat-dialog-title
+  class="tw:flex! tw:justify-between tw:items-center tw:m-0! tw:px-6! tw:p-3.5!">
+  <p class="tw:text-base tw:font-semibold">
+    {{ !data ? 'Add New Menu' : 'Edit Menu' }}
+  </p>
+
+  <mat-icon
+    aria-hidden="false"
+    aria-label="Close icon"
+    fontIcon="close"
+    class="tw:cursor-pointer tw:text-lg!"
+    mat-dialog-close />
+</div>
+
+<mat-divider />
+
+<mat-dialog-content class="mat-typography">
+  <div class="tw:mb-3">
+    <app-text-input label="Title" [field]="menuForm.title" />
+  </div>
+
+  <div class="tw:mb-3">
+    <app-select
+      label="Parent"
+      [field]="menuForm.parentId"
+      [key]="{
+        label: 'title',
+        value: 'id',
+      }"
+      [options]="parentOptions()" />
+  </div>
+
+  <div class="tw:mb-3">
+    <app-text-input label="Icon" [field]="menuForm.icon" />
+  </div>
+
+  <div class="tw:mb-3">
+    <app-text-input label="Target" [field]="menuForm.target" />
+  </div>
+
+  <div class="tw:mb-3">
+    <app-text-input label="Order" type="number" [field]="menuForm.orderNo" />
+  </div>
+
+  <div class="tw:mb-3">
+    <app-slide-toggle label="Is Private" [field]="menuForm.isPrivate" />
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button matButton mat-dialog-close> Back </button>
+
+  <button matButton matButton="filled" (click)="onSubmit()">
+    {{ !data ? 'Add' : 'Save' }}
+  </button>
+</mat-dialog-actions>

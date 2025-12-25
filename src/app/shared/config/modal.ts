@@ -1,6 +1,6 @@
 import { MatDialogConfig } from '@angular/material/dialog';
 
-export const CONFIRMATION_DIALOG_CONFIG: MatDialogConfig = {
+export const FORM_SM_DIALOG_CONFIG: MatDialogConfig = {
   autoFocus: false,
-  width: '350px',
+  width: '550px',
 };

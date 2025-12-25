@@ -1,0 +1,19 @@
+<mat-form-field class="tw:w-full" appearance="outline">
+  <input
+    matInput
+    autocomplete="off"
+    type="text"
+    [placeholder]="placeholder()"
+    [(ngModel)]="value"
+    (change)="onChange.emit(value)" />
+  @if (value) {
+    <button
+      matSuffix
+      matIconButton
+      class="tw:cursor-pointer tw:mr-3"
+      aria-label="Clear"
+      (click)="value = ''; onChange.emit(value)">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

@@ -6,8 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Checkbox } from '../../../../shared/components/form/checkbox';
 import { TextInput } from '../../../../shared/components/form/text-input';
 import { TextPassword } from '../../../../shared/components/form/text-password';
-import { LoginData } from '../../../../shared/form/form-data';
-import { Auth } from '../../../services';
+import { LOGIN_URL } from '../../../../shared/config';
+import { LoginData } from '../../../../shared/form-data';
+import { API, Auth } from '../../../services';
 
 @Component({
   selector: 'app-auth-login',
@@ -19,6 +20,7 @@ export class AuthLogin {
   #router = inject(Router);
   #activatedRoute = inject(ActivatedRoute);
   #auth = inject(Auth);
+  #api = inject(API);
 
   loginModel = signal<LoginData>({
     email: 'example@gmail.com',
@@ -40,16 +42,19 @@ export class AuthLogin {
     this.loginForm.email().markAsTouched();
     this.loginForm.password().markAsTouched();
 
-    const formData = this.loginModel();
-
     if (this.loginForm().invalid()) return;
 
-    console.log('-- Submit the form --', formData);
-    this.#auth.setTokens(
-      btoa(this.loginForm.password().value() + 'access'),
-      btoa(this.loginForm.password().value() + 'refresh'),
-    );
-    this.#router.navigate(['./secure']);
+    console.log(this.loginForm().value())
+
+    this.#api
+      .post(LOGIN_URL, {
+        email: this.loginForm().value().email,
+        pass: this.loginForm().value().password,
+      })
+      .subscribe({
+        next: (response: any) => this.#auth.setTokens(response.data),
+        complete: () => this.#router.navigate(['./secure']),
+      });
   }
 
   navigateToAuth(page: 'forgot' | 'register'): void {

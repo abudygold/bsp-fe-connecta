@@ -1,14 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { API } from '../../../../../core/services';
 import { Button } from '../../../../../shared/components/button';
-import { Confirmation } from '../../../../../shared/components/modal/confirmation';
 import { Table } from '../../../../../shared/components/table';
-import { CONFIRMATION_DIALOG_CONFIG, EXAMPLE_DUMMY_DATA } from '../../../../../shared/config';
+import { EXAMPLE_DUMMY_DATA } from '../../../../../shared/config';
 import { CREATE_BUTTON } from '../../../../../shared/config/button';
 import { CHANNEL_WHATSAPP_TABLE } from '../../../../../shared/config/table';
 import { ButtonModel, TableModel } from '../../../../../shared/model';
@@ -23,7 +21,6 @@ export class WhatsappList {
   #api = inject(API);
   #router = inject(Router);
   #activatedRoute = inject(ActivatedRoute);
-  protected readonly dialog = inject(MatDialog);
 
   tableModel: TableModel = CHANNEL_WHATSAPP_TABLE;
   searchControl = '';
@@ -80,16 +77,6 @@ export class WhatsappList {
       this.tableModel.dataTotal = this.tableModel.dataSource.length;
       this.tableModel.isLoading.set(false);
     }, 2000);
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(Confirmation, {
-      ...CONFIRMATION_DIALOG_CONFIG,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
   onAction(): void {

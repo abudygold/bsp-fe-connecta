@@ -1,5 +1,5 @@
 <div class="tw:flex tw:justify-end tw:my-3">
-  <app-button [config]="button.addNewAccount()" (onClick)="openDialog()" />
+  <app-button [config]="button.addNewAccount()" />
 </div>
 
 <app-table
@@ -16,16 +16,16 @@
       </div>
     } @else if (key === 'statusName') {
       <div
-        class="tw-px-4 tw-py-2 tw-text-white tw-font-medium tw-w-max tw-rounded-full"
-        [class.tw-bg-green-700]="data.statusName?.toLowerCase() === 'active'"
-        [class.tw-bg-red-700]="data.statusName?.toLowerCase() === 'inactive'"
-        [class.tw-bg-gray-700]="data.statusName?.toLowerCase() === 'pending'">
+        class="tw:px-4 tw:py-2 tw:text-white tw:font-medium tw:w-max tw:rounded-full"
+        [class.tw:bg-green-700]="data.statusName?.toLowerCase() === 'active'"
+        [class.tw:bg-red-700]="data.statusName?.toLowerCase() === 'inactive'"
+        [class.tw:bg-gray-700]="data.statusName?.toLowerCase() === 'pending'">
         {{ data.statusName }}
       </div>
     } @else if (key === 'actions') {
-      <div class="tw-flex tw-gap-3">
-        <mat-icon class="tw-cursor-pointer" (click)="onAction()">edit</mat-icon>
-        <mat-icon class="tw-cursor-pointer" (click)="onAction()">delete</mat-icon>
+      <div class="tw:flex tw:gap-3">
+        <mat-icon class="tw:cursor-pointer tw:text-blue-500!" (click)="onAction()">edit</mat-icon>
+        <mat-icon class="tw:cursor-pointer tw:text-red-500!" (click)="onAction()">delete</mat-icon>
       </div>
     }
   </ng-template>

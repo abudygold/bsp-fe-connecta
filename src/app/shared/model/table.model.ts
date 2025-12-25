@@ -26,6 +26,7 @@ export class TableModel {
   isSorter = signal(true);
   isLoading = signal(false);
   selectedOptionId = signal<string | number | null>(null);
+  searchValue: string = '';
   filters: { [key: string]: any } = {};
   dataType: {
     [key: string]: {

@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
-import { REFRESH_TOKEN_PATH } from '../../shared/config';
+import { REFRESH_TOKEN_URL } from '../../shared/config';
 import { Auth } from '../services';
 
 let isRefreshing = false;
@@ -14,7 +14,7 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error) => {
-      if (error.status !== 401 || req.url.includes(REFRESH_TOKEN_PATH)) {
+      if (error.status !== 401 || req.url.includes(REFRESH_TOKEN_URL)) {
         return throwError(() => error);
       }
 

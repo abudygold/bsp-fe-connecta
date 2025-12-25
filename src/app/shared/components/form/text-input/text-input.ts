@@ -14,6 +14,7 @@ export class TextInput {
   label = input.required<string>();
   field = model.required<any>();
   icon = input<string>();
+  type = input<string>('text');
 
   get fieldControl(): any {
     return this.field();

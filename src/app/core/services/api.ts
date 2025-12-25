@@ -15,33 +15,25 @@ export class API {
     const params = paramsReq ? generateHttpParams(paramsReq) : {};
     const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http
-      .get<T>(url, { params, headers, withCredentials: true })
-      .pipe(takeUntilDestroyed(this.#destroyRef));
+    return this.#http.get<T>(url, { params, headers }).pipe(takeUntilDestroyed(this.#destroyRef));
   }
 
   post<T>(url: string, body: any, headersReq?: any): Observable<T> {
     const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http
-      .post<T>(url, body, { headers, withCredentials: true })
-      .pipe(takeUntilDestroyed(this.#destroyRef));
+    return this.#http.post<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
   }
 
   put<T>(url: string, body: any, headersReq?: any): Observable<T> {
     const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http
-      .put<T>(url, body, { headers, withCredentials: true })
-      .pipe(takeUntilDestroyed(this.#destroyRef));
+    return this.#http.put<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
   }
 
   patch<T>(url: string, body: any, headersReq?: any): Observable<T> {
     const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http
-      .patch<T>(url, body, { headers, withCredentials: true })
-      .pipe(takeUntilDestroyed(this.#destroyRef));
+    return this.#http.patch<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
   }
 
   delete<T>(url: string, paramsReq?: any, headersReq?: any): Observable<T> {
@@ -49,7 +41,7 @@ export class API {
     const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
     return this.#http
-      .delete<T>(url, { params, headers, withCredentials: true })
+      .delete<T>(url, { params, headers })
       .pipe(takeUntilDestroyed(this.#destroyRef));
   }
 }

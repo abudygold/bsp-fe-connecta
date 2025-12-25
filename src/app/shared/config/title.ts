@@ -69,3 +69,8 @@ export const FLOW_BUILDER_LIST_TITLE: ITitle = {
   title: 'Flow Builder',
   subtitle: 'Introduction to our main feature, Flow Builder.',
 };
+
+export const MENU_LIST_TITLE: ITitle = {
+  title: 'Menu Management',
+  subtitle: `List of menu management.`,
+};

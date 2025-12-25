@@ -8,7 +8,7 @@ import { TextArea } from '../../../../shared/components/form/text-area';
 import { TextInput } from '../../../../shared/components/form/text-input';
 import { TextPassword } from '../../../../shared/components/form/text-password';
 import { PASSWORD_RULES_CHECK, PASSWORD_VALIDATION } from '../../../../shared/config';
-import { RegisterData } from '../../../../shared/form/form-data';
+import { RegisterData } from '../../../../shared/form-data';
 
 @Component({
   selector: 'app-auth-register',

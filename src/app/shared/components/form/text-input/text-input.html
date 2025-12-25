@@ -2,6 +2,7 @@
   <mat-label>{{ label() }}</mat-label>
   <input
     matInput
+    [type]="type()"
     autocomplete="off"
     [field]="fieldControl"
     [placeholder]="'Enter your ' + label().toLowerCase()" />

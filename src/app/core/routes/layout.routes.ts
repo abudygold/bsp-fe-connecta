@@ -5,6 +5,7 @@ import { BROADCAST_ROUTES } from './broadcast.routes';
 import { CHANNEL_ROUTES } from './channel.routes';
 import { CUSTOMER_ROUTES } from './customer.routes';
 import { FLOW_BUILDER_ROUTES } from './flow-builder.routes';
+import { MENU_ROUTES } from './menu.routes';
 
 export const LAYOUT_ROUTES: Routes = [
   {
@@ -25,6 +26,7 @@ export const LAYOUT_ROUTES: Routes = [
       ...CUSTOMER_ROUTES,
       ...BROADCAST_ROUTES,
       ...FLOW_BUILDER_ROUTES,
+      ...MENU_ROUTES,
     ],
   },
 ];

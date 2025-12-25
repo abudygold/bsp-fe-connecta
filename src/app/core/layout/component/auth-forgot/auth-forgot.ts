@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TextInput } from '../../../../shared/components/form/text-input';
-import { ForgotData } from '../../../../shared/form/form-data';
+import { ForgotData } from '../../../../shared/form-data';
 
 @Component({
   selector: 'app-auth-forgot',

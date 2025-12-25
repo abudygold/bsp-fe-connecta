@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Confirmation } from './confirmation';
+import { SlideToggle } from './slide-toggle';
 
-describe('Confirmation', () => {
-  let component: Confirmation;
-  let fixture: ComponentFixture<Confirmation>;
+describe('SlideToggle', () => {
+  let component: SlideToggle;
+  let fixture: ComponentFixture<SlideToggle>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Confirmation]
+      imports: [SlideToggle]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Confirmation);
+    fixture = TestBed.createComponent(SlideToggle);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

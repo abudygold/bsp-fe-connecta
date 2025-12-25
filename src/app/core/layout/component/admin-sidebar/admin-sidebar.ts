@@ -3,7 +3,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { ME_MENUS_URL } from '../../../../shared/config';
+import { IHttpResponse } from '../../../../shared/interface/base/http-response';
 import { NAVIGATION_MENU, NavItem } from '../../../navigation';
+import { API } from '../../../services';
 
 @Component({
   selector: 'app-admin-sidebar',
@@ -13,6 +16,7 @@ import { NAVIGATION_MENU, NavItem } from '../../../navigation';
 })
 export class AdminSidebar implements OnInit {
   readonly router = inject(Router);
+  #api = inject(API);
 
   toggleMenu = output<void>();
 
@@ -32,6 +36,13 @@ export class AdminSidebar implements OnInit {
   ngOnInit() {
     this.currentUrl = this.router.url;
     this.#expandParentsWithActiveRoute(this.menu());
+    this.loadMenus();
+  }
+
+  loadMenus(): void {
+    this.#api.get<IHttpResponse>(ME_MENUS_URL).subscribe({
+      next: (response: IHttpResponse) => console.log(response),
+    });
   }
 
   clickedMenu(item: NavItem): void {

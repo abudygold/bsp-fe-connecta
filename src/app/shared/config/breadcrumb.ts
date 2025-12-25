@@ -72,3 +72,9 @@ export const FLOW_BUILDER_LIST_BREADCRUMB: BreadcrumbModel[] = [
   DASHBOARD_LINK,
   { label: 'Flow Builder', icon: 'account_tree' },
 ];
+
+/* MENUS MENU */
+export const MENU_LIST_BREADCRUMB: BreadcrumbModel[] = [
+  DASHBOARD_LINK,
+  { label: 'Menu Management', icon: 'account_tree' },
+];
