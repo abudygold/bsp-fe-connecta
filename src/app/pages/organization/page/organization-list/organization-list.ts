@@ -10,31 +10,30 @@ import { API } from '../../../../core/services';
 import { Button } from '../../../../shared/components/button';
 import { Search } from '../../../../shared/components/search';
 import { Table } from '../../../../shared/components/table';
-import { FORM_SM_DIALOG_CONFIG, MENU_URL, MENUS_URL } from '../../../../shared/config';
+import { FORM_SM_DIALOG_CONFIG, MENU_URL, ORGS_URL } from '../../../../shared/config';
 import { CREATE_BUTTON } from '../../../../shared/config/button';
-import { MENU_TABLE } from '../../../../shared/config/table';
-import { ILogin } from '../../../../shared/interface/auth';
+import { ORGANIZATION_TABLE } from '../../../../shared/config/table';
 import { IHttpResponse } from '../../../../shared/interface/base/http-response';
 import { ButtonModel, TableModel } from '../../../../shared/model';
-import { MenuForm } from '../../dialog/menu-form';
+import { OrganizationForm } from '../../dialog/organization-form';
 
 @Component({
-  selector: 'app-menu-list',
+  selector: 'app-organization-list',
   imports: [RouterLink, MatCheckboxModule, MatIconModule, MatTooltipModule, Table, Button, Search],
-  templateUrl: './menu-list.html',
-  styleUrl: './menu-list.css',
+  templateUrl: './organization-list.html',
+  styleUrl: './organization-list.css',
 })
-export class MenuList {
+export class OrganizationList {
   #api = inject(API);
   protected readonly dialog = inject(MatDialog);
 
   button = {
     addNewCustomer: signal<ButtonModel>(
-      CREATE_BUTTON('Add New Menu', 'flat', false, '', '', 'add'),
+      CREATE_BUTTON('Add New Organization', 'flat', false, '', '', 'add'),
     ),
   };
 
-  tableModel: TableModel = MENU_TABLE;
+  tableModel: TableModel = ORGANIZATION_TABLE;
   searchControl = '';
 
   constructor() {
@@ -42,14 +41,10 @@ export class MenuList {
   }
 
   #getSourceData(): void {
-    const userAccountStr = localStorage.getItem('connecta.user_account');
-    const isPrivate = userAccountStr && (JSON.parse(userAccountStr) as ILogin)?.orgId === 'ROOT';
-
     this.tableModel.isLoading.set(true);
 
     this.#api
-      .get<IHttpResponse>(MENUS_URL, {
-        includePrivate: isPrivate,
+      .get<IHttpResponse>(ORGS_URL, {
         filter: this.tableModel.searchValue,
         pageNo: this.tableModel.pageIndex,
         itemPerPage: this.tableModel.pageSize,
@@ -119,7 +114,7 @@ export class MenuList {
   }
 
   openFormDialog(data?: any): void {
-    const dialogRef = this.dialog.open(MenuForm, {
+    const dialogRef = this.dialog.open(OrganizationForm, {
       ...FORM_SM_DIALOG_CONFIG,
       data,
     });

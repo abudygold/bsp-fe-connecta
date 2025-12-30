@@ -22,13 +22,13 @@ export class AuthLogin {
   #auth = inject(Auth);
   #api = inject(API);
 
-  loginModel = signal<LoginData>({
-    email: 'example@gmail.com',
-    password: '@eX4mPL3@',
+  formModel = signal<LoginData>({
+    email: '',
+    password: '',
     rememberMe: false,
   });
 
-  loginForm = form(this.loginModel, (schemaPath) => {
+  formData = form(this.formModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
     email(schemaPath.email, { message: 'Enter a valid email address' });
     required(schemaPath.password, { message: 'Password is required' });
@@ -39,17 +39,17 @@ export class AuthLogin {
   }
 
   doLogin(): void {
-    this.loginForm.email().markAsTouched();
-    this.loginForm.password().markAsTouched();
+    this.formData.email().markAsTouched();
+    this.formData.password().markAsTouched();
 
-    if (this.loginForm().invalid()) return;
+    if (this.formData().invalid()) return;
 
-    console.log(this.loginForm().value())
+    console.log(this.formData().value());
 
     this.#api
       .post(LOGIN_URL, {
-        email: this.loginForm().value().email,
-        pass: this.loginForm().value().password,
+        email: this.formModel().email,
+        pass: this.formModel().password,
       })
       .subscribe({
         next: (response: any) => this.#auth.setTokens(response.data),

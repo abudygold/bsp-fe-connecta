@@ -78,3 +78,15 @@ export const MENU_LIST_BREADCRUMB: BreadcrumbModel[] = [
   DASHBOARD_LINK,
   { label: 'Menu Management', icon: 'account_tree' },
 ];
+
+/* ROLES MENU */
+export const ROLE_LIST_BREADCRUMB: BreadcrumbModel[] = [
+  DASHBOARD_LINK,
+  { label: 'Role Management', icon: 'account_tree' },
+];
+
+/* ORGANIZATION MENU */
+export const ORGANIZATION_LIST_BREADCRUMB: BreadcrumbModel[] = [
+  DASHBOARD_LINK,
+  { label: 'Organization Management', icon: 'account_tree' },
+];

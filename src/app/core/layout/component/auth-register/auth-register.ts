@@ -20,7 +20,7 @@ export class AuthRegister {
   #router = inject(Router);
   #activatedRoute = inject(ActivatedRoute);
 
-  loginModel = signal<RegisterData>({
+  formModel = signal<RegisterData>({
     clientName: '',
     ownerName: '',
     country: {},
@@ -30,7 +30,7 @@ export class AuthRegister {
     confirmPassword: '',
   });
 
-  loginForm = form(this.loginModel, (schemaPath) => {
+  formData = form(this.formModel, (schemaPath) => {
     required(schemaPath.clientName, { message: 'Client name is required' });
     required(schemaPath.ownerName, { message: 'Owner name is required' });
     required(schemaPath.country, { message: 'Country is required' });
@@ -50,20 +50,17 @@ export class AuthRegister {
   });
 
   passwordRule = computed<any[]>(() => {
-    const password = this.loginForm.password();
+    const password = this.formData.password();
     return PASSWORD_RULES_CHECK(password.value());
   });
 
   doRegister(): void {
-    this.loginForm.email().markAsTouched();
-    this.loginForm.password().markAsTouched();
+    this.formData.email().markAsTouched();
+    this.formData.password().markAsTouched();
 
-    const formData = this.loginModel();
-    console.log('-- Submit the form --', formData);
+    if (this.formData().invalid()) return;
 
-    if (this.loginForm().invalid()) return;
-
-    console.log('-- Submit the form --', formData);
+    console.log('-- Submit the form --', this.formModel());
   }
 
   navigateToLogin(): void {

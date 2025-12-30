@@ -4,11 +4,11 @@
 </h1>
 
 <div class="tw:mb-3">
-  <app-text-input label="Email" icon="email" [field]="loginForm.email" />
+  <app-text-input label="Email" icon="email" [field]="formData.email" />
 </div>
 
 <div class="tw:mb-3">
-  <app-text-password label="Password" [field]="loginForm.password" />
+  <app-text-password label="Password" [field]="formData.password" />
 </div>
 
 <div class="divider-with-text-container">
@@ -30,7 +30,7 @@
 
 <div class="tw:flex tw:justify-between tw:items-center tw:mt-4">
   <div class="remember-me">
-    <app-checkbox label="Remember me" [field]="loginForm.rememberMe" />
+    <app-checkbox label="Remember me" [field]="formData.rememberMe" />
   </div>
 
   <p

@@ -7,14 +7,13 @@ import { MatIconModule } from '@angular/material/icon';
 import Swal from 'sweetalert2';
 import { API } from '../../../../core/services';
 import { Select } from '../../../../shared/components/form/select';
-import { SlideToggle } from '../../../../shared/components/form/slide-toggle';
 import { TextInput } from '../../../../shared/components/form/text-input';
-import { MENUS_URL } from '../../../../shared/config';
-import { MenuData } from '../../../../shared/form-data';
+import { ORGS_URL, ROLES_URL } from '../../../../shared/config';
+import { RoleData } from '../../../../shared/form-data';
 import { IHttpResponse } from '../../../../shared/interface/base/http-response';
 
 @Component({
-  selector: 'app-menu-form',
+  selector: 'app-role-form',
   imports: [
     Field,
     MatDialogModule,
@@ -23,30 +22,26 @@ import { IHttpResponse } from '../../../../shared/interface/base/http-response';
     MatIconModule,
     TextInput,
     Select,
-    SlideToggle,
   ],
-  templateUrl: './menu-form.html',
-  styleUrl: './menu-form.css',
+  templateUrl: './role-form.html',
+  styleUrl: './role-form.css',
 })
-export class MenuForm {
+export class RoleForm {
   #api = inject(API);
   data = inject<any>(MAT_DIALOG_DATA);
-  readonly dialogRef = inject(MatDialogRef<MenuForm>);
+  readonly dialogRef = inject(MatDialogRef<RoleForm>);
 
-  formModel = signal<MenuData>({
-    title: this.data?.title || '',
-    parentId: this.data?.parentId || '',
-    icon: this.data?.icon || '',
-    target: this.data?.target || '',
-    orderNo: this.data?.orderNo || 0,
-    isPrivate: this.data?.isPrivate || false,
+  formModel = signal<RoleData>({
+    name: this.data?.name || '',
+    orgId: this.data?.orgId || '',
   });
 
   formData = form(this.formModel, (schemaPath) => {
-    required(schemaPath.title, { message: 'Title is required' });
+    required(schemaPath.name, { message: 'Name is required' });
+    required(schemaPath.orgId, { message: 'Organization is required' });
   });
 
-  parentOptions = signal<any[]>([]);
+  orgsOptions = signal<any[]>([]);
 
   constructor() {
     this.#getParentMenu();
@@ -54,22 +49,22 @@ export class MenuForm {
 
   #getParentMenu(): void {
     this.#api
-      .get<IHttpResponse>(MENUS_URL, {
+      .get<IHttpResponse>(ORGS_URL, {
         pageNo: 1,
         itemPerPage: 200,
-        includePrivate: true,
       })
       .subscribe({
-        next: (response: IHttpResponse) => this.parentOptions.set(response.data?.list || []),
+        next: (response: IHttpResponse) => this.orgsOptions.set(response.data?.list || []),
       });
   }
 
   onSubmit(): void {
-    this.formData.title().markAsTouched();
+    this.formData.name().markAsTouched();
+    this.formData.orgId().markAsTouched();
 
     if (this.formData().invalid()) return;
 
-    const URL = this.data ? `${MENUS_URL}/${this.data.id}` : MENUS_URL;
+    const URL = this.data ? `${ROLES_URL}/${this.data.id}` : ROLES_URL;
 
     this.#api.post<IHttpResponse>(URL, this.formModel()).subscribe({
       next: () => {
@@ -77,7 +72,7 @@ export class MenuForm {
           title: this.data ? 'Updated!' : 'Created!',
           text: this.data
             ? 'Your changes have been saved successfully.'
-            : 'The new menu has been created.',
+            : 'The new role has been created.',
           icon: 'success',
         });
 

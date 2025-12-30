@@ -74,3 +74,13 @@ export const MENU_LIST_TITLE: ITitle = {
   title: 'Menu Management',
   subtitle: `List of menu management.`,
 };
+
+export const ROLE_LIST_TITLE: ITitle = {
+  title: 'Role Management',
+  subtitle: `List of role management.`,
+};
+
+export const ORGANIZATION_LIST_TITLE: ITitle = {
+  title: 'Organization Management',
+  subtitle: `List of organization management.`,
+};

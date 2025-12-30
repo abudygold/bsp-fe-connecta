@@ -29,8 +29,8 @@ export const PASSWORD_RULES = [
   },
 ];
 
-export const PASSWORD_VALIDATION = (currentValue: string, compareValue: string): any => {
-  if (currentValue !== compareValue) {
+export const PASSWORD_VALIDATION = (currentValue: string, compareValue: string = ''): any => {
+  if (compareValue && currentValue !== compareValue) {
     return {
       kind: 'passwordMismatch',
       message: 'Password do not match',

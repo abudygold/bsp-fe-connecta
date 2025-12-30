@@ -2,7 +2,7 @@
   mat-dialog-title
   class="tw:flex! tw:justify-between tw:items-center tw:m-0! tw:px-6! tw:p-3.5!">
   <p class="tw:text-base tw:font-semibold">
-    {{ !data ? 'Add New Menu' : 'Edit Menu' }}
+    {{ !data ? 'Add New Role' : 'Edit Role' }}
   </p>
 
   <mat-icon
@@ -17,34 +17,18 @@
 
 <mat-dialog-content class="mat-typography">
   <div class="tw:mb-3">
-    <app-text-input label="Title" [field]="formData.title" />
+    <app-text-input label="Name" [field]="formData.name" />
   </div>
 
   <div class="tw:mb-3">
     <app-select
-      label="Parent"
-      [field]="formData.parentId"
+      label="Organization"
+      [field]="formData.orgId"
       [key]="{
-        label: 'title',
+        label: 'name',
         value: 'id',
       }"
-      [options]="parentOptions()" />
-  </div>
-
-  <div class="tw:mb-3">
-    <app-text-input label="Icon" [field]="formData.icon" />
-  </div>
-
-  <div class="tw:mb-3">
-    <app-text-input label="Target" [field]="formData.target" />
-  </div>
-
-  <div class="tw:mb-3">
-    <app-text-input label="Order" type="number" [field]="formData.orderNo" />
-  </div>
-
-  <div class="tw:mb-3">
-    <app-slide-toggle label="Is Private" [field]="formData.isPrivate" />
+      [options]="orgsOptions()" />
   </div>
 </mat-dialog-content>
 

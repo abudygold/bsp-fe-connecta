@@ -4,6 +4,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { generateHttpHeader, generateHttpParams } from './utils';
 
+type Params = {
+  [key: string]: any;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,9 +15,9 @@ export class API {
   #http = inject(HttpClient);
   #destroyRef = inject(DestroyRef);
 
-  get<T>(url: string, paramsReq?: any, headersReq?: any): Observable<T> {
-    const params = paramsReq ? generateHttpParams(paramsReq) : {};
-    const headers = headersReq ? generateHttpHeader(headersReq) : {};
+  get<T>(url: string, paramsReq: any = {}, headersReq: any = {}): Observable<T> {
+    const params = generateHttpParams(paramsReq);
+    const headers = generateHttpHeader(headersReq);
 
     return this.#http.get<T>(url, { params, headers }).pipe(takeUntilDestroyed(this.#destroyRef));
   }
@@ -36,9 +40,9 @@ export class API {
     return this.#http.patch<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
   }
 
-  delete<T>(url: string, paramsReq?: any, headersReq?: any): Observable<T> {
-    const params = paramsReq ? generateHttpParams(paramsReq) : {};
-    const headers = headersReq ? generateHttpHeader(headersReq) : {};
+  delete<T>(url: string, paramsReq: any = {}, headersReq: any = {}): Observable<T> {
+    const params = generateHttpParams(paramsReq);
+    const headers = generateHttpHeader(headersReq);
 
     return this.#http
       .delete<T>(url, { params, headers })

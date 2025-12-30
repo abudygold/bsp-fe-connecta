@@ -13,14 +13,24 @@ MENU_TABLE.columns = [
     sortable: true,
   },
   {
+    key: 'parentName',
+    label: 'Parent Name',
+    sortable: false,
+  },
+  {
     key: 'target',
     label: 'Target',
-    sortable: true,
+    sortable: false,
   },
   {
     key: 'icon',
     label: 'Icon',
-    sortable: true,
+    sortable: false,
+  },
+  {
+    key: 'order',
+    label: 'Order',
+    sortable: false,
   },
   {
     key: 'actions',
@@ -35,6 +45,12 @@ MENU_TABLE.generateDataType();
 MENU_TABLE.dataType = {
   ...MENU_TABLE.dataType,
   selection: {
+    type: 'custom',
+  },
+  icon: {
+    type: 'custom',
+  },
+  target: {
     type: 'custom',
   },
   actions: {

@@ -16,23 +16,21 @@ export class AuthForgot {
   #router = inject(Router);
   #activatedRoute = inject(ActivatedRoute);
 
-  loginModel = signal<ForgotData>({
+  formModel = signal<ForgotData>({
     email: '',
   });
 
-  loginForm = form(this.loginModel, (schemaPath) => {
+  formData = form(this.formModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
     email(schemaPath.email, { message: 'Enter a valid email address' });
   });
 
   doResetPassword(): void {
-    this.loginForm.email().markAsTouched();
+    this.formData.email().markAsTouched();
 
-    const formData = this.loginModel();
+    if (this.formData().invalid()) return;
 
-    if (this.loginForm().invalid()) return;
-
-    console.log('-- Submit the form --', formData);
+    console.log('-- Submit the form --', this.formModel());
   }
 
   navigateToLogin(): void {

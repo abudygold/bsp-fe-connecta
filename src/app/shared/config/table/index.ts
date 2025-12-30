@@ -8,3 +8,5 @@ export * from './customer-group-table';
 export * from './customer-table';
 export * from './flow-builder-table';
 export * from './menu-table';
+export * from './organization-table';
+export * from './role-table';

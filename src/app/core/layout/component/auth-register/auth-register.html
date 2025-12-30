@@ -8,17 +8,17 @@
 </p>
 
 <div class="tw:mb-3">
-  <app-text-input label="Client Name" [field]="loginForm.clientName" />
+  <app-text-input label="Client Name" [field]="formData.clientName" />
 </div>
 
 <div class="tw:mb-3">
-  <app-text-input label="Owner Name" [field]="loginForm.ownerName" />
+  <app-text-input label="Owner Name" [field]="formData.ownerName" />
 </div>
 
 <div class="tw:mb-3">
   <app-select
     label="Country"
-    [field]="loginForm.country"
+    [field]="formData.country"
     [key]="{
       label: 'name',
     }"
@@ -29,19 +29,19 @@
 </div>
 
 <div class="tw:mb-3">
-  <app-text-area label="Address" [field]="loginForm.address" />
+  <app-text-area label="Address" [field]="formData.address" />
 </div>
 
 <div class="tw:mb-3">
-  <app-text-input label="Email" [field]="loginForm.email" />
+  <app-text-input label="Email" [field]="formData.email" />
 </div>
 
 <div class="tw:mb-3">
-  <app-text-password label="Password" [field]="loginForm.password" />
+  <app-text-password label="Password" [field]="formData.password" />
 </div>
 
 <div class="tw:mb-3">
-  <app-text-password label="Confirm Password" [field]="loginForm.confirmPassword" />
+  <app-text-password label="Confirm Password" [field]="formData.confirmPassword" />
 </div>
 
 <div class="tw:mt-3 tw:space-y-2 tw:text-sm">

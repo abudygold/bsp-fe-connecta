@@ -12,3 +12,9 @@ export const ME_MENUS_URL = `${environment.api.baseUrl}me/menus`;
 export const MENU_URL = `${environment.api.baseUrl}menu`;
 export const MENUS_URL = `${environment.api.baseUrl}menus`;
 export const MENUS_TREE_URL = `${environment.api.baseUrl}menus/tree`;
+
+/* ROLES */
+export const ROLES_URL = `${environment.api.baseUrl}roles`;
+
+/* ORGS */
+export const ORGS_URL = `${environment.api.baseUrl}orgs`;

@@ -2,7 +2,7 @@
   mat-dialog-title
   class="tw:flex! tw:justify-between tw:items-center tw:m-0! tw:px-6! tw:p-3.5!">
   <p class="tw:text-base tw:font-semibold">
-    {{ !data ? 'Add New Menu' : 'Edit Menu' }}
+    {{ !data ? 'Add New Organization' : 'Edit OrganizationForm' }}
   </p>
 
   <mat-icon
@@ -17,34 +17,30 @@
 
 <mat-dialog-content class="mat-typography">
   <div class="tw:mb-3">
-    <app-text-input label="Title" [field]="formData.title" />
+    <app-text-input label="Name" [field]="formData.name" />
   </div>
 
   <div class="tw:mb-3">
-    <app-select
-      label="Parent"
-      [field]="formData.parentId"
-      [key]="{
-        label: 'title',
-        value: 'id',
-      }"
-      [options]="parentOptions()" />
+    <app-text-input label="Owner Name" [field]="formData.owner.name" />
   </div>
 
   <div class="tw:mb-3">
-    <app-text-input label="Icon" [field]="formData.icon" />
+    <app-text-input label="Owner Email" [field]="formData.owner.email" />
   </div>
 
   <div class="tw:mb-3">
-    <app-text-input label="Target" [field]="formData.target" />
+    <app-text-password label="Password" [field]="formData.owner.pass" />
   </div>
 
-  <div class="tw:mb-3">
-    <app-text-input label="Order" type="number" [field]="formData.orderNo" />
-  </div>
-
-  <div class="tw:mb-3">
-    <app-slide-toggle label="Is Private" [field]="formData.isPrivate" />
+  <div class="tw:mt-3 tw:space-y-2 tw:text-sm">
+    @for (rule of passwordRule(); track $index) {
+      <div
+        class="tw:flex tw:items-center tw:gap-2"
+        [class]="rule.status ? 'tw:text-green-600' : 'tw:text-red-600'">
+        <span class="material-icons">{{ rule.status ? 'check_circle' : 'cancel' }}</span>
+        {{ rule.message }}
+      </div>
+    }
   </div>
 </mat-dialog-content>
 

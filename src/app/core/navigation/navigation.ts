@@ -87,7 +87,7 @@ export const NAVIGATION_MENU: NavItem[] = [
             path: '/secure/email',
           },
           {
-            label: 'sTemplates',
+            label: 'Templates',
             icon: 'table_chart',
             path: '/secure/email/template',
           },
@@ -134,6 +134,27 @@ export const NAVIGATION_MENU: NavItem[] = [
         label: 'Customer Report',
         icon: 'bar_chart',
         path: '/reports/customers',
+      },
+    ],
+  },
+  {
+    label: 'Administration',
+    icon: 'analytics',
+    submenu: [
+      {
+        label: 'Menu Management',
+        icon: 'view_list',
+        path: '/secure/menu',
+      },
+      {
+        label: 'Role Management',
+        icon: 'view_list',
+        path: '/secure/role',
+      },
+      {
+        label: 'Organization Management',
+        icon: 'view_list',
+        path: '/secure/organization',
       },
     ],
   },

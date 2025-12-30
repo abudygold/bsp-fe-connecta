@@ -10,31 +10,31 @@ import { API } from '../../../../core/services';
 import { Button } from '../../../../shared/components/button';
 import { Search } from '../../../../shared/components/search';
 import { Table } from '../../../../shared/components/table';
-import { FORM_SM_DIALOG_CONFIG, MENU_URL, MENUS_URL } from '../../../../shared/config';
+import { FORM_SM_DIALOG_CONFIG, ROLES_URL } from '../../../../shared/config';
 import { CREATE_BUTTON } from '../../../../shared/config/button';
-import { MENU_TABLE } from '../../../../shared/config/table';
+import { ROLE_TABLE } from '../../../../shared/config/table';
 import { ILogin } from '../../../../shared/interface/auth';
 import { IHttpResponse } from '../../../../shared/interface/base/http-response';
 import { ButtonModel, TableModel } from '../../../../shared/model';
-import { MenuForm } from '../../dialog/menu-form';
+import { RoleForm } from '../../dialog/role-form';
 
 @Component({
-  selector: 'app-menu-list',
+  selector: 'app-role-list',
   imports: [RouterLink, MatCheckboxModule, MatIconModule, MatTooltipModule, Table, Button, Search],
-  templateUrl: './menu-list.html',
-  styleUrl: './menu-list.css',
+  templateUrl: './role-list.html',
+  styleUrl: './role-list.css',
 })
-export class MenuList {
+export class RoleList {
   #api = inject(API);
   protected readonly dialog = inject(MatDialog);
 
   button = {
     addNewCustomer: signal<ButtonModel>(
-      CREATE_BUTTON('Add New Menu', 'flat', false, '', '', 'add'),
+      CREATE_BUTTON('Add New Role', 'flat', false, '', '', 'add'),
     ),
   };
 
-  tableModel: TableModel = MENU_TABLE;
+  tableModel: TableModel = ROLE_TABLE;
   searchControl = '';
 
   constructor() {
@@ -42,14 +42,15 @@ export class MenuList {
   }
 
   #getSourceData(): void {
-    const userAccountStr = localStorage.getItem('connecta.user_account');
-    const isPrivate = userAccountStr && (JSON.parse(userAccountStr) as ILogin)?.orgId === 'ROOT';
+    const userAccountStr = JSON.parse(localStorage.getItem('connecta.user_account')!) as ILogin;
+    const isPrivate = userAccountStr && userAccountStr?.orgId === 'ROOT';
 
     this.tableModel.isLoading.set(true);
 
     this.#api
-      .get<IHttpResponse>(MENUS_URL, {
-        includePrivate: isPrivate,
+      .get<IHttpResponse>(ROLES_URL, {
+        orgId: userAccountStr?.orgId || '',
+        includeGlobal: isPrivate,
         filter: this.tableModel.searchValue,
         pageNo: this.tableModel.pageIndex,
         itemPerPage: this.tableModel.pageSize,
@@ -105,7 +106,7 @@ export class MenuList {
   }
 
   #deleteRowService(id: string): void {
-    this.#api.delete<IHttpResponse>(`${MENU_URL}/${id}`).subscribe({
+    this.#api.delete<IHttpResponse>(`${ROLES_URL}/${id}`).subscribe({
       next: () => {
         Swal.fire({
           title: 'Deleted!',
@@ -119,7 +120,7 @@ export class MenuList {
   }
 
   openFormDialog(data?: any): void {
-    const dialogRef = this.dialog.open(MenuForm, {
+    const dialogRef = this.dialog.open(RoleForm, {
       ...FORM_SM_DIALOG_CONFIG,
       data,
     });
