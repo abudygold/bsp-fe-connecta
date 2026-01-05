@@ -8,9 +8,7 @@ export const BROADCAST_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/broadcast/page/broadcast-list/broadcast-list').then(
-            (m) => m.BroadcastList,
-          ),
+          import('../../pages/broadcast/page/broadcast-list').then((m) => m.BroadcastList),
         data: {
           breadcrumb: BROADCAST_LIST_BREADCRUMB,
           title: BROADCAST_LIST_TITLE,

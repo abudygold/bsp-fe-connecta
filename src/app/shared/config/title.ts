@@ -80,6 +80,11 @@ export const ROLE_LIST_TITLE: ITitle = {
   subtitle: `List of role management.`,
 };
 
+export const ROLE_FORM_TITLE: ITitle = {
+  title: 'Add Role',
+  subtitle: `Please fill the form below.`,
+};
+
 export const ORGANIZATION_LIST_TITLE: ITitle = {
   title: 'Organization Management',
   subtitle: `List of organization management.`,

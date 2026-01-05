@@ -13,8 +13,8 @@ MENU_TABLE.columns = [
     sortable: true,
   },
   {
-    key: 'parentName',
-    label: 'Parent Name',
+    key: 'parentTitle',
+    label: 'Parent Title',
     sortable: false,
   },
   {

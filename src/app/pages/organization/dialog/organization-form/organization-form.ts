@@ -34,9 +34,9 @@ export class OrganizationForm {
   formModel = signal<OrganizationData>({
     name: this.data?.name || '',
     owner: {
-      name: this.data?.owner.name || '',
-      email: this.data?.owner.email || '',
-      pass: this.data?.owner.pass || '',
+      name: this.data?.owner?.name || '',
+      email: this.data?.owner?.email || '',
+      pass: this.data?.owner?.pass || '',
     },
   });
 

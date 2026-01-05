@@ -27,9 +27,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/channel/whatsapps/page/whatsapp-list/whatsapp-list').then(
-            (m) => m.WhatsappList,
-          ),
+          import('../../pages/channel/whatsapps/page/whatsapp-list').then((m) => m.WhatsappList),
         data: {
           breadcrumb: WHATAPPS_LIST_BREADCRUMB,
           title: WHATAPPS_LIST_TITLE,
@@ -38,7 +36,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: 'template',
         loadComponent: () =>
-          import('../../pages/channel/whatsapps/page/whatsapp-template/whatsapp-template').then(
+          import('../../pages/channel/whatsapps/page/whatsapp-template').then(
             (m) => m.WhatsappTemplate,
           ),
         data: {
@@ -49,9 +47,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: 'flow',
         loadComponent: () =>
-          import('../../pages/channel/whatsapps/page/whatsapp-flow/whatsapp-flow').then(
-            (m) => m.WhatsappsFlow,
-          ),
+          import('../../pages/channel/whatsapps/page/whatsapp-flow').then((m) => m.WhatsappsFlow),
         data: {
           breadcrumb: WHATAPPS_FLOW_BREADCRUMB,
           title: WHATAPPS_FLOW_TITLE,
@@ -65,9 +61,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/channel/instagram/page/instagram-list/instagram-list').then(
-            (m) => m.InstagramList,
-          ),
+          import('../../pages/channel/instagram/page/instagram-list').then((m) => m.InstagramList),
         data: {
           breadcrumb: INSTAGRAM_LIST_BREADCRUMB,
           title: INSTAGRAM_LIST_TITLE,
@@ -81,9 +75,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/channel/facebook/page/facebook-list/facebook-list').then(
-            (m) => m.FacebookList,
-          ),
+          import('../../pages/channel/facebook/page/facebook-list').then((m) => m.FacebookList),
         data: {
           breadcrumb: FACEBOOK_LIST_BREADCRUMB,
           title: FACEBOOK_LIST_TITLE,
@@ -96,8 +88,7 @@ export const CHANNEL_ROUTES: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('../../pages/channel/sms/page/sms-list/sms-list').then((m) => m.SmsList),
+        loadComponent: () => import('../../pages/channel/sms/page/sms-list').then((m) => m.SmsList),
         data: {
           breadcrumb: SMS_LIST_BREADCRUMB,
           title: SMS_LIST_TITLE,
@@ -106,9 +97,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: 'template',
         loadComponent: () =>
-          import('../../pages/channel/sms/page/sms-template/sms-template').then(
-            (m) => m.SmsTemplate,
-          ),
+          import('../../pages/channel/sms/page/sms-template').then((m) => m.SmsTemplate),
         data: {
           breadcrumb: SMS_TEMPLATE_BREADCRUMB,
           title: SMS_TEMPLATE_TITLE,
@@ -122,7 +111,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/channel/email/page/email-list/email-list').then((m) => m.EmailList),
+          import('../../pages/channel/email/page/email-list').then((m) => m.EmailList),
         data: {
           breadcrumb: EMAIL_LIST_BREADCRUMB,
           title: EMAIL_LIST_TITLE,
@@ -131,9 +120,7 @@ export const CHANNEL_ROUTES: Routes = [
       {
         path: 'template',
         loadComponent: () =>
-          import('../../pages/channel/email/page/email-template/email-template').then(
-            (m) => m.EmailTemplate,
-          ),
+          import('../../pages/channel/email/page/email-template').then((m) => m.EmailTemplate),
         data: {
           breadcrumb: EMAIL_TEMPLATE_BREADCRUMB,
           title: EMAIL_TEMPLATE_TITLE,

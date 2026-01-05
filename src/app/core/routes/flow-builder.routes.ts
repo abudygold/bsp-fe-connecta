@@ -8,9 +8,7 @@ export const FLOW_BUILDER_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/flow-builder/page/flow-builder/flow-builder').then(
-            (m) => m.FlowBuilder,
-          ),
+          import('../../pages/flow-builder/page/flow-builder').then((m) => m.FlowBuilder),
         data: {
           breadcrumb: FLOW_BUILDER_LIST_BREADCRUMB,
           title: FLOW_BUILDER_LIST_TITLE,

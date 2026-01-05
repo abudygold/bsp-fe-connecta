@@ -4,19 +4,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Sort } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { API } from '../../../../core/services';
 import { Button } from '../../../../shared/components/button';
 import { Search } from '../../../../shared/components/search';
 import { Table } from '../../../../shared/components/table';
-import { FORM_SM_DIALOG_CONFIG, ROLES_URL } from '../../../../shared/config';
+import { ROLES_URL } from '../../../../shared/config';
 import { CREATE_BUTTON } from '../../../../shared/config/button';
 import { ROLE_TABLE } from '../../../../shared/config/table';
 import { ILogin } from '../../../../shared/interface/auth';
 import { IHttpResponse } from '../../../../shared/interface/base/http-response';
 import { ButtonModel, TableModel } from '../../../../shared/model';
-import { RoleForm } from '../../dialog/role-form';
 
 @Component({
   selector: 'app-role-list',
@@ -25,6 +24,8 @@ import { RoleForm } from '../../dialog/role-form';
   styleUrl: './role-list.css',
 })
 export class RoleList {
+  #router = inject(Router);
+  #activatedRoute = inject(ActivatedRoute);
   #api = inject(API);
   protected readonly dialog = inject(MatDialog);
 
@@ -119,16 +120,9 @@ export class RoleList {
     });
   }
 
-  openFormDialog(data?: any): void {
-    const dialogRef = this.dialog.open(RoleForm, {
-      ...FORM_SM_DIALOG_CONFIG,
-      data,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
-
-      this.#getSourceData();
+  navigateToForm(data?: any): void {
+    this.#router.navigate(['add', data?.id || ''], {
+      relativeTo: this.#activatedRoute,
     });
   }
 }

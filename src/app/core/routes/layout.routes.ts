@@ -13,13 +13,12 @@ export const LAYOUT_ROUTES: Routes = [
   {
     path: 'secure',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('../../core/layout/page/admin-layout/admin-layout').then((m) => m.AdminLayout),
+    loadComponent: () => import('../../core/layout/page/admin-layout').then((m) => m.AdminLayout),
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/dashboard/page/dashboard/dashboard').then((m) => m.Dashboard),
+          import('../../pages/dashboard/page/dashboard').then((m) => m.Dashboard),
         data: {
           breadcrumb: DASHBOARD_BREADCRUMB,
         },

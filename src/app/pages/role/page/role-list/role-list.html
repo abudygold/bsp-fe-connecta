@@ -4,7 +4,7 @@
     class="tw:w-full tw:md:lg:w-2/6"
     placeholder="Search by Title"
     (onChange)="onSearch($event)" />
-  <app-button [config]="button.addNewCustomer()" (onClick)="openFormDialog()" />
+  <app-button [config]="button.addNewCustomer()" (onClick)="navigateToForm()" />
 </div>
 
 <app-table
@@ -33,7 +33,7 @@
       }
     } @else if (key === 'actions') {
       <div class="tw:flex tw:gap-3">
-        <mat-icon class="tw:cursor-pointer tw:text-blue-500!" (click)="openFormDialog(data)">
+        <mat-icon class="tw:cursor-pointer tw:text-blue-500!" (click)="navigateToForm(data)">
           edit
         </mat-icon>
         <mat-icon

@@ -7,8 +7,7 @@ export const MENU_ROUTES: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () =>
-          import('../../pages/menu/page/menu-list/menu-list').then((m) => m.MenuList),
+        loadComponent: () => import('../../pages/menu/page/menu-list').then((m) => m.MenuList),
         data: {
           breadcrumb: MENU_LIST_BREADCRUMB,
           title: MENU_LIST_TITLE,

@@ -76,17 +76,26 @@ export const FLOW_BUILDER_LIST_BREADCRUMB: BreadcrumbModel[] = [
 /* MENUS MENU */
 export const MENU_LIST_BREADCRUMB: BreadcrumbModel[] = [
   DASHBOARD_LINK,
-  { label: 'Menu Management', icon: 'account_tree' },
+  { label: 'Menu Management', icon: 'view_list' },
 ];
 
 /* ROLES MENU */
 export const ROLE_LIST_BREADCRUMB: BreadcrumbModel[] = [
   DASHBOARD_LINK,
-  { label: 'Role Management', icon: 'account_tree' },
+  { label: 'Role Management', icon: 'view_list' },
+];
+
+export const ROLE_FORM_BREADCRUMB: BreadcrumbModel[] = [
+  DASHBOARD_LINK,
+  {
+    ...ROLE_LIST_BREADCRUMB[1],
+    url: '',
+  },
+  { label: 'Form', icon: 'wysiwyg' },
 ];
 
 /* ORGANIZATION MENU */
 export const ORGANIZATION_LIST_BREADCRUMB: BreadcrumbModel[] = [
   DASHBOARD_LINK,
-  { label: 'Organization Management', icon: 'account_tree' },
+  { label: 'Organization Management', icon: 'view_list' },
 ];

@@ -13,9 +13,7 @@ export const CUSTOMER_ROUTES: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('../../pages/customer/page/customer-list/customer-list').then(
-            (m) => m.CustomerList,
-          ),
+          import('../../pages/customer/page/customer-list').then((m) => m.CustomerList),
         data: {
           breadcrumb: CUSTOMER_LIST_BREADCRUMB,
           title: CUSTOMER_LIST_TITLE,
@@ -24,9 +22,7 @@ export const CUSTOMER_ROUTES: Routes = [
       {
         path: 'group',
         loadComponent: () =>
-          import('../../pages/customer/page/customer-group-list/customer-group-list').then(
-            (m) => m.CustomerGroupList,
-          ),
+          import('../../pages/customer/page/customer-group-list').then((m) => m.CustomerGroupList),
         data: {
           breadcrumb: CUSTOMER_GROUP_BREADCRUMB,
           title: CUSTOMER_GROUP_LIST_TITLE,

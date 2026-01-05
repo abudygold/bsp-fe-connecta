@@ -1,0 +1,41 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-content>
+    <div class="tw:mb-3">
+      <app-text-input label="Name" [field]="formData.name" />
+    </div>
+
+    <div class="tw:mb-3">
+      <app-select
+        label="Organization"
+        [field]="formData.orgId"
+        [key]="{
+          label: 'name',
+          value: 'id',
+        }"
+        [options]="orgsOptions()" />
+    </div>
+
+    <mat-tree [dataSource]="menus()" [treeControl]="treeControl">
+      <!-- This is the tree node template for leaf nodes -->
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodePadding
+        class="example-tree-node"
+        tabindex="0">
+        <!-- use a disabled button to provide padding for tree leaf -->
+        <button matIconButton disabled></button>
+        {{ node.title }}
+      </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        isExpandable
+        [isExpanded]="true"
+        class="example-tree-node"
+        tabindex="0">
+        {{ node.title }}
+      </mat-tree-node>
+    </mat-tree>
+  </mat-card-content>
+</mat-card>

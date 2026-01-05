@@ -52,7 +52,8 @@ export class MenuList {
         includePrivate: isPrivate,
         filter: this.tableModel.searchValue,
         pageNo: this.tableModel.pageIndex,
-        itemPerPage: this.tableModel.pageSize,
+        // itemPerPage: this.tableModel.pageSize,
+        itemPerPage: 1000,
       })
       .subscribe({
         next: (response: IHttpResponse) => {
