@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { email, Field, form, required, validate } from '@angular/forms/signals';
+import { email, Field, form, required, submit, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -55,11 +55,10 @@ export class AuthRegister {
   });
 
   doRegister(): void {
-    this.formData.email().markAsTouched();
-    this.formData.password().markAsTouched();
+    submit(this.formData, async () => this.#registerService());
+  }
 
-    if (this.formData().invalid()) return;
-
+  #registerService(): void {
     console.log('-- Submit the form --', this.formModel());
   }
 

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { Field, form, required, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -65,10 +65,10 @@ export class MenuForm {
   }
 
   onSubmit(): void {
-    this.formData.title().markAsTouched();
+    submit(this.formData, async () => this.#menuService());
+  }
 
-    if (this.formData().invalid()) return;
-
+  #menuService(): void {
     const URL = this.data ? `${MENUS_URL}/${this.data.id}` : MENUS_URL;
 
     this.#api.post<IHttpResponse>(URL, this.formModel()).subscribe({

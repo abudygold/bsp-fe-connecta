@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { Field, form, required } from '@angular/forms/signals';
+import { Field, form, required, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -59,11 +59,10 @@ export class RoleForm {
   }
 
   onSubmit(): void {
-    this.formData.name().markAsTouched();
-    this.formData.orgId().markAsTouched();
+    submit(this.formData, async () => this.#roleService());
+  }
 
-    if (this.formData().invalid()) return;
-
+  #roleService(): void {
     const URL = this.data ? `${ROLES_URL}/${this.data.id}` : ROLES_URL;
 
     this.#api.post<IHttpResponse>(URL, this.formModel()).subscribe({

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { email, Field, form, required } from '@angular/forms/signals';
+import { email, Field, form, required, submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,13 +39,10 @@ export class AuthLogin {
   }
 
   doLogin(): void {
-    this.formData.email().markAsTouched();
-    this.formData.password().markAsTouched();
+    submit(this.formData, async () => this.#loginService());
+  }
 
-    if (this.formData().invalid()) return;
-
-    console.log(this.formData().value());
-
+  #loginService(): void {
     this.#api
       .post(LOGIN_URL, {
         email: this.formModel().email,

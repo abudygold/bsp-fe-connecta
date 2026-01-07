@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { email, Field, form, required, validate } from '@angular/forms/signals';
+import { email, Field, form, required, submit, validate } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -54,13 +54,10 @@ export class OrganizationForm {
   });
 
   onSubmit(): void {
-    this.formData.name().markAsTouched();
-    this.formData.owner.name().markAsTouched();
-    this.formData.owner.email().markAsTouched();
-    this.formData.owner.pass().markAsTouched();
+    submit(this.formData, async () => this.#orgService());
+  }
 
-    if (this.formData().invalid()) return;
-
+  #orgService(): void {
     const URL = this.data ? `${ORGS_URL}/${this.data.id}` : ORGS_URL;
 
     this.#api.post<IHttpResponse>(URL, this.formModel()).subscribe({
