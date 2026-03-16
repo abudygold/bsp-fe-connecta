@@ -1,19 +1,16 @@
-<mat-form-field class="tw:w-full" appearance="outline">
-  <input
-    matInput
-    autocomplete="off"
-    type="text"
-    [placeholder]="placeholder()"
-    [(ngModel)]="value"
-    (change)="onChange.emit(value)" />
-  @if (value) {
-    <button
-      matSuffix
-      matIconButton
-      class="tw:cursor-pointer tw:mr-3"
-      aria-label="Clear"
-      (click)="value = ''; onChange.emit(value)">
-      <mat-icon>close</mat-icon>
-    </button>
-  }
-</mat-form-field>
+<lib-textbox
+	class="no-hint"
+	[field]="{
+		key: 'searchValue',
+		type: 'textbox',
+		control: $any(form.searchValue),
+		config: {
+			label: '',
+			placeholder: placeholder(),
+		},
+		onInput: onSearch.bind(this),
+	}">
+	<ng-template #matSuffixRef>
+		<fa-icon [icon]="faIcon.faSearch" class="tw:mr-3" />
+	</ng-template>
+</lib-textbox>

@@ -1,0 +1,29 @@
+<h1
+	class="tw:font-bold tw:text-2xl tw:text-gray-900 tw:leading-5 tw:tracking-tight tw:text-center tw:mb-5">
+	Register
+</h1>
+
+<p class="tw:text-sm tw:font-light tw:text-gray-500 tw:text-center tw:mb-5">
+	Please fill the form below
+</p>
+
+<lib-formly [formConfig]="formConfig" />
+
+<div class="tw:mt-3 tw:space-y-2 tw:text-sm">
+	@for (rule of passwordRule(); track $index) {
+		<div
+			class="tw:flex tw:items-center tw:gap-2"
+			[class]="rule.status ? 'tw:text-green-600' : 'tw:text-red-600'">
+			<span class="material-icons">{{ rule.status ? 'check_circle' : 'cancel' }}</span>
+			{{ rule.message }}
+		</div>
+	}
+</div>
+
+<div class="tw:flex tw:flex-col tw:gap-3 tw:mt-4">
+	<button matButton="filled" class="tw:w-full" (click)="doRegister()">Submit</button>
+	<button matButton class="tw:w-full" (click)="navigateToLogin()">
+		<mat-icon matSuffix>arrow_back</mat-icon>
+		Back to Login
+	</button>
+</div>

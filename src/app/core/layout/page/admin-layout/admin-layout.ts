@@ -4,83 +4,84 @@ import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {
-  ActivatedRouteSnapshot,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-  RouterOutlet,
+	ActivatedRouteSnapshot,
+	NavigationEnd,
+	NavigationStart,
+	Router,
+	RouterOutlet,
 } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { Breadcrumb } from '../../../../shared/components/breadcrumb';
-import { ITitle } from '../../../../shared/config';
-import { BreadcrumbModel } from '../../../../shared/model';
+import { ITitle } from '../../../../shared/constant/global';
+import { IBreadcrumb } from '../../../../shared/interface/base';
 import { AdminHeader } from '../../component/admin-header';
 import { AdminSidebar } from '../../component/admin-sidebar';
 
 @Component({
-  selector: 'app-admin-layout',
-  imports: [RouterOutlet, NgClass, MatSidenavModule, AdminHeader, AdminSidebar, Breadcrumb],
-  templateUrl: './admin-layout.html',
-  styleUrl: './admin-layout.css',
+	selector: 'app-admin-layout',
+	imports: [RouterOutlet, NgClass, MatSidenavModule, AdminHeader, AdminSidebar, Breadcrumb],
+	templateUrl: './admin-layout.html',
+	styleUrl: './admin-layout.css',
 })
 export class AdminLayout {
-  #router = inject(Router);
-  #media = inject(MediaMatcher);
+	#router = inject(Router);
+	#media = inject(MediaMatcher);
 
-  private readonly _mobileQuery: MediaQueryList;
-  private readonly _mobileQueryListener: () => void;
+	private readonly _mobileQuery: MediaQueryList;
+	private readonly _mobileQueryListener: () => void;
 
-  protected readonly isMobile = signal(true);
+	protected readonly isMobile = signal(true);
 
-  breadcrumbs: BreadcrumbModel[] = [];
-  titles: ITitle | null = null;
-  isNavigating: boolean = false;
+	breadcrumbs: IBreadcrumb[] = [];
+	titles: ITitle | null = null;
+	isNavigating: boolean = false;
 
-  routeData = toSignal(
-    this.#router.events.pipe(
-      filter((event) => event instanceof NavigationEnd),
-      map(() => {
-        const root = this.#router.routerState.root;
-        this.buildBreadcrumbs(root.snapshot);
-      }),
-    ),
-    {
-      initialValue: null,
-    },
-  );
+	routeData = toSignal(
+		this.#router.events.pipe(
+			filter((event) => event instanceof NavigationEnd),
+			map(() => {
+				const root = this.#router.routerState.root;
+				this.buildBreadcrumbs(root.snapshot);
+			}),
+		),
+		{
+			initialValue: null,
+		},
+	);
 
-  navigate = toSignal(
-    this.#router.events.pipe(
-      map((event) => {
-        if (event instanceof NavigationStart) this.isNavigating = true;
-        if (event instanceof NavigationEnd) setTimeout(() => (this.isNavigating = false), 300);
-      }),
-    ),
-    {
-      initialValue: null,
-    },
-  );
+	navigate = toSignal(
+		this.#router.events.pipe(
+			map((event) => {
+				if (event instanceof NavigationStart) this.isNavigating = true;
+				if (event instanceof NavigationEnd)
+					setTimeout(() => (this.isNavigating = false), 300);
+			}),
+		),
+		{
+			initialValue: null,
+		},
+	);
 
-  constructor() {
-    this._mobileQuery = this.#media.matchMedia('(max-width: 600px)');
-    this.isMobile.set(this._mobileQuery.matches);
-    this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
-    this._mobileQuery.addEventListener('change', this._mobileQueryListener);
-  }
+	constructor() {
+		this._mobileQuery = this.#media.matchMedia('(max-width: 600px)');
+		this.isMobile.set(this._mobileQuery.matches);
+		this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
+		this._mobileQuery.addEventListener('change', this._mobileQueryListener);
+	}
 
-  buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
-    if (!route) return;
+	buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
+		if (!route) return;
 
-    this.breadcrumbs = route.data['breadcrumb'] || '';
-    this.titles = route.data['title'] || '';
-    this.buildBreadcrumbs(route.firstChild);
-  }
+		this.breadcrumbs = route.data['breadcrumb'] || '';
+		this.titles = route.data['title'] || '';
+		this.buildBreadcrumbs(route.firstChild);
+	}
 
-  onAnimationEnd() {
-    this.isNavigating = false;
-  }
+	onAnimationEnd() {
+		this.isNavigating = false;
+	}
 
-  ngOnDestroy(): void {
-    this._mobileQuery.removeEventListener('change', this._mobileQueryListener);
-  }
+	ngOnDestroy(): void {
+		this._mobileQuery.removeEventListener('change', this._mobileQueryListener);
+	}
 }

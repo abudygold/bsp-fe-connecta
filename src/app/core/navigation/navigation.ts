@@ -1,20 +1,63 @@
 export interface NavItem {
-  label: string;
-  icon?: string;
-  url?: string; // External link
-  path?: string; // Internal router link
-  submenu?: NavItem[]; // Nested navigation
-  hidden?: boolean; // Optional visibility control
-  roles?: string[]; // Optional role-based access
+	label: string;
+	icon?: string;
+	url?: string; // External link
+	path?: string; // Internal router link
+	submenu?: NavItem[]; // Nested navigation
+	hidden?: boolean; // Optional visibility control
+	roles?: string[]; // Optional role-based access
 }
 
 export const NAVIGATION_MENU: NavItem[] = [
-  {
-    label: 'Dashboard',
-    icon: 'dashboard',
-    path: '/secure',
-  },
-  {
+	{
+		label: 'Dashboard',
+		icon: 'dashboard',
+		path: '/secure',
+	},
+	{
+		label: 'Channels',
+		icon: 'rss_feed',
+		submenu: [
+			{
+				label: 'Whatsapp',
+				icon: 'send',
+				submenu: [
+					{
+						label: 'Accounts',
+						icon: 'view_list',
+						path: '/secure/channel/wa',
+					},
+				],
+			},
+		],
+	},
+	{
+		label: 'Campaign',
+		icon: 'chat',
+		path: '/secure/campaign',
+	},
+	{
+		label: 'Administration',
+		icon: 'analytics',
+		submenu: [
+			{
+				label: 'Menu Management',
+				icon: 'view_list',
+				path: '/secure/menu',
+			},
+			{
+				label: 'Role Management',
+				icon: 'view_list',
+				path: '/secure/role',
+			},
+			{
+				label: 'Organization Management',
+				icon: 'view_list',
+				path: '/secure/organization',
+			},
+		],
+	},
+	/* {
     label: 'Channels',
     icon: 'rss_feed',
     submenu: [
@@ -157,5 +200,5 @@ export const NAVIGATION_MENU: NavItem[] = [
         path: '/secure/organization',
       },
     ],
-  },
+  }, */
 ];

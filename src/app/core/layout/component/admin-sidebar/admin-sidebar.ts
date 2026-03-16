@@ -3,96 +3,94 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { ME_MENUS_URL } from '../../../../shared/config';
-import { IHttpResponse } from '../../../../shared/interface/base/http-response';
 import { NAVIGATION_MENU, NavItem } from '../../../navigation';
 import { API } from '../../../services';
 
 @Component({
-  selector: 'app-admin-sidebar',
-  imports: [MatListModule, MatIconModule],
-  templateUrl: './admin-sidebar.html',
-  styleUrl: './admin-sidebar.css',
+	selector: 'app-admin-sidebar',
+	imports: [MatListModule, MatIconModule],
+	templateUrl: './admin-sidebar.html',
+	styleUrl: './admin-sidebar.css',
 })
 export class AdminSidebar implements OnInit {
-  readonly router = inject(Router);
-  #api = inject(API);
+	readonly router = inject(Router);
+	#api = inject(API);
 
-  toggleMenu = output<void>();
+	toggleMenu = output<void>();
 
-  expanded: Set<string> = new Set();
-  currentUrl: string = '';
+	expanded: Set<string> = new Set();
+	currentUrl: string = '';
 
-  menu = input<NavItem[]>(NAVIGATION_MENU);
-  isMobile = input<boolean>();
-  snav = model<MatSidenav>();
+	menu = input<NavItem[]>(NAVIGATION_MENU);
+	isMobile = input<boolean>();
+	snav = model<MatSidenav>();
 
-  constructor() {
-    this.router.events.subscribe(() => {
-      this.currentUrl = this.router.url;
-    });
-  }
+	constructor() {
+		this.router.events.subscribe(() => {
+			this.currentUrl = this.router.url;
+		});
+	}
 
-  ngOnInit() {
-    this.currentUrl = this.router.url;
-    this.#expandParentsWithActiveRoute(this.menu());
-    this.loadMenus();
-  }
+	ngOnInit() {
+		this.currentUrl = this.router.url;
+		this.#expandParentsWithActiveRoute(this.menu());
+		// this.loadMenus();
+	}
 
-  loadMenus(): void {
+	/* loadMenus(): void {
     this.#api.get<IHttpResponse>(ME_MENUS_URL).subscribe({
       next: (response: IHttpResponse) => console.log(response),
     });
-  }
+  } */
 
-  clickedMenu(item: NavItem): void {
-    item.submenu ? this.toggle(item) : this.navigate(item);
-  }
+	clickedMenu(item: NavItem): void {
+		item.submenu ? this.toggle(item) : this.navigate(item);
+	}
 
-  toggle(item: NavItem) {
-    if (!item.submenu) return;
+	toggle(item: NavItem) {
+		if (!item.submenu) return;
 
-    if (this.expanded.has(item.label)) {
-      this.expanded.delete(item.label);
-    } else {
-      this.expanded.add(item.label);
-    }
-  }
+		if (this.expanded.has(item.label)) {
+			this.expanded.delete(item.label);
+		} else {
+			this.expanded.add(item.label);
+		}
+	}
 
-  isExpanded(item: NavItem): boolean {
-    return this.expanded.has(item.label);
-  }
+	isExpanded(item: NavItem): boolean {
+		return this.expanded.has(item.label);
+	}
 
-  navigate(item: NavItem) {
-    if (item.path) {
-      this.router.navigate([item.path]);
-      this.toggleMenu.emit();
-    }
-    // if (item.url) window.open(item.url, '_blank');
-  }
+	navigate(item: NavItem) {
+		if (item.path) {
+			this.router.navigate([item.path]);
+			this.toggleMenu.emit();
+		}
+		// if (item.url) window.open(item.url, '_blank');
+	}
 
-  /** Check if this menu item is active */
-  isActive(item: NavItem): boolean {
-    return item.path ? this.currentUrl === item.path : false;
-  }
+	/** Check if this menu item is active */
+	isActive(item: NavItem): boolean {
+		return item.path ? this.currentUrl === item.path : false;
+	}
 
-  /** Auto-expand parents if children contain active route */
-  #expandParentsWithActiveRoute(items: NavItem[]) {
-    items.forEach((item) => {
-      if (item.submenu) {
-        if (this.#containsActiveRoute(item.submenu)) {
-          this.expanded.add(item.label);
-        }
-        this.#expandParentsWithActiveRoute(item.submenu);
-      }
-    });
-  }
+	/** Auto-expand parents if children contain active route */
+	#expandParentsWithActiveRoute(items: NavItem[]) {
+		items.forEach((item) => {
+			if (item.submenu) {
+				if (this.#containsActiveRoute(item.submenu)) {
+					this.expanded.add(item.label);
+				}
+				this.#expandParentsWithActiveRoute(item.submenu);
+			}
+		});
+	}
 
-  #containsActiveRoute(items: NavItem[]): boolean {
-    return items.some(
-      (child) =>
-        (child.path && this.currentUrl.startsWith(child.path)) ||
-        (child.submenu && this.#containsActiveRoute(child.submenu)),
-    );
-  }
+	#containsActiveRoute(items: NavItem[]): boolean {
+		return items.some(
+			(child) =>
+				(child.path && this.currentUrl.startsWith(child.path)) ||
+				(child.submenu && this.#containsActiveRoute(child.submenu)),
+		);
+	}
 }

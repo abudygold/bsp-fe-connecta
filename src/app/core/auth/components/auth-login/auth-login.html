@@ -1,0 +1,44 @@
+<h1
+	class="tw:font-bold tw:text-2xl tw:text-gray-900 tw:leading-5 tw:tracking-tight tw:text-center tw:mb-5">
+	Login
+</h1>
+
+<lib-formly [formConfig]="formConfig" />
+
+<div class="tw:flex tw:justify-end tw:items-center tw:mt-4">
+	<p
+		class="tw:text-blue-500 tw:font-medium tw:text-sm tw:cursor-pointer"
+		(click)="navigateToAuth('forgot')">
+		Forgot password?
+	</p>
+</div>
+
+<div class="tw:my-4">
+	<button matButton="filled" class="tw:w-full" (click)="doLogin()">Login</button>
+</div>
+
+<div class="tw:flex tw:justify-center tw:items-center tw:my-4">
+	<mat-divider class="tw:grow tw:border-gray-400/40"></mat-divider>
+	<span class="tw:text-gray-500 tw:p-2">or</span>
+	<mat-divider class="tw:grow tw:border-gray-400/40"></mat-divider>
+</div>
+
+<div class="tw:mb-4">
+	<button matFab extended class="tw:w-full!">
+		<img
+			src="./icons/mail/gmail.svg"
+			alt="Gmail Icon"
+			class="tw:inline-flex tw:w-5 tw:mb-1"
+			(click)="doLoginByGoogleAccount()" />
+		Sign in with Google
+	</button>
+</div>
+
+<p class="tw:text-sm tw:font-light tw:text-gray-500 tw:text-center">
+	Don't have an account?
+	<span
+		class="tw:text-blue-500 tw:font-medium tw:cursor-pointer"
+		(click)="navigateToAuth('register')">
+		Sign up
+	</span>
+</p>
