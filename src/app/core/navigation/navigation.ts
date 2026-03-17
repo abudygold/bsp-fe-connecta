@@ -15,7 +15,12 @@ export const NAVIGATION_MENU: NavItem[] = [
 		path: '/secure',
 	},
 	{
-		label: 'Channels',
+		label: 'Channel',
+		icon: 'chat',
+		path: '/secure/channel',
+	},
+	{
+		label: 'Accounts',
 		icon: 'rss_feed',
 		submenu: [
 			{
@@ -25,7 +30,7 @@ export const NAVIGATION_MENU: NavItem[] = [
 					{
 						label: 'Accounts',
 						icon: 'view_list',
-						path: '/secure/channel/wa',
+						path: '/secure/account/wa',
 					},
 				],
 			},

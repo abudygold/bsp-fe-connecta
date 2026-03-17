@@ -22,8 +22,11 @@ export const ORGANIZATION_LIST_BREADCRUMB: BreadcrumbModel[] = [
 /* CAMPAIGN MENU */
 export const CAMPAIGN_LIST_BREADCRUMB: BreadcrumbModel[] = [DASHBOARD_LINK, { label: 'Campaign' }];
 
-/* CHANNEL WA MENU */
-export const CHANNEL_WA_LIST_BREADCRUMB: BreadcrumbModel[] = [
+/* CHANNEL MENU */
+export const CHANNEL_LIST_BREADCRUMB: BreadcrumbModel[] = [DASHBOARD_LINK, { label: 'Channels' }];
+
+/* ACCOUNT WA MENU */
+export const ACCOUNT_WA_LIST_BREADCRUMB: BreadcrumbModel[] = [
 	DASHBOARD_LINK,
 	{ label: 'Account WA' },
 ];

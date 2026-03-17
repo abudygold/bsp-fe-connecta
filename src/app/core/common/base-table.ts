@@ -71,8 +71,8 @@ export class BaseTable {
 
 		this.api.get<IHttpResponse>(this.endpoint, filters).subscribe({
 			next: (res) => {
-				this.tableModel.dataSource = res?.data?.rows || [];
-				this.tableModel.dataTotal = res?.data?.pagination?.total || 0;
+				this.tableModel.dataSource = res?.data?.list || [];
+				this.tableModel.hasNext(res?.data?.hasNext || false);
 				this.tableModel.pageIndex === 0 && this.tableModel.generateDataType();
 			},
 			complete: () => {

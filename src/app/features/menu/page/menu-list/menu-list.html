@@ -33,7 +33,11 @@
 			}
 		} @else if (key === 'actions') {
 			<div class="tw:flex tw:gap-3">
-				<fa-icon [icon]="faIcon.faEdit" size="lg" class="tw:text-blue-400" />
+				<fa-icon
+					[icon]="faIcon.faEdit"
+					size="lg"
+					class="tw:text-blue-400"
+					(click)="openDialog(data)" />
 				<fa-icon
 					[icon]="faIcon.faTrash"
 					size="lg"

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChannelWaList } from './channel-wa-list';
+import { AccountWaList } from './account-wa-list';
 
-describe('ChannelWaList', () => {
-	let component: ChannelWaList;
-	let fixture: ComponentFixture<ChannelWaList>;
+describe('AccountWaList', () => {
+	let component: AccountWaList;
+	let fixture: ComponentFixture<AccountWaList>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ChannelWaList],
+			imports: [AccountWaList],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(ChannelWaList);
+		fixture = TestBed.createComponent(AccountWaList);
 		component = fixture.componentInstance;
 		await fixture.whenStable();
 	});

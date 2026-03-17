@@ -1,4 +1,6 @@
-// export const = dialog.open(UserProfileComponent, {
-//   height: '400px',
-//   width: '600px',
-// });
+import { MatDialogConfig } from '@angular/material/dialog';
+
+export const FORM_SM_DIALOG_CONFIG: MatDialogConfig = {
+	autoFocus: false,
+	width: '550px',
+};

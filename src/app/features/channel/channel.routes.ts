@@ -1,23 +1,12 @@
 import { Routes } from '@angular/router';
-import { CHANNEL_WA_LIST_BREADCRUMB } from '../../shared/constant/global';
+import { CHANNEL_LIST_BREADCRUMB } from '../../shared/constant/global';
 
 export const CHANNEL_ROUTES: Routes = [
 	{
 		path: 'channel',
-		children: [
-			{
-				path: 'wa',
-				children: [
-					{
-						path: '',
-						loadComponent: () =>
-							import('./page/channel-wa-list').then((m) => m.ChannelWaList),
-						data: {
-							breadcrumb: CHANNEL_WA_LIST_BREADCRUMB,
-						},
-					},
-				],
-			},
-		],
+		loadComponent: () => import('./page/channel-list').then((m) => m.ChannelList),
+		data: {
+			breadcrumb: CHANNEL_LIST_BREADCRUMB,
+		},
 	},
 ];

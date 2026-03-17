@@ -1,0 +1,26 @@
+<lib-dialog [title]="data ? 'Edit Organization' : 'Add Organization'">
+	<ng-container content>
+		<div class="tw:pt-5">
+			<lib-formly [formConfig]="formConfig()" />
+
+			<div class="tw:mt-3 tw:space-y-2 tw:text-sm">
+				@for (rule of passwordRule(); track $index) {
+					<div
+						class="tw:flex tw:items-center tw:gap-2"
+						[class]="rule.status ? 'tw:text-green-600' : 'tw:text-red-600'">
+						<span class="material-icons">{{
+							rule.status ? 'check_circle' : 'cancel'
+						}}</span>
+						{{ rule.message }}
+					</div>
+				}
+			</div>
+		</div>
+	</ng-container>
+	<ng-container actions>
+		<div class="tw:flex tw:justify-between tw:my-4 tw:w-full">
+			<lib-button [config]="btn.cancel()" />
+			<lib-button [config]="btn.save()" />
+		</div>
+	</ng-container>
+</lib-dialog>

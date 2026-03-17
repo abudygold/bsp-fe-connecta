@@ -43,11 +43,6 @@ MENU_TABLE.columns = [
 		sortable: false,
 	},
 	{
-		key: 'order',
-		label: 'Order',
-		sortable: false,
-	},
-	{
 		key: 'actions',
 		label: 'Actions',
 		sortable: false,

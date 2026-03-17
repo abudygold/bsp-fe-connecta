@@ -8,12 +8,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BaseTable } from '../../../../core/common';
 import { Search } from '../../../../shared/components/search';
 import { FORM_SM_DIALOG_CONFIG } from '../../../../shared/constant';
-import { MENUS_URL } from '../../../../shared/constant/global';
-import { CUSTOM_TYPE_MENU, MENU_TABLE } from '../../../../shared/constant/table';
-import { MenuForm } from '../../dialog/menu-form';
+import { CHANNELS_URL } from '../../../../shared/constant/global';
+import { CHANNEL_TABLE, CUSTOM_TYPE_CHANNEL } from '../../../../shared/constant/table';
+import { ChannelForm } from '../../dialog/channel-form';
 
 @Component({
-	selector: 'app-menu-list',
+	selector: 'app-channel-list',
 	imports: [
 		RouterLink,
 		MatCheckboxModule,
@@ -24,17 +24,17 @@ import { MenuForm } from '../../dialog/menu-form';
 		MatTooltipModule,
 		FontAwesomeModule,
 	],
-	templateUrl: './menu-list.html',
-	styleUrl: './menu-list.css',
+	templateUrl: './channel-list.html',
+	styleUrl: './channel-list.css',
 })
-export class MenuList extends BaseTable {
+export class ChannelList extends BaseTable {
 	constructor() {
-		super(MENUS_URL, MENU_TABLE, CUSTOM_TYPE_MENU);
-		this.initAddButton('Add Menu', () => this.openDialog());
+		super(CHANNELS_URL, CHANNEL_TABLE, CUSTOM_TYPE_CHANNEL);
+		this.initAddButton('Add Channel', () => this.openDialog());
 	}
 
 	openDialog(data?: any): void {
-		const dialogRef = this.dialog.open(MenuForm, {
+		const dialogRef = this.dialog.open(ChannelForm, {
 			...FORM_SM_DIALOG_CONFIG,
 			data,
 		});

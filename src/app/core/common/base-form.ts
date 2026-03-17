@@ -9,6 +9,7 @@ import {
 	submit,
 } from '@angular/forms/signals';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormlyFormConfig } from '@devkitify/angular-ui-kit';
 import { IHttpResponse } from '../../shared/interface/base';
 import { API } from '../services';
 import { BaseAlert, DEFAULT_MESSAGE_CREATE, DEFAULT_MESSAGE_UPDATE } from './base-sweetalert';
@@ -57,6 +58,40 @@ export class BaseForm<FormModel> {
 		});
 	}
 
+	getAsyncOptions(
+		URL: string,
+		formConfig: WritableSignal<FormlyFormConfig>,
+		fieldKey: string,
+	): void {
+		this.api
+			.get<IHttpResponse>(URL, {
+				pageNo: 1,
+				itemPerPage: 200,
+			})
+			.subscribe({
+				next: (response: IHttpResponse) => {
+					formConfig.update((form) => ({
+						...form,
+						fields: form.fields.map((field) => {
+							if (field.key === fieldKey) {
+								return {
+									...field,
+									config: {
+										...field.config,
+										options: {
+											...field.config.options,
+											data: response.data?.list || [],
+										},
+									},
+								};
+							}
+							return field;
+						}),
+					}));
+				},
+			});
+	}
+
 	sendToApi(
 		URL: string,
 		bodyReq: any = null,
@@ -84,7 +119,7 @@ export class BaseForm<FormModel> {
 				: ''
 		}`;
 
-		this.api[this.id() ? 'put' : 'post']<IHttpResponse>(URI, bodyReq).subscribe({
+		this.api.post<IHttpResponse>(URI, bodyReq).subscribe({
 			next: (res) => {
 				BaseAlert(
 					'Success!',

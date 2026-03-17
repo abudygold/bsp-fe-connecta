@@ -1,6 +1,6 @@
 import { TableModel } from '@devkitify/angular-ui-kit';
 
-export const CUSTOM_TYPE_CHANNEL_WA = {
+export const CUSTOM_TYPE_ACCOUNT_WA = {
 	createdAt: {
 		type: 'date',
 		format: 'dd MMM yyyy',
@@ -13,8 +13,8 @@ export const CUSTOM_TYPE_CHANNEL_WA = {
 	},
 };
 
-export const CHANNEL_WA_TABLE: TableModel = new TableModel();
-CHANNEL_WA_TABLE.columns = [
+export const ACCOUNT_WA_TABLE: TableModel = new TableModel();
+ACCOUNT_WA_TABLE.columns = [
 	{
 		key: 'title',
 		label: 'Title',
@@ -46,7 +46,7 @@ CHANNEL_WA_TABLE.columns = [
 		sortable: false,
 	},
 ];
-CHANNEL_WA_TABLE.sortActive = 'title';
-CHANNEL_WA_TABLE.sortDirection = 'asc';
-CHANNEL_WA_TABLE.isServerSide.set(true);
-CHANNEL_WA_TABLE.isPagination.set(true);
+ACCOUNT_WA_TABLE.sortActive = 'title';
+ACCOUNT_WA_TABLE.sortDirection = 'asc';
+ACCOUNT_WA_TABLE.isServerSide.set(true);
+ACCOUNT_WA_TABLE.isPagination.set(true);
