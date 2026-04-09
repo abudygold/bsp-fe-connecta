@@ -7,7 +7,7 @@ import {
 	FORGOT_SCHEMA_FORM,
 	FORMLY_FORGOT_FORM,
 	IForgotForm,
-} from '../../../../shared/constant/formly';
+} from '../../../../shared/constant/formly/auth';
 import { BaseForm } from '../../../common';
 
 @Component({
@@ -40,7 +40,7 @@ export class AuthForgot extends BaseForm<IForgotForm> {
 	}
 
 	navigateToLogin(): void {
-		this.route.navigate(['/'], {
+		this.router.navigate(['/'], {
 			relativeTo: this.activatedRoute,
 		});
 	}

@@ -3,16 +3,17 @@ import { NgClass } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { Title } from '@angular/platform-browser';
 import {
-	ActivatedRouteSnapshot,
+	ActivationEnd,
 	NavigationEnd,
 	NavigationStart,
 	Router,
 	RouterOutlet,
 } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { map } from 'rxjs';
 import { Breadcrumb } from '../../../../shared/components/breadcrumb';
-import { ITitle } from '../../../../shared/constant/global';
+import { BREADCRUMBS } from '../../../../shared/constant/global';
 import { IBreadcrumb } from '../../../../shared/interface/base';
 import { AdminHeader } from '../../component/admin-header';
 import { AdminSidebar } from '../../component/admin-sidebar';
@@ -24,6 +25,7 @@ import { AdminSidebar } from '../../component/admin-sidebar';
 	styleUrl: './admin-layout.css',
 })
 export class AdminLayout {
+	#title = inject(Title);
 	#router = inject(Router);
 	#media = inject(MediaMatcher);
 
@@ -33,21 +35,7 @@ export class AdminLayout {
 	protected readonly isMobile = signal(true);
 
 	breadcrumbs: IBreadcrumb[] = [];
-	titles: ITitle | null = null;
 	isNavigating: boolean = false;
-
-	routeData = toSignal(
-		this.#router.events.pipe(
-			filter((event) => event instanceof NavigationEnd),
-			map(() => {
-				const root = this.#router.routerState.root;
-				this.buildBreadcrumbs(root.snapshot);
-			}),
-		),
-		{
-			initialValue: null,
-		},
-	);
 
 	navigate = toSignal(
 		this.#router.events.pipe(
@@ -63,18 +51,21 @@ export class AdminLayout {
 	);
 
 	constructor() {
+		let paramId = '';
+		this.#router.events.subscribe((event) => {
+			if (event instanceof ActivationEnd) {
+				if (event.snapshot.params['id']) paramId = event.snapshot.params['id'] || '';
+			}
+			if (event instanceof NavigationEnd) {
+				this.breadcrumbs = BREADCRUMBS(event.url, paramId) || null;
+				this.#title.setTitle('Connecta | ' + this.breadcrumbs?.at(-1)?.label || 'Connecta');
+			}
+		});
+
 		this._mobileQuery = this.#media.matchMedia('(max-width: 600px)');
 		this.isMobile.set(this._mobileQuery.matches);
 		this._mobileQueryListener = () => this.isMobile.set(this._mobileQuery.matches);
 		this._mobileQuery.addEventListener('change', this._mobileQueryListener);
-	}
-
-	buildBreadcrumbs(route: ActivatedRouteSnapshot | null): void {
-		if (!route) return;
-
-		this.breadcrumbs = route.data['breadcrumb'] || '';
-		this.titles = route.data['title'] || '';
-		this.buildBreadcrumbs(route.firstChild);
 	}
 
 	onAnimationEnd() {

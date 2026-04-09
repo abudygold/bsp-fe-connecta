@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ButtonModel, TableModel } from '@devkitify/angular-ui-kit';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { IHttpResponse } from '../../shared/interface/base';
 import { API } from '../services';
 import { BaseAlert, ConfirmAlert, DEFAULT_MESSAGE_DELETE } from './base-sweetalert';
@@ -21,18 +21,19 @@ export class BaseTable {
 	faIcon: any = {
 		faEdit,
 		faTrash,
+		faEye,
 	};
 
 	endpoint!: string;
 	tableModel!: TableModel;
 	customType!: object | null;
 
-	constructor(endpoint: string, tableModel: TableModel, customType: object = {}) {
+	constructor(endpoint: string, tableModel: TableModel, customType: object = {}, isFetch = true) {
 		this.endpoint = endpoint;
 		this.tableModel = tableModel;
 		this.customType = customType;
 
-		this.fetchData();
+		if (isFetch) this.fetchData();
 	}
 
 	initAddButton(text: string, onClick: () => void): void {
@@ -58,15 +59,8 @@ export class BaseTable {
 			...{
 				pageNo: this.tableModel.pageIndex + 1,
 				itemPerPage: this.tableModel.pageSize,
-				// sort: this.tableModel.sortActive,
-				// order: this.tableModel.sortDirection,
 			},
-			...Object.fromEntries(
-				Object.values(this.tableModel.filters).map((filter: any) => [
-					filter.key,
-					filter.value,
-				]),
-			),
+			...this.tableModel.filters,
 		};
 
 		this.api.get<IHttpResponse>(this.endpoint, filters).subscribe({
@@ -109,7 +103,10 @@ export class BaseTable {
 	}
 
 	onSearch(searchValue: string): void {
-		this.tableModel.filters = [{ key: 'filter', value: searchValue }];
+		this.tableModel.filters = {
+			...this.tableModel.filters,
+			...{ filter: searchValue },
+		};
 		this.fetchData();
 	}
 

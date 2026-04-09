@@ -1,0 +1,105 @@
+<div class="tw:bg-white tw:rounded-xl tw:shadow-sm tw:p-8 tw:border tw:border-gray-200">
+	<p class="tw:text-base tw:font-semibold tw:text-[#191C1C] tw:mb-4"> Customer Info </p>
+
+	<div class="tw:mb-5">
+		<lib-textbox
+			class="no-hint"
+			[field]="{
+				key: 'name',
+				type: 'textbox',
+				control: $any(formData.name),
+				config: {
+					label: 'Name',
+				},
+			}" />
+
+		<app-message-validation [fieldState]="formData.name()" />
+	</div>
+
+	<mat-divider class="tw:pb-4" />
+
+	<div class="tw:flex tw:justify-between tw:items-center">
+		<p class="tw:text-base tw:font-semibold tw:text-[#191C1C]"> Contacts </p>
+		<lib-button [config]="btn.members()" />
+	</div>
+
+	@for (contact of formData.contacts; track $index) {
+		<div class="tw:rounded-xl tw:bg-gray-200/50 tw:p-6 tw:my-3">
+			<div class="tw:flex tw:justify-end tw:mb-4">
+				<fa-icon
+					[icon]="faIcon.faTrash"
+					size="lg"
+					class="tw:text-red-400 tw:cursor-pointer"
+					(click)="removeMember($index)" />
+			</div>
+			<div class="tw:grid tw:md:grid-cols-12 tw:gap-3">
+				<div class="tw:md:col-span-4">
+					<lib-dropdown
+						class="no-hint"
+						[field]="{
+							key: 'channel',
+							type: 'dropdown',
+							control: $any(contact.channel),
+							config: {
+								label: 'Channel',
+								options: {
+									data: opt.channel() || [],
+									labelKey: 'name',
+									valueKey: 'id',
+								},
+							},
+						}" />
+
+					<app-message-validation [fieldState]="contact.channel()" />
+				</div>
+
+				<div class="tw:md:col-span-4">
+					<lib-textbox
+						class="no-hint"
+						[field]="{
+							key: 'contactNo',
+							type: 'textbox',
+							control: $any(contact.contactNo),
+							config: {
+								label: 'Contact No',
+							},
+						}" />
+
+					<app-message-validation [fieldState]="contact.contactNo()" />
+				</div>
+
+				<div class="tw:md:col-span-4">
+					<lib-textbox
+						class="no-hint"
+						[field]="{
+							key: 'displayName',
+							type: 'textbox',
+							control: $any(contact.displayName),
+							config: {
+								label: 'Display Name',
+							},
+						}" />
+
+					<app-message-validation [fieldState]="contact.displayName()" />
+				</div>
+
+				<div class="tw:md:col-span-12">
+					<lib-slide-toggle
+						[field]="{
+							key: 'isPrimary',
+							type: 'slide-toggle',
+							control: $any(contact.isPrimary),
+							config: {
+								label: 'Primary',
+							},
+						}" />
+				</div>
+			</div>
+		</div>
+	}
+
+	<div class="tw:flex tw:justify-between tw:my-4">
+		<lib-button [config]="btn.cancel()" />
+		<lib-button [config]="btn.save()" />
+	</div>
+</div>

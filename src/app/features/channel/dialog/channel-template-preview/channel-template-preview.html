@@ -1,0 +1,89 @@
+<lib-dialog [title]="data?.row?.name" [subtitle]="data?.row?.lang + ' · ' + data?.row?.category">
+	<ng-container content>
+		<div class="tw:pt-5">
+			<div class="tw:w-full tw:flex tw:flex-col tw:border-l">
+				<div class="tw:bg-[#075e54] tw:p-3 tw:flex tw:items-center tw:text-white">
+					<div
+						class="tw:w-10 tw:h-10 tw:bg-[#128c7e] tw:rounded-full tw:flex tw:items-center tw:justify-center tw:mr-3">
+						<span class="tw:font-bold">W</span>
+					</div>
+					<div class="tw:flex-1">
+						<h2 class="tw:text-sm tw:font-semibold">Preview</h2>
+						<p class="tw:text-[10px] tw:opacity-80">WhatsApp message</p>
+					</div>
+				</div>
+
+				<div
+					class="tw:flex-1 tw:p-4 tw:min-h-[400px] tw:relative"
+					style="
+						background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+						background-blend-mode: overlay;
+						background-color: rgba(229, 221, 213, 0.9);
+					">
+					<div
+						class="tw:relative tw:bg-white tw:p-3 tw:rounded-lg tw:rounded-tl-none tw:shadow-sm tw:max-w-[90%] tw:ml-2">
+						<div
+							class="tw:absolute tw:top-0 tw:-left-2 tw:w-0 tw:h-0 tw:border-t-10 tw:border-t-white tw:border-l-10 tw:border-l-transparent"></div>
+
+						@if (data?.row?.payload.headerType === 'image') {
+							<img class="tw:w-full tw:mb-2" [src]="data?.row?.payload.header" />
+						} @else if (data?.row?.payload.headerType === 'document') {
+							<div
+								class="tw:bg-gray-100 tw:p-3 tw:flex tw:items-center tw:border-b tw:border-gray-200 tw:mb-2">
+								<div class="tw:bg-red-500 tw:p-2 tw:rounded tw:mr-3">
+									<fa-icon
+										[icon]="faIcon.faFilePdf"
+										class="tw:text-white"></fa-icon>
+								</div>
+								<div class="tw:flex-1">
+									<div class="tw:text-xs">600x400</div>
+									<div class="tw:text-xs">PDF Document</div>
+								</div>
+							</div>
+						} @else if (data?.row?.payload.headerType === 'video') {
+							<iframe
+								width="100%"
+								height="auto"
+								[src]="safeVideoUrl"
+								frameborder="0"
+								allow="
+									accelerometer;
+									autoplay;
+									clipboard-write;
+									encrypted-media;
+									gyroscope;
+									picture-in-picture;
+									web-share;
+								"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allowfullscreen></iframe>
+						}
+
+						<p class="tw:text-sm tw:text-gray-800">
+							{{ data?.row?.payload.body }}
+						</p>
+						<div class="tw:text-[10px] tw:text-gray-400 tw:text-right tw:mt-1">
+							23:29 ✓✓
+						</div>
+					</div>
+				</div>
+
+				<div class="tw:bg-[#f0f2f5] tw:p-2 tw:flex tw:items-center tw:gap-2">
+					<div
+						class="tw:bg-white tw:flex-1 tw:rounded-full tw:px-4 tw:py-2 tw:text-sm tw:text-gray-400"
+						>Message</div
+					>
+					<div
+						class="tw:bg-[#00a884] tw:w-10 tw:h-10 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:text-white">
+						<fa-icon [icon]="faIcon.faPlay"></fa-icon>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container actions>
+		<div class="tw:flex tw:justify-end tw:my-2 tw:w-full">
+			<lib-button [config]="btn.cancel()" />
+		</div>
+	</ng-container>
+</lib-dialog>

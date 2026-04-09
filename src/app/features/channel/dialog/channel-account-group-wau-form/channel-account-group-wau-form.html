@@ -1,0 +1,68 @@
+<lib-dialog [title]="data?.row ? 'Edit Account Group' : 'Add Account Group'">
+	<ng-container content>
+		<div class="tw:pt-5">
+			<div class="tw:grid">
+				<div class="tw:mb-3">
+					<lib-textbox
+						class="no-hint"
+						[field]="{
+							key: 'name',
+							type: 'textbox',
+							control: $any(formData.name),
+							config: {
+								label: 'Account No',
+							},
+						}" />
+
+					<app-message-validation [fieldState]="formData.name()" />
+				</div>
+
+				<div class="tw:mb-3">
+					<mat-form-field class="no-hint tw:w-full" appearance="outline">
+						<mat-label>Accounts</mat-label>
+						<mat-select
+							multiple
+							[formField]="formData.accounts"
+							(selectionChange)="addMember($event.value)">
+							@for (account of opt.accounts(); track account) {
+								<mat-option [value]="account.id">
+									{{ account.accountName }} ({{ account.accountNo }})
+								</mat-option>
+							}
+						</mat-select>
+					</mat-form-field>
+
+					<app-message-validation [fieldState]="formData.name()" />
+				</div>
+
+				@if (tableModel.dataSource.length > 0) {
+					<div class="tw:flex tw:mb-3">
+						<p class="tw:text-base tw:font-semibold tw:text-[#191C1C]">
+							Member Accounts
+						</p>
+					</div>
+
+					<lib-table [config]="tableModel">
+						<ng-template #customTemplate let-data="data" let-key="key">
+							@if (key === 'actions') {
+								<div class="tw:flex tw:gap-3">
+									<fa-icon
+										[icon]="faIcon.faTrash"
+										size="lg"
+										class="tw:text-red-400"
+										(click)="removeMember(data?.id)" />
+								</div>
+							}
+						</ng-template>
+					</lib-table>
+				}
+			</div>
+		</div>
+	</ng-container>
+	<ng-container actions>
+		<div class="tw:flex tw:justify-between tw:my-2 tw:w-full">
+			<lib-button [config]="btn.cancel()" />
+			<lib-button [config]="btn.save()" />
+		</div>
+	</ng-container>
+</lib-dialog>

@@ -1,0 +1,62 @@
+<div class="tw:bg-white tw:rounded-xl tw:shadow-sm tw:p-8 tw:border tw:border-gray-200">
+	<p class="tw:text-base tw:font-semibold tw:text-[#191C1C] tw:mb-4"> Group Info </p>
+
+	<div class="tw:mb-5">
+		<lib-textbox
+			class="no-hint"
+			[field]="{
+				key: 'name',
+				type: 'textbox',
+				control: $any(formData.name),
+				config: {
+					label: 'Name',
+				},
+			}" />
+
+		<app-message-validation [fieldState]="formData.name()" />
+	</div>
+
+	<div class="tw:flex tw:justify-between tw:my-4">
+		<lib-button [config]="btn.cancel()" />
+		<lib-button [config]="btn.save()" />
+	</div>
+
+	<mat-divider class="tw:pb-4" />
+
+	<div class="tw:flex tw:justify-between tw:items-center tw:mb-3">
+		<p class="tw:text-base tw:font-semibold tw:text-[#191C1C]"> Member Accounts </p>
+		<lib-button [config]="btn.members()" />
+	</div>
+
+	<lib-table [config]="tableModel">
+		<ng-template #customTemplate let-data="data" let-key="key">
+			@if (key === 'contacts') {
+				@for (item of data.contacts; track $index) {
+					<div class="tw:text-sm tw:my-1">
+						<app-status-badge
+							[label]="item.channel"
+							[badgeClass]="{
+								'tw:bg-blue-100 tw:text-blue-700': ['wa', 'wau'].includes(
+									item.channel.toLowerCase()
+								),
+							}" />
+
+						{{ item.contactNo }}
+
+						@if (item.isPrimary) {
+							<fa-icon [icon]="faIcon.faStar" size="xs" class="tw:text-yellow-500" />
+						}
+					</div>
+				}
+			} @else if (key === 'actions') {
+				<div class="tw:flex tw:gap-3">
+					<fa-icon
+						[icon]="faIcon.faTrash"
+						size="lg"
+						class="tw:text-red-400"
+						(click)="removeMemberService(data?.id)" />
+				</div>
+			}
+		</ng-template>
+	</lib-table>
+</div>

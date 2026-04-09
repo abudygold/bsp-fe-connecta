@@ -5,25 +5,19 @@ export const LOGIN_URL = `${environment.api.baseUrl}users/login`;
 export const LOGOUT_URL = `${environment.api.baseUrl}users/logout`;
 export const REFRESH_TOKEN_URL = `${environment.api.baseUrl}users/refresh`;
 
-/* USERS */
-export const USERS_URL = `${environment.api.baseUrl}users`;
-export const INVITE_URL = `${environment.api.baseUrl}users/invite`;
-export const SWITCH_ORG_URL = `${environment.api.baseUrl}users/switchorg`;
-
-/* ORGS */
-export const ORGS_URL = `${environment.api.baseUrl}orgs`;
-
-/* MENUS */
-export const MENUS_URL = `${environment.api.baseUrl}menus`;
-
-/* ROLES */
-export const ROLES_URL = `${environment.api.baseUrl}roles`;
-
-/* CHANNELS */
-export const CHANNELS_URL = `${environment.api.baseUrl}channels`;
-
 /* ACCOUNTS */
 export const ACCOUNTS_URL = `${environment.api.baseUrl}accounts`;
+export const ACCOUNTS_GROUP_URL = `${environment.api.baseUrl}accgroup`;
 
-/* CAMPAIGN */
-export const CAMPAIGN_URL = `${environment.api.baseUrl}campaign`;
+/* CHANNEL */
+export const CHANNEL_URL = `${environment.api.baseUrl}channels`;
+
+/* CUSTOMER */
+export const CUSTOMER_URL = `${environment.api.baseUrl}customer`;
+export const CUSTOMER_GROUP_URL = `${environment.api.baseUrl}customergroup`;
+
+/* SETTING */
+export const API_KEYS_URL = `${environment.api.baseUrl}apikey`;
+
+/* TEMPLATE */
+export const TEMPLATE_URL = `${environment.api.baseUrl}wau/template`;

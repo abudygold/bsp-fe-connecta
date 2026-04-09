@@ -1,6 +1,10 @@
+import { IconDefinition } from '@fortawesome/angular-fontawesome';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faCircleUser, faDashboard, faGear, faRss } from '@fortawesome/free-solid-svg-icons';
+
 export interface NavItem {
 	label: string;
-	icon?: string;
+	icon?: IconDefinition;
 	url?: string; // External link
 	path?: string; // Internal router link
 	submenu?: NavItem[]; // Nested navigation
@@ -11,25 +15,86 @@ export interface NavItem {
 export const NAVIGATION_MENU: NavItem[] = [
 	{
 		label: 'Dashboard',
-		icon: 'dashboard',
+		icon: faDashboard,
 		path: '/secure',
 	},
 	{
-		label: 'Channel',
-		icon: 'chat',
-		path: '/secure/channel',
-	},
-	{
-		label: 'Accounts',
-		icon: 'rss_feed',
+		label: 'Channels',
+		icon: faRss,
 		submenu: [
 			{
 				label: 'Whatsapp',
-				icon: 'send',
+				icon: faWhatsapp,
 				submenu: [
 					{
 						label: 'Accounts',
-						icon: 'view_list',
+						path: '/secure/channel/wa',
+					},
+					{
+						label: 'Templates',
+						path: '/secure/channel/wa/template',
+					},
+				],
+			},
+			{
+				label: 'Whatsapp Unofficial',
+				icon: faWhatsapp,
+				submenu: [
+					{
+						label: 'Accounts',
+						path: '/secure/channel/wau',
+					},
+					{
+						label: 'Account Groups',
+						path: '/secure/channel/wau/group',
+					},
+					{
+						label: 'Templates',
+						path: '/secure/channel/wau/template',
+					},
+				],
+			},
+		],
+	},
+	{
+		label: 'Customers',
+		icon: faCircleUser,
+		submenu: [
+			{
+				label: 'List',
+				path: '/secure/customer',
+			},
+			{
+				label: 'Groups',
+				path: '/secure/customer/group',
+			},
+		],
+	},
+	{
+		label: 'Setting',
+		icon: faGear,
+		submenu: [
+			{
+				label: 'Users',
+				path: '/secure/setting/users',
+			},
+			{
+				label: 'API Keys',
+				path: '/secure/setting/api-keys',
+			},
+		],
+	},
+	/* {
+		label: 'Accounts',
+		icon: faCircleUser,
+		submenu: [
+			{
+				label: 'Whatsapp',
+				icon: faWhatsapp,
+				submenu: [
+					{
+						label: 'Accounts',
+						icon: faChevronRight,
 						path: '/secure/account/wa',
 					},
 				],
@@ -38,7 +103,7 @@ export const NAVIGATION_MENU: NavItem[] = [
 	},
 	{
 		label: 'Campaign',
-		icon: 'chat',
+		icon: faFacebookMessenger,
 		path: '/secure/campaign',
 	},
 	{
@@ -61,149 +126,5 @@ export const NAVIGATION_MENU: NavItem[] = [
 				path: '/secure/organization',
 			},
 		],
-	},
-	/* {
-    label: 'Channels',
-    icon: 'rss_feed',
-    submenu: [
-      {
-        label: 'Whatsapp',
-        icon: 'send',
-        submenu: [
-          {
-            label: 'Accounts',
-            icon: 'view_list',
-            path: '/secure/whatsapp',
-          },
-          {
-            label: 'Templates',
-            icon: 'table_chart',
-            path: '/secure/whatsapp/template',
-          },
-          {
-            label: 'Flows',
-            icon: 'account_tree',
-            path: '/secure/whatsapp/flow',
-          },
-        ],
-      },
-      {
-        label: 'Instagram',
-        icon: 'send',
-        submenu: [
-          {
-            label: 'Accounts',
-            icon: 'view_list',
-            path: '/secure/instagram',
-          },
-        ],
-      },
-      {
-        label: 'Facebook',
-        icon: 'send',
-        submenu: [
-          {
-            label: 'Accounts',
-            icon: 'view_list',
-            path: '/secure/facebook',
-          },
-        ],
-      },
-      {
-        label: 'SMS',
-        icon: 'sms',
-        submenu: [
-          {
-            label: 'Accounts',
-            icon: 'view_list',
-            path: '/secure/sms',
-          },
-          {
-            label: 'Templates',
-            icon: 'table_chart',
-            path: '/secure/sms/template',
-          },
-        ],
-      },
-      {
-        label: 'Email',
-        icon: 'mail',
-        submenu: [
-          {
-            label: 'Accounts',
-            icon: 'view_list',
-            path: '/secure/email',
-          },
-          {
-            label: 'Templates',
-            icon: 'table_chart',
-            path: '/secure/email/template',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Customer',
-    icon: 'account_box',
-    submenu: [
-      {
-        label: 'Customer List',
-        icon: 'view_list',
-        path: '/secure/customer',
-      },
-      {
-        label: 'Customer Groups',
-        icon: 'groups',
-        path: '/secure/customer/group',
-      },
-    ],
-  },
-  {
-    label: 'Broadcast Messaging',
-    icon: 'chat',
-    path: '/secure/broadcast',
-  },
-  {
-    label: 'Flow Builder',
-    icon: 'account_tree',
-    path: '/secure/flow-builder',
-  },
-  {
-    label: 'Reports',
-    icon: 'analytics',
-    submenu: [
-      {
-        label: 'Sales Report',
-        icon: 'bar_chart',
-        path: '/reports/sales',
-      },
-      {
-        label: 'Customer Report',
-        icon: 'bar_chart',
-        path: '/reports/customers',
-      },
-    ],
-  },
-  {
-    label: 'Administration',
-    icon: 'analytics',
-    submenu: [
-      {
-        label: 'Menu Management',
-        icon: 'view_list',
-        path: '/secure/menu',
-      },
-      {
-        label: 'Role Management',
-        icon: 'view_list',
-        path: '/secure/role',
-      },
-      {
-        label: 'Organization Management',
-        icon: 'view_list',
-        path: '/secure/organization',
-      },
-    ],
-  }, */
+	}, */
 ];

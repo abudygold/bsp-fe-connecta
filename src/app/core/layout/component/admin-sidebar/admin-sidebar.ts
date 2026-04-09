@@ -1,14 +1,15 @@
 import { Component, inject, input, model, OnInit, output } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { NAVIGATION_MENU, NavItem } from '../../../navigation';
 import { API } from '../../../services';
 
 @Component({
 	selector: 'app-admin-sidebar',
-	imports: [MatListModule, MatIconModule],
+	imports: [MatListModule, FontAwesomeModule],
 	templateUrl: './admin-sidebar.html',
 	styleUrl: './admin-sidebar.css',
 })
@@ -24,6 +25,11 @@ export class AdminSidebar implements OnInit {
 	menu = input<NavItem[]>(NAVIGATION_MENU);
 	isMobile = input<boolean>();
 	snav = model<MatSidenav>();
+
+	faIcon = {
+		faChevronUp,
+		faChevronDown,
+	};
 
 	constructor() {
 		this.router.events.subscribe(() => {

@@ -1,0 +1,26 @@
+<lib-dialog title="Add Members">
+	<ng-container content>
+		<div class="tw:pt-5">
+			<div class="tw:grid">
+				<div class="tw:mb-3">
+					<mat-form-field class="no-hint tw:w-full" appearance="outline">
+						<mat-label>Customers</mat-label>
+						<mat-select multiple [formField]="formData.customers">
+							@for (customer of opt.customers(); track customer) {
+								<mat-option [value]="customer.id">
+									{{ customer.name }}
+								</mat-option>
+							}
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+	<ng-container actions>
+		<div class="tw:flex tw:justify-between tw:my-2 tw:w-full">
+			<lib-button [config]="btn.cancel()" />
+			<lib-button [config]="btn.save()" />
+		</div>
+	</ng-container>
+</lib-dialog>

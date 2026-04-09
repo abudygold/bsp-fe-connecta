@@ -7,7 +7,7 @@ import {
 	ILoginForm,
 	LOGIN_DEFAULT_STATE,
 	LOGIN_SCHEMA_FORM,
-} from '../../../../shared/constant/formly';
+} from '../../../../shared/constant/formly/auth';
 import { LOGIN_URL } from '../../../../shared/constant/global';
 import { BaseForm } from '../../../common';
 import { Auth } from '../../../services';
@@ -42,13 +42,13 @@ export class AuthLogin extends BaseForm<ILoginForm> {
 			{},
 			(response: any) => {
 				this.#auth.setTokens(response.data);
-				this.route.navigate(['./secure']);
+				this.router.navigate(['./secure']);
 			},
 		);
 	}
 
 	navigateToAuth(page: 'forgot' | 'register'): void {
-		this.route.navigate([`./${page}`], {
+		this.router.navigate([`./${page}`], {
 			relativeTo: this.activatedRoute,
 		});
 	}

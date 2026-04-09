@@ -16,7 +16,7 @@ import { BaseAlert, DEFAULT_MESSAGE_CREATE, DEFAULT_MESSAGE_UPDATE } from './bas
 
 export class BaseForm<FormModel> {
 	api = inject(API);
-	route = inject(Router);
+	router = inject(Router);
 	activatedRoute = inject(ActivatedRoute);
 
 	formModel!: WritableSignal<FormModel>;
@@ -26,10 +26,10 @@ export class BaseForm<FormModel> {
 	isPageLoaded = signal<boolean>(false);
 
 	constructor(
-		formModel: FormModel,
+		formModel: FormModel | null,
 		formData: FormOptions<FormModel> | SchemaOrSchemaFn<FormModel, PathKind.Root>,
 	) {
-		this.formModel = signal<FormModel>(formModel);
+		this.formModel = signal<FormModel>(formModel || {} as FormModel);
 		this.formData = form(this.formModel, formData);
 
 		this.id.set(this.activatedRoute.snapshot.paramMap.get('id') || null);
@@ -102,6 +102,8 @@ export class BaseForm<FormModel> {
 		submit(this.formData, async () =>
 			this.#onSubmitService(URL, bodyReq, params, callbackFn, errorFn),
 		);
+
+		if (errorFn && this.formData().errorSummary()) errorFn();
 	}
 
 	#onSubmitService(

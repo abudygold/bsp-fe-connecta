@@ -3,13 +3,13 @@ import { submit } from '@angular/forms/signals';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Formly, FormlyFormConfig } from '@devkitify/angular-ui-kit';
-import { PASSWORD_RULES_CHECK } from '../../../../shared/constant';
 import {
 	FORMLY_REGISTER_FORM,
 	IRegisterForm,
 	REGISTER_DEFAULT_STATE,
 	REGISTER_SCHEMA_FORM,
-} from '../../../../shared/constant/formly';
+} from '../../../../shared/constant/formly/auth';
+import { PASSWORD_RULES_CHECK } from '../../../../shared/constant/global';
 import { BaseForm } from '../../../common';
 
 @Component({
@@ -40,7 +40,7 @@ export class AuthRegister extends BaseForm<IRegisterForm> {
 	}
 
 	navigateToLogin(): void {
-		this.route.navigate(['/'], {
+		this.router.navigate(['/'], {
 			relativeTo: this.activatedRoute,
 		});
 	}
