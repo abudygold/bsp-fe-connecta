@@ -19,8 +19,6 @@
 					[checked]="tableModel.isSelected(data)"
 					(change)="onRowSelection(data)" />
 			</div>
-		} @else if (key === 'name' || key === 'lang') {
-			{{ data[key] }}
 		} @else if (key === 'category') {
 			<app-status-badge
 				[label]="data.category.toLowerCase()"
@@ -47,6 +45,8 @@
 					class="tw:text-red-400"
 					(click)="onAction('delete', data?.id)" />
 			</div>
+		} @else if (['name', 'lang'].includes(key)) {
+			{{ data[key] }}
 		}
 	</ng-template>
 

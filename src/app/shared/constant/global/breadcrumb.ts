@@ -24,12 +24,19 @@ const ACCOUNT_TEMPLATE_WAU_EDIT_LINK: BreadcrumbModel = { label: 'Edit Template'
 const CUSTOMER_LINK: BreadcrumbModel = { label: 'Customer List', url: '/secure/customer' };
 const CUSTOMER_ADD_LINK: BreadcrumbModel = { label: 'New Customer' };
 const CUSTOMER_EDIT_LINK: BreadcrumbModel = { label: 'Edit Customer' };
+const CUSTOMER_SEND_MESSAGE_LINK: BreadcrumbModel = { label: 'Send Message' };
 const CUSTOMER_GROUP_LINK: BreadcrumbModel = {
 	label: 'Customer Groups',
 	url: '/secure/customer/group',
 };
+const CAMPAIGN_LINK: BreadcrumbModel = { label: 'Campaign List', url: '/secure/campaign' };
+const CAMPAIGN_ADD_LINK: BreadcrumbModel = { label: 'New Campaign' };
+const CAMPAIGN_EDIT_LINK: BreadcrumbModel = { label: 'Edit Campaign' };
 const USERS_LINK: BreadcrumbModel = { label: 'Users List', url: '/secure/setting/users' };
 const API_KEYS_LINK: BreadcrumbModel = { label: 'API Keys List', url: '/secure/setting/api-keys' };
+const MESSAGE_LOG_REPORT_LINK: BreadcrumbModel = {
+	label: 'Message Log Report',
+};
 
 /* BREADCRUMBS */
 export const BREADCRUMBS = (path: string = '', id: string = ''): BreadcrumbModel[] => {
@@ -56,30 +63,22 @@ export const BREADCRUMBS = (path: string = '', id: string = ''): BreadcrumbModel
 		'/secure/customer': [DASHBOARD_LINK, CUSTOMER_LINK],
 		'/secure/customer/add': [DASHBOARD_LINK, CUSTOMER_LINK, CUSTOMER_ADD_LINK],
 		['/secure/customer/edit/' + id]: [DASHBOARD_LINK, CUSTOMER_LINK, CUSTOMER_EDIT_LINK],
+		['/secure/customer/send-message/' + id]: [
+			DASHBOARD_LINK,
+			CUSTOMER_LINK,
+			CUSTOMER_SEND_MESSAGE_LINK,
+		],
 		'/secure/customer/group': [DASHBOARD_LINK, CUSTOMER_GROUP_LINK],
+		/* CAMPAIGN */
+		'/secure/campaign': [DASHBOARD_LINK, CAMPAIGN_LINK],
+		'/secure/campaign/add': [DASHBOARD_LINK, CAMPAIGN_LINK, CAMPAIGN_ADD_LINK],
+		['/secure/campaign/edit/' + id]: [DASHBOARD_LINK, CAMPAIGN_LINK, CAMPAIGN_EDIT_LINK],
+		/* REPORT */
+		'/secure/report/message-log': [DASHBOARD_LINK, MESSAGE_LOG_REPORT_LINK],
+		/* SETTING */
 		'/secure/setting/users': [DASHBOARD_LINK, USERS_LINK],
 		'/secure/setting/api-keys': [DASHBOARD_LINK, API_KEYS_LINK],
 	};
 
 	return breadcrumbs[path];
 };
-
-/************ OLD **********/
-// /* MENUS MENU */
-// export const MENU_LIST_BREADCRUMB: BreadcrumbModel[] = [DASHBOARD_LINK, { label: 'Menus' }];
-
-// /* USER MENU */
-// export const USER_LIST_BREADCRUMB: BreadcrumbModel[] = [DASHBOARD_LINK, { label: 'Dashboard' }];
-
-// /* ROLE MENU */
-// export const ROLE_LIST_BREADCRUMB: BreadcrumbModel[] = [DASHBOARD_LINK, { label: 'Roles' }];
-
-// /* ORGANIZATION MENU */
-// export const ORGANIZATION_LIST_BREADCRUMB: BreadcrumbModel[] = [
-// 	DASHBOARD_LINK,
-// 	{ label: 'Organization' },
-// ];
-
-// /* CAMPAIGN MENU */
-// export const CAMPAIGN_LIST_BREADCRUMB: BreadcrumbModel[] = [DASHBOARD_LINK, { label: 'Campaign' }];
-/************ ./ OLD **********/

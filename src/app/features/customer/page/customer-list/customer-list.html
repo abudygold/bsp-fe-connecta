@@ -42,6 +42,11 @@
 		} @else if (key === 'actions') {
 			<div class="tw:flex tw:gap-3">
 				<fa-icon
+					[icon]="faIcon.faPaperPlane"
+					size="lg"
+					class="tw:text-green-400"
+					(click)="sendMessage(data)" />
+				<fa-icon
 					[icon]="faIcon.faEdit"
 					size="lg"
 					class="tw:text-blue-400"

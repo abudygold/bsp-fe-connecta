@@ -1,6 +1,6 @@
 <div class="tw:grid tw:md:grid-cols-12 tw:mb-4">
 	<div class="tw:md:col-span-4">
-		<app-search placeholder="Search phone, name..." (searchValue)="onSearch($event)" />
+		<app-search placeholder="Search campaigns..." (searchValue)="onSearch($event)" />
 	</div>
 	<div class="tw:md:col-span-8 tw:flex tw:justify-end">
 		<lib-button [config]="button.addNew()" />
@@ -23,8 +23,8 @@
 			<app-status-badge
 				[label]="data.status.toLowerCase()"
 				[badgeClass]="{
-					'tw:bg-green-100 tw:text-green-700': data.status.toLowerCase() === 'connected',
-					'tw:bg-red-100 tw:text-red-700': data.status.toLowerCase() === 'disconnected',
+					'tw:bg-yellow-100 tw:text-yellow-700': data.status.toLowerCase() === 'sending',
+					'tw:bg-green-100 tw:text-green-700': data.status.toLowerCase() === 'complete',
 				}" />
 		} @else if (key === 'actions') {
 			<div class="tw:flex tw:gap-3">
@@ -32,13 +32,15 @@
 					[icon]="faIcon.faEdit"
 					size="lg"
 					class="tw:text-blue-400"
-					(click)="openDialog(data)" />
+					(click)="navigateToPage(['./edit', data?.id])" />
 				<fa-icon
 					[icon]="faIcon.faTrash"
 					size="lg"
 					class="tw:text-red-400"
 					(click)="onAction('delete', data?.id)" />
 			</div>
+		} @else if (['channel', 'accountNo'].includes(key)) {
+			{{ data[key] || '-' }}
 		}
 	</ng-template>
 

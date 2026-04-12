@@ -3,7 +3,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Button, Table } from '@devkitify/angular-ui-kit';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons';
 import { BaseTable } from '../../../../core/common';
 import { Search } from '../../../../shared/components/search';
 import { StatusBadge } from '../../../../shared/components/status-badge';
@@ -32,6 +32,14 @@ export class CustomerList extends BaseTable {
 		this.faIcon = {
 			...this.faIcon,
 			faStar,
+			faPaperPlane,
 		};
+	}
+
+	sendMessage(data: any): void {
+		if (!data) return;
+		this.navigateToPage(['./send-message'], {
+			data: btoa(JSON.stringify(data?.contacts || [])),
+		});
 	}
 }

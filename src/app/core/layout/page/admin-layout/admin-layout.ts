@@ -11,10 +11,10 @@ import {
 	Router,
 	RouterOutlet,
 } from '@angular/router';
+import { BreadcrumbModel } from '@devkitify/angular-ui-kit';
 import { map } from 'rxjs';
 import { Breadcrumb } from '../../../../shared/components/breadcrumb';
 import { BREADCRUMBS } from '../../../../shared/constant/global';
-import { IBreadcrumb } from '../../../../shared/interface/base';
 import { AdminHeader } from '../../component/admin-header';
 import { AdminSidebar } from '../../component/admin-sidebar';
 
@@ -34,7 +34,7 @@ export class AdminLayout {
 
 	protected readonly isMobile = signal(true);
 
-	breadcrumbs: IBreadcrumb[] = [];
+	breadcrumbs: BreadcrumbModel[] = [];
 	isNavigating: boolean = false;
 
 	navigate = toSignal(

@@ -1,0 +1,197 @@
+<div class="tw:flex tw:flex-col tw:md:flex-row tw:gap-4 tw:h-screen">
+	<div class="tw:flex-1">
+		<div class="tw:bg-white tw:rounded-xl tw:shadow-sm tw:p-8 tw:border tw:border-gray-200">
+			<div class="tw:mb-5">
+				<lib-dropdown
+					class="no-hint"
+					[field]="{
+						key: 'channel',
+						type: 'dropdown',
+						control: $any(formData.channel),
+						onChange: changeChannelHandler.bind(this),
+						config: {
+							label: 'Channel',
+							options: {
+								valueKey: 'id',
+								labelKey: 'name',
+								data: opt.channel() || [],
+							},
+						},
+					}" />
+
+				<app-message-validation [fieldState]="formData.channel()" />
+			</div>
+
+			<div class="tw:mb-5">
+				<mat-form-field appearance="outline" class="tw:w-full no-hint">
+					<mat-label>From</mat-label>
+					<mat-select [formField]="formData.from">
+						@for (from of opt.from(); track from) {
+							<mat-optgroup [label]="from.name">
+								@for (option of from.options; track option) {
+									<mat-option [value]="option.value">
+										{{ option.label }}
+									</mat-option>
+								}
+							</mat-optgroup>
+						}
+					</mat-select>
+				</mat-form-field>
+
+				<app-message-validation [fieldState]="formData.from()" />
+			</div>
+
+			<div class="tw:mb-5">
+				<lib-dropdown
+					class="no-hint"
+					[field]="{
+						key: 'to',
+						type: 'dropdown',
+						control: $any(formData.to),
+						config: {
+							label: 'To',
+							options: {
+								data: opt.to() || [],
+							},
+						},
+					}" />
+
+				<app-message-validation [fieldState]="formData.to()" />
+			</div>
+
+			<div class="tw:mb-5">
+				<lib-dropdown
+					class="no-hint"
+					[field]="{
+						key: 'msgType',
+						type: 'dropdown',
+						control: $any(formData.msgType),
+						onChange: changeMsgTypeHandler.bind(this),
+						config: {
+							label: 'Message Type',
+							options: {
+								valueKey: 'value',
+								labelKey: 'label',
+								data: [
+									{
+										value: 'text',
+										label: 'Text',
+									},
+									{
+										value: 'template',
+										label: 'Template',
+									},
+								],
+							},
+						},
+					}" />
+
+				<app-message-validation [fieldState]="formData.msgType()" />
+			</div>
+
+			@if (formData.msgType().value() === 'template') {
+				<div class="tw:mb-5">
+					<lib-dropdown
+						class="no-hint"
+						[field]="{
+							key: 'templateLang',
+							type: 'dropdown',
+							control: $any(formData.template.lang),
+							config: {
+								label: 'Language',
+								options: {
+									valueKey: 'value',
+									labelKey: 'label',
+									data: [
+										{
+											value: 'id',
+											label: 'Indonesia',
+										},
+										{
+											value: 'en',
+											label: 'English',
+										},
+									],
+								},
+							},
+						}" />
+
+					<app-message-validation [fieldState]="formData.template.lang()" />
+				</div>
+
+				<div class="tw:mb-5">
+					<lib-dropdown
+						class="no-hint"
+						[field]="{
+							key: 'templateName',
+							type: 'dropdown',
+							control: $any(formData.template.name),
+							onChange: changeTemplateHandler.bind(this),
+							config: {
+								label: 'Template',
+								options: {
+									valueKey: 'id',
+									labelKey: 'name',
+									data: opt.template() || [],
+								},
+							},
+						}" />
+
+					<app-message-validation [fieldState]="formData.template.name()" />
+				</div>
+
+				@if (templateSelected()) {
+					<div
+						class="tw:bg-gray-100 tw:rounded-lg tw:p-4 tw:my-5 tw:border tw:border-gray-300">
+						<ul class="tw:text-xs tw:text-gray-600 tw:space-y-1">
+							<p class="tw:text-base tw:font-semibold">Template Body</p>
+							<p class="tw:text-sm">
+								{{ templateSelected().payload.body }}
+							</p>
+						</ul>
+					</div>
+				}
+
+				@for (parameter of formData.template.body.parameters; track $index) {
+					<div class="tw:mb-5">
+						<lib-textbox
+							class="no-hint"
+							[field]="{
+								key: 'header',
+								type: 'textbox',
+								control: $any(parameter.name),
+								config: {
+									label:
+										formData.template.name().value() === 'randomOTP'
+											? 'OTP'
+											: 'Body ' + ($index + 1),
+								},
+							}" />
+
+						<app-message-validation [fieldState]="parameter.name()" />
+					</div>
+				}
+			} @else {
+				<div class="tw:mb-4">
+					<lib-textarea
+						class="no-hint"
+						[field]="{
+							key: 'text',
+							type: 'textarea',
+							control: $any(formData.text),
+							config: {
+								label: 'Message Body',
+							},
+						}" />
+
+					<app-message-validation [fieldState]="formData.text()" />
+				</div>
+			}
+
+			<div class="tw:flex tw:justify-between tw:my-4">
+				<lib-button [config]="btn.cancel()" />
+				<lib-button [config]="btn.save()" />
+			</div>
+		</div>
+	</div>
+</div>

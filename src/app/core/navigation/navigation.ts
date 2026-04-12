@@ -1,6 +1,13 @@
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
-import { faCircleUser, faDashboard, faGear, faRss } from '@fortawesome/free-solid-svg-icons';
+import {
+	faBullhorn,
+	faChartPie,
+	faCircleUser,
+	faDashboard,
+	faGear,
+	faRss,
+} from '@fortawesome/free-solid-svg-icons';
 
 export interface NavItem {
 	label: string;
@@ -67,6 +74,26 @@ export const NAVIGATION_MENU: NavItem[] = [
 			{
 				label: 'Groups',
 				path: '/secure/customer/group',
+			},
+		],
+	},
+	{
+		label: 'Campaigns',
+		icon: faBullhorn,
+		submenu: [
+			{
+				label: 'List',
+				path: '/secure/campaign',
+			},
+		],
+	},
+	{
+		label: 'Reports',
+		icon: faChartPie,
+		submenu: [
+			{
+				label: 'Message Log',
+				path: '/secure/report/message-log',
 			},
 		],
 	},

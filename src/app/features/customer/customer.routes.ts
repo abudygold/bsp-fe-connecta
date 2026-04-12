@@ -44,6 +44,11 @@ export const CUSTOMER_ROUTES: Routes = [
 					},
 				],
 			},
+			{
+				path: 'send-message',
+				loadComponent: () =>
+					import('./page/customer-send-message').then((m) => m.CustomerSendMessage),
+			},
 		],
 	},
 ];

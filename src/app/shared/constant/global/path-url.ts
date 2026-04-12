@@ -21,3 +21,9 @@ export const API_KEYS_URL = `${environment.api.baseUrl}apikey`;
 
 /* TEMPLATE */
 export const TEMPLATE_URL = `${environment.api.baseUrl}wau/template`;
+
+/* MESSAGE */
+export const MESSAGE_URL = `${environment.api.baseUrl}message`;
+
+/* CAMPAIGN */
+export const CAMPAIGN_URL = `${environment.api.baseUrl}campaign`;

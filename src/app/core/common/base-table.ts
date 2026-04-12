@@ -1,7 +1,7 @@
 import { inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Sort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ButtonModel, TableModel } from '@devkitify/angular-ui-kit';
 import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { IHttpResponse } from '../../shared/interface/base';
@@ -133,9 +133,10 @@ export class BaseTable {
 		});
 	}
 
-	navigateToPage(page: string[]): void {
+	navigateToPage(page: string[], queryParams?: Params | null | undefined): void {
 		this.router.navigate(page, {
 			relativeTo: this.activatedRoute,
+			...(queryParams ? { queryParams } : {}),
 		});
 	}
 }

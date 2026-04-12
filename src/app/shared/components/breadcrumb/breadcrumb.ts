@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { IBreadcrumb } from '../../interface/base';
+import { BreadcrumbModel } from '@devkitify/angular-ui-kit';
 
 @Component({
 	selector: 'app-breadcrumb',
@@ -11,5 +11,5 @@ import { IBreadcrumb } from '../../interface/base';
 	styleUrl: './breadcrumb.css',
 })
 export class Breadcrumb {
-	breadcrumbs = input.required<IBreadcrumb[]>();
+	breadcrumbs = input.required<BreadcrumbModel[]>();
 }
