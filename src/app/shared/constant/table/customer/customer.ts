@@ -2,9 +2,6 @@ import { TableModel } from '@devkitify/angular-ui-kit';
 
 /* CUSTOMER LIST */
 export const CUSTOMER_CUSTOM_TYPE = {
-	selection: {
-		type: 'custom',
-	},
 	channels: {
 		type: 'custom',
 	},
@@ -15,11 +12,6 @@ export const CUSTOMER_CUSTOM_TYPE = {
 
 export const CUSTOMER_TABLE: TableModel = new TableModel();
 CUSTOMER_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
 	{
 		key: 'name',
 		label: 'Name',

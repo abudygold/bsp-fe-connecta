@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChannelTemplateWAUForm } from './channel-template-wau-form';
+import { ChannelAccountForm } from './channel-account-form';
 
-describe('ChannelTemplateWAUForm', () => {
-	let component: ChannelTemplateWAUForm;
-	let fixture: ComponentFixture<ChannelTemplateWAUForm>;
+describe('ChannelAccountForm', () => {
+	let component: ChannelAccountForm;
+	let fixture: ComponentFixture<ChannelAccountForm>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [ChannelTemplateWAUForm],
+			imports: [ChannelAccountForm],
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(ChannelTemplateWAUForm);
+		fixture = TestBed.createComponent(ChannelAccountForm);
 		component = fixture.componentInstance;
 		await fixture.whenStable();
 	});

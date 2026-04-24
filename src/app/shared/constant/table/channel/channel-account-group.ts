@@ -2,9 +2,6 @@ import { TableModel } from '@devkitify/angular-ui-kit';
 
 /* CHANNEL ACCOUNT GROUP WHATSAPP UNOFFICIAL TABLE */
 export const CHANNEL_ACCOUNT_GROUP_CUSTOM_TYPE = {
-	selection: {
-		type: 'custom',
-	},
 	name: {
 		type: 'custom',
 	},
@@ -16,13 +13,8 @@ export const CHANNEL_ACCOUNT_GROUP_CUSTOM_TYPE = {
 	},
 };
 
-export const CHANNEL_ACCOUNT_GROUP_WAU_TABLE: TableModel = new TableModel();
-CHANNEL_ACCOUNT_GROUP_WAU_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
+export const CHANNEL_ACCOUNT_GROUP_TABLE: TableModel = new TableModel();
+CHANNEL_ACCOUNT_GROUP_TABLE.columns = [
 	{
 		key: 'name',
 		label: 'Name',
@@ -39,10 +31,10 @@ CHANNEL_ACCOUNT_GROUP_WAU_TABLE.columns = [
 		sortable: false,
 	},
 ];
-CHANNEL_ACCOUNT_GROUP_WAU_TABLE.sortActive = 'name';
-CHANNEL_ACCOUNT_GROUP_WAU_TABLE.sortDirection = 'asc';
-CHANNEL_ACCOUNT_GROUP_WAU_TABLE.isServerSide.set(true);
-CHANNEL_ACCOUNT_GROUP_WAU_TABLE.isPagination.set(true);
+CHANNEL_ACCOUNT_GROUP_TABLE.sortActive = 'name';
+CHANNEL_ACCOUNT_GROUP_TABLE.sortDirection = 'asc';
+CHANNEL_ACCOUNT_GROUP_TABLE.isServerSide.set(true);
+CHANNEL_ACCOUNT_GROUP_TABLE.isPagination.set(true);
 
 /* CHANNEL GROUP MEMBER LIST */
 export const CHANNEL_ACCOUNT_GROUP_MEMBERS_CUSTOM_TYPE = {

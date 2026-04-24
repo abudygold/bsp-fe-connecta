@@ -1,6 +1,6 @@
 import { PathKind, required, SchemaPathTree } from '@angular/forms/signals';
 
-export interface ITemplateWAUForm {
+export interface ITemplateForm {
 	category: string;
 	lang: string;
 	name: string;
@@ -11,7 +11,7 @@ export interface ITemplateWAUForm {
 	};
 }
 
-export const TEMPLATE_WAU_DEFAULT_STATE: ITemplateWAUForm = {
+export const TEMPLATE_DEFAULT_STATE: ITemplateForm = {
 	category: '',
 	lang: '',
 	name: '',
@@ -22,19 +22,19 @@ export const TEMPLATE_WAU_DEFAULT_STATE: ITemplateWAUForm = {
 	},
 };
 
-export const TEMPLATE_WAU_EDIT_STATE = (data: any) => ({
+export const TEMPLATE_EDIT_STATE = (data: any) => ({
 	category: data?.category || '',
 	lang: data?.lang || '',
 	name: data?.name || '',
-	payload: data?.payload || {
-		body: '',
-		header: '',
-		headerType: '',
+	payload: {
+		body: data?.payload.body || '',
+		header: data?.payload.header || '',
+		headerType: data?.payload.headerType || '',
 	},
 });
 
-export const TEMPLATE_WAU_SCHEMA_FORM = (
-	schemaPath: SchemaPathTree<ITemplateWAUForm, PathKind.Root>,
+export const TEMPLATE_SCHEMA_FORM = (
+	schemaPath: SchemaPathTree<ITemplateForm, PathKind.Root>,
 ) => {
 	required(schemaPath.category, { message: 'Category is required' });
 	required(schemaPath.lang, { message: 'Language is required' });

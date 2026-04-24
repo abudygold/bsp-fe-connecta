@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Button, Table } from '@devkitify/angular-ui-kit';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -9,22 +8,15 @@ import { StatusBadge } from '../../../../shared/components/status-badge';
 import { ACCOUNTS_URL, FORM_SM_DIALOG_CONFIG } from '../../../../shared/constant/global';
 import {
 	CHANNEL_ACCOUNT_CUSTOM_TYPE,
+	CHANNEL_ACCOUNT_SMS_TABLE,
 	CHANNEL_ACCOUNT_WA_TABLE,
 	CHANNEL_ACCOUNT_WAU_TABLE,
 } from '../../../../shared/constant/table/channel';
-import { ChannelAccountWAUForm } from '../../dialog/channel-account-wau-form';
+import { ChannelAccountForm } from '../../dialog/channel-account-form';
 
 @Component({
 	selector: 'app-channel-account-list',
-	imports: [
-		Table,
-		Search,
-		Button,
-		StatusBadge,
-		MatIconModule,
-		MatCheckboxModule,
-		FontAwesomeModule,
-	],
+	imports: [Table, Search, Button, StatusBadge, MatIconModule, FontAwesomeModule],
 	templateUrl: './channel-account-list.html',
 	styleUrl: './channel-account-list.css',
 })
@@ -47,25 +39,41 @@ export class ChannelAccountList extends BaseTable {
 		const path = this.router.url.split('/');
 		this.channel.set(path.at(-1)?.toUpperCase() || '');
 
-		if (this.channel() === 'WAU') {
-			this.tableModel = CHANNEL_ACCOUNT_WAU_TABLE;
+		switch (this.channel()) {
+			case 'WAU':
+				this.tableModel = CHANNEL_ACCOUNT_WAU_TABLE;
+				break;
+			case 'SMS':
+				this.tableModel = CHANNEL_ACCOUNT_SMS_TABLE;
+				break;
 		}
 
-		this.initAddButton('Add New Account', () => this.openDialog());
+		this.initAddButton('New Account', () => this.openDialog());
+	}
+
+	#initTitle(row: any): string {
+		switch (this.channel()) {
+			case 'WAU':
+				return row ? 'Edit WhatsApp Unofficial Account' : 'Add WhatsApp Unofficial Account';
+			case 'SMS':
+				return row ? 'Edit SMS Account' : 'Add SMS Account';
+			default:
+				return row ? `Edit ${this.channel()} Account` : `Add ${this.channel()} Account`;
+		}
 	}
 
 	openDialog(data?: any): void {
-		const dialogRef = this.dialog.open(ChannelAccountWAUForm, {
+		const dialogRef = this.dialog.open(ChannelAccountForm, {
 			...FORM_SM_DIALOG_CONFIG,
 			data: {
 				row: data,
 				channel: this.channel(),
+				title: this.#initTitle(data),
 			},
 		});
 
 		dialogRef.afterClosed().subscribe((result) => {
 			if (!result) return;
-
 			this.fetchData();
 		});
 	}

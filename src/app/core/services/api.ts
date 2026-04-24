@@ -5,47 +5,67 @@ import { Observable } from 'rxjs';
 import { generateHttpHeader, generateHttpParams } from './utils';
 
 type Params = {
-  [key: string]: any;
+	[key: string]: any;
 };
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class API {
-  #http = inject(HttpClient);
-  #destroyRef = inject(DestroyRef);
+	#http = inject(HttpClient);
+	#destroyRef = inject(DestroyRef);
 
-  get<T>(url: string, paramsReq: any = {}, headersReq: any = {}): Observable<T> {
-    const params = generateHttpParams(paramsReq);
-    const headers = generateHttpHeader(headersReq);
+	get<T>(url: string, paramsReq: any = {}, headersReq: any = {}): Observable<T> {
+		const params = generateHttpParams(paramsReq);
+		const headers = generateHttpHeader(headersReq);
 
-    return this.#http.get<T>(url, { params, headers }).pipe(takeUntilDestroyed(this.#destroyRef));
-  }
+		return this.#http
+			.get<T>(url, { params, headers })
+			.pipe(takeUntilDestroyed(this.#destroyRef));
+	}
 
-  post<T>(url: string, body: any, headersReq?: any): Observable<T> {
-    const headers = headersReq ? generateHttpHeader(headersReq) : {};
+	post<T>(url: string, body: any, headersReq?: any): Observable<T> {
+		const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http.post<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
-  }
+		return this.#http
+			.post<T>(url, body, { headers })
+			.pipe(takeUntilDestroyed(this.#destroyRef));
+	}
 
-  put<T>(url: string, body: any, headersReq?: any): Observable<T> {
-    const headers = headersReq ? generateHttpHeader(headersReq) : {};
+	put<T>(url: string, body: any, headersReq?: any): Observable<T> {
+		const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http.put<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
-  }
+		return this.#http.put<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
+	}
 
-  patch<T>(url: string, body: any, headersReq?: any): Observable<T> {
-    const headers = headersReq ? generateHttpHeader(headersReq) : {};
+	patch<T>(url: string, body: any, headersReq?: any): Observable<T> {
+		const headers = headersReq ? generateHttpHeader(headersReq) : {};
 
-    return this.#http.patch<T>(url, body, { headers }).pipe(takeUntilDestroyed(this.#destroyRef));
-  }
+		return this.#http
+			.patch<T>(url, body, { headers })
+			.pipe(takeUntilDestroyed(this.#destroyRef));
+	}
 
-  delete<T>(url: string, paramsReq: any = {}, headersReq: any = {}): Observable<T> {
-    const params = generateHttpParams(paramsReq);
-    const headers = generateHttpHeader(headersReq);
+	delete<T>(url: string, paramsReq: any = {}, headersReq: any = {}): Observable<T> {
+		const params = generateHttpParams(paramsReq);
+		const headers = generateHttpHeader(headersReq);
 
-    return this.#http
-      .delete<T>(url, { params, headers })
-      .pipe(takeUntilDestroyed(this.#destroyRef));
-  }
+		return this.#http
+			.delete<T>(url, { params, headers })
+			.pipe(takeUntilDestroyed(this.#destroyRef));
+	}
+
+	download<T>(
+		url: string,
+		body: any,
+		paramsReq: any = {},
+		headersReq: any = {},
+	): Observable<Blob> {
+		const params = generateHttpParams(paramsReq);
+		const headers = generateHttpHeader(headersReq);
+
+		return this.#http
+			.post(url, body, { params, headers, responseType: 'blob', observe: 'body' })
+			.pipe(takeUntilDestroyed(this.#destroyRef));
+	}
 }

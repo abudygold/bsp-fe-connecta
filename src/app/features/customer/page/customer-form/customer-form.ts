@@ -18,7 +18,7 @@ import {
 	CUSTOMER_URL,
 	SAVE_BUTTON,
 } from '../../../../shared/constant/global';
-import { IHttpResponse, IOptionList } from '../../../../shared/interface/base';
+import { IOptionList } from '../../../../shared/interface/base';
 
 @Component({
 	selector: 'app-customer-form',
@@ -52,16 +52,11 @@ export class CustomerForm extends BaseForm<ICustomerForm> {
 	constructor() {
 		super(CUSTOMER_DEFAULT_STATE, (schemaPath) => CUSTOMER_SCHEMA_FORM(schemaPath));
 		this.id() && this.getDetailService(CUSTOMER_URL, CUSTOMER_EDIT_STATE);
-		this.getChannelOptionService();
+		this.#loadOptions();
 	}
 
-	getChannelOptionService(): void {
-		this.api.get<IHttpResponse>(CHANNEL_URL).subscribe({
-			next: (res) => {
-				const data = (res?.data?.list || []) as IOptionList[];
-				this.opt.channel.set(data);
-			},
-		});
+	#loadOptions(): void {
+		this.mapOptions(CHANNEL_URL, this.opt.channel);
 	}
 
 	addMember(): void {
@@ -94,6 +89,6 @@ export class CustomerForm extends BaseForm<ICustomerForm> {
 	}
 
 	navigateToList(): void {
-		this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
+		this.router.navigate(['../'], { relativeTo: this.activatedRoute });
 	}
 }

@@ -1,13 +1,13 @@
 import { TableModel } from '@devkitify/angular-ui-kit';
 
 export const CAMPAIGN_CUSTOM_TYPE = {
-	selection: {
-		type: 'custom',
-	},
 	channel: {
 		type: 'custom',
 	},
 	accountNo: {
+		type: 'custom',
+	},
+	fileName: {
 		type: 'custom',
 	},
 	status: {
@@ -21,11 +21,6 @@ export const CAMPAIGN_CUSTOM_TYPE = {
 /* CAMPAIGN TABLE */
 export const CAMPAIGN_TABLE: TableModel = new TableModel();
 CAMPAIGN_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
 	{
 		key: 'name',
 		label: 'Name',
@@ -50,6 +45,11 @@ CAMPAIGN_TABLE.columns = [
 		key: 'targetType',
 		label: 'Target Type',
 		sortable: true,
+	},
+	{
+		key: 'fileName',
+		label: 'Target',
+		sortable: false,
 	},
 	{
 		key: 'creatorName',

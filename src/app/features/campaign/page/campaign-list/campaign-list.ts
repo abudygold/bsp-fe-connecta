@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Button, Table } from '@devkitify/angular-ui-kit';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -11,21 +10,13 @@ import { CAMPAIGN_CUSTOM_TYPE, CAMPAIGN_TABLE } from '../../../../shared/constan
 
 @Component({
 	selector: 'app-campaign-list',
-	imports: [
-		Table,
-		Search,
-		Button,
-		StatusBadge,
-		MatIconModule,
-		MatCheckboxModule,
-		FontAwesomeModule,
-	],
+	imports: [Table, Search, Button, StatusBadge, MatIconModule, FontAwesomeModule],
 	templateUrl: './campaign-list.html',
 	styleUrl: './campaign-list.css',
 })
 export class CampaignList extends BaseTable {
 	constructor() {
 		super(CAMPAIGN_URL, CAMPAIGN_TABLE, CAMPAIGN_CUSTOM_TYPE);
-		this.initAddButton('Add New Campaign', () => this.navigateToPage(['./add']));
+		this.initAddButton('New Campaign', () => this.navigateToPage(['./add']));
 	}
 }

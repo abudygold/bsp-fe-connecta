@@ -6,7 +6,9 @@ import {
 	faCircleUser,
 	faDashboard,
 	faGear,
+	faLayerGroup,
 	faRss,
+	faSms,
 } from '@fortawesome/free-solid-svg-icons';
 
 export interface NavItem {
@@ -52,14 +54,29 @@ export const NAVIGATION_MENU: NavItem[] = [
 						path: '/secure/channel/wau',
 					},
 					{
-						label: 'Account Groups',
-						path: '/secure/channel/wau/group',
-					},
-					{
 						label: 'Templates',
 						path: '/secure/channel/wau/template',
 					},
 				],
+			},
+			{
+				label: 'SMS',
+				icon: faSms,
+				submenu: [
+					{
+						label: 'Accounts',
+						path: '/secure/channel/sms',
+					},
+					{
+						label: 'Templates',
+						path: '/secure/channel/sms/template',
+					},
+				],
+			},
+			{
+				label: 'Account Groups',
+				icon: faLayerGroup,
+				path: '/secure/channel/group',
 			},
 		],
 	},

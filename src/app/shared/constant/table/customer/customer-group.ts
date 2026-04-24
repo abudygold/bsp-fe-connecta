@@ -2,9 +2,6 @@ import { TableModel } from '@devkitify/angular-ui-kit';
 
 /* CUSTOMER GROUP LIST */
 export const CUSTOMER_GROUP_CUSTOM_TYPE = {
-	selection: {
-		type: 'custom',
-	},
 	actions: {
 		type: 'custom',
 	},
@@ -12,11 +9,6 @@ export const CUSTOMER_GROUP_CUSTOM_TYPE = {
 
 export const CUSTOMER_GROUP_TABLE: TableModel = new TableModel();
 CUSTOMER_GROUP_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
 	{
 		key: 'name',
 		label: 'Name',

@@ -35,11 +35,40 @@ export const CHANNEL_ROUTES: Routes = [
 							import('./page/channel-account-list').then((m) => m.ChannelAccountList),
 					},
 					{
-						path: 'group',
+						path: 'template',
+						children: [
+							{
+								path: '',
+								loadComponent: () =>
+									import('./page/channel-template-list').then(
+										(m) => m.ChannelTemplateList,
+									),
+							},
+							{
+								path: 'add',
+								loadComponent: () =>
+									import('./page/channel-template-form').then(
+										(m) => m.ChannelTemplateForm,
+									),
+							},
+							{
+								path: 'edit/:id',
+								loadComponent: () =>
+									import('./page/channel-template-form').then(
+										(m) => m.ChannelTemplateForm,
+									),
+							},
+						],
+					},
+				],
+			},
+			{
+				path: 'sms',
+				children: [
+					{
+						path: '',
 						loadComponent: () =>
-							import('./page/channel-account-group-list').then(
-								(m) => m.ChannelAccountGroupList,
-							),
+							import('./page/channel-account-list').then((m) => m.ChannelAccountList),
 					},
 					{
 						path: 'template',
@@ -54,20 +83,27 @@ export const CHANNEL_ROUTES: Routes = [
 							{
 								path: 'add',
 								loadComponent: () =>
-									import('./page/channel-template-wau-form').then(
-										(m) => m.ChannelTemplateWAUForm,
+									import('./page/channel-template-form').then(
+										(m) => m.ChannelTemplateForm,
 									),
 							},
 							{
 								path: 'edit/:id',
 								loadComponent: () =>
-									import('./page/channel-template-wau-form').then(
-										(m) => m.ChannelTemplateWAUForm,
+									import('./page/channel-template-form').then(
+										(m) => m.ChannelTemplateForm,
 									),
 							},
 						],
 					},
 				],
+			},
+			{
+				path: 'group',
+				loadComponent: () =>
+					import('./page/channel-account-group-list').then(
+						(m) => m.ChannelAccountGroupList,
+					),
 			},
 		],
 	},

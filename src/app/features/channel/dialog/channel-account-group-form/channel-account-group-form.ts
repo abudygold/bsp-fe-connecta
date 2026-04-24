@@ -1,10 +1,15 @@
 import { Component, inject, signal, ViewEncapsulation } from '@angular/core';
-import { FormField } from '@angular/forms/signals';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { Button, ButtonModel, Dialog, Table, TableModel, Textbox } from '@devkitify/angular-ui-kit';
+import {
+	Button,
+	ButtonModel,
+	Dialog,
+	Dropdown,
+	Table,
+	TableModel,
+	Textbox,
+} from '@devkitify/angular-ui-kit';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { BaseForm } from '../../../../core/common';
@@ -27,25 +32,23 @@ import {
 } from '../../../../shared/constant/table/channel';
 
 @Component({
-	selector: 'app-channel-account-group-wau-form',
+	selector: 'app-channel-account-group-form',
 	imports: [
-		FormField,
 		Textbox,
+		Dropdown,
 		Dialog,
 		Button,
 		Table,
-		MatFormFieldModule,
-		MatSelectModule,
 		MatDividerModule,
 		MessageValidation,
 		FontAwesomeModule,
 	],
-	templateUrl: './channel-account-group-wau-form.html',
-	styleUrl: './channel-account-group-wau-form.css',
+	templateUrl: './channel-account-group-form.html',
+	styleUrl: './channel-account-group-form.css',
 	encapsulation: ViewEncapsulation.None,
 })
-export class ChannelAccountGroupWAUForm extends BaseForm<IAccountGroupForm> {
-	protected dialogRef = inject(MatDialogRef<ChannelAccountGroupWAUForm>);
+export class ChannelAccountGroupForm extends BaseForm<IAccountGroupForm> {
+	protected dialogRef = inject(MatDialogRef<ChannelAccountGroupForm>);
 	protected data = inject(MAT_DIALOG_DATA);
 
 	tableModel: TableModel = CHANNEL_ACCOUNT_GROUP_MEMBERS_TABLE;
@@ -68,21 +71,21 @@ export class ChannelAccountGroupWAUForm extends BaseForm<IAccountGroupForm> {
 
 		this.id.set(this.data?.row?.id || null);
 		this.formModel.set(ACCOUNT_GROUP_EDIT_STATE(this.data?.row));
-		this.getAccountOptionService();
+		this.#loadOptions();
 	}
 
-	getAccountOptionService() {
-		this.api
-			.get(ACCOUNTS_URL, {
+	#loadOptions(): void {
+		this.mapOptions(
+			ACCOUNTS_URL,
+			this.opt.accounts,
+			{
 				pageNo: 1,
-				itemPerPage: 250,
-			})
-			.subscribe({
-				next: (res: any) => {
-					this.opt.accounts.set(res.data.list);
-					this.addMember('');
-				},
-			});
+				itemPerPage: 100,
+			},
+			(item) => `${item.accountName} (${item.accountNo})`,
+			'accountNo',
+			() => this.addMember(''),
+		);
 	}
 
 	addMember(_id: string) {

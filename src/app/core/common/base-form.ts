@@ -29,7 +29,7 @@ export class BaseForm<FormModel> {
 		formModel: FormModel | null,
 		formData: FormOptions<FormModel> | SchemaOrSchemaFn<FormModel, PathKind.Root>,
 	) {
-		this.formModel = signal<FormModel>(formModel || {} as FormModel);
+		this.formModel = signal<FormModel>(formModel || ({} as FormModel));
 		this.formData = form(this.formModel, formData);
 
 		this.id.set(this.activatedRoute.snapshot.paramMap.get('id') || null);
@@ -90,6 +90,33 @@ export class BaseForm<FormModel> {
 					}));
 				},
 			});
+	}
+
+	mapOptions(
+		url: string,
+		target: any,
+		params: any = {},
+		labelKey: string | ((item: any) => string) = 'name',
+		valueKey: string = 'id',
+		callbackFn?: (res: IHttpResponse) => void,
+	): void {
+		this.api.get<IHttpResponse>(url, { ...params }).subscribe({
+			next: (res) => {
+				const options =
+					res.data?.list?.map((item: any) => {
+						const label =
+							typeof labelKey === 'function' ? labelKey(item) : item[labelKey];
+
+						return {
+							label: label,
+							value: item[valueKey],
+						};
+					}) || [];
+				target.set(options);
+
+				if (callbackFn) callbackFn(res);
+			},
+		});
 	}
 
 	sendToApi(

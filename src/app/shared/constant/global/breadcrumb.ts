@@ -19,8 +19,12 @@ const ACCOUNT_TEMPLATE_WAU_LINK: BreadcrumbModel = {
 	label: 'WhatsApp Unofficial Templates',
 	url: '/secure/channel/wau/template',
 };
-const ACCOUNT_TEMPLATE_WAU_ADD_LINK: BreadcrumbModel = { label: 'New Template' };
-const ACCOUNT_TEMPLATE_WAU_EDIT_LINK: BreadcrumbModel = { label: 'Edit Template' };
+const ACCOUNT_TEMPLATE_SMS_LINK: BreadcrumbModel = {
+	label: 'SMS Templates',
+	url: '/secure/channel/wau/template',
+};
+const ACCOUNT_TEMPLATE_ADD_LINK: BreadcrumbModel = { label: 'New Template' };
+const ACCOUNT_TEMPLATE_EDIT_LINK: BreadcrumbModel = { label: 'Edit Template' };
 const CUSTOMER_LINK: BreadcrumbModel = { label: 'Customer List', url: '/secure/customer' };
 const CUSTOMER_ADD_LINK: BreadcrumbModel = { label: 'New Customer' };
 const CUSTOMER_EDIT_LINK: BreadcrumbModel = { label: 'Edit Customer' };
@@ -47,18 +51,29 @@ export const BREADCRUMBS = (path: string = '', id: string = ''): BreadcrumbModel
 		'/secure/channel/wa/template': [DASHBOARD_LINK, ACCOUNT_TEMPLATE_WA_LINK],
 		/* WAU */
 		'/secure/channel/wau': [DASHBOARD_LINK, ACCOUNT_WAU_LINK],
-		'/secure/channel/wau/group': [DASHBOARD_LINK, ACCOUNT_GROUP_LINK],
 		'/secure/channel/wau/template': [DASHBOARD_LINK, ACCOUNT_TEMPLATE_WAU_LINK],
 		'/secure/channel/wau/template/add': [
 			DASHBOARD_LINK,
 			ACCOUNT_TEMPLATE_WAU_LINK,
-			ACCOUNT_TEMPLATE_WAU_ADD_LINK,
+			ACCOUNT_TEMPLATE_ADD_LINK,
 		],
 		['/secure/channel/wau/template/edit/' + id]: [
 			DASHBOARD_LINK,
 			ACCOUNT_TEMPLATE_WAU_LINK,
-			ACCOUNT_TEMPLATE_WAU_EDIT_LINK,
+			ACCOUNT_TEMPLATE_EDIT_LINK,
 		],
+		'/secure/channel/sms/template': [DASHBOARD_LINK, ACCOUNT_TEMPLATE_SMS_LINK],
+		'/secure/channel/sms/template/add': [
+			DASHBOARD_LINK,
+			ACCOUNT_TEMPLATE_SMS_LINK,
+			ACCOUNT_TEMPLATE_ADD_LINK,
+		],
+		['/secure/channel/sms/template/edit/' + id]: [
+			DASHBOARD_LINK,
+			ACCOUNT_TEMPLATE_SMS_LINK,
+			ACCOUNT_TEMPLATE_EDIT_LINK,
+		],
+		'/secure/channel/group': [DASHBOARD_LINK, ACCOUNT_GROUP_LINK],
 		/* CUSTOMER */
 		'/secure/customer': [DASHBOARD_LINK, CUSTOMER_LINK],
 		'/secure/customer/add': [DASHBOARD_LINK, CUSTOMER_LINK, CUSTOMER_ADD_LINK],

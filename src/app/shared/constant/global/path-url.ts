@@ -20,10 +20,15 @@ export const CUSTOMER_GROUP_URL = `${environment.api.baseUrl}customergroup`;
 export const API_KEYS_URL = `${environment.api.baseUrl}apikey`;
 
 /* TEMPLATE */
-export const TEMPLATE_URL = `${environment.api.baseUrl}wau/template`;
+export const TEMPLATE_WA_URL = `${environment.api.baseUrl}wa/template`;
+export const TEMPLATE_WAU_URL = `${environment.api.baseUrl}wau/template`;
+export const TEMPLATE_SMS_URL = `${environment.api.baseUrl}sms/template`;
 
 /* MESSAGE */
 export const MESSAGE_URL = `${environment.api.baseUrl}message`;
+
+/* FILE */
+export const FILE_URL = `${environment.api.baseUrl}file`;
 
 /* CAMPAIGN */
 export const CAMPAIGN_URL = `${environment.api.baseUrl}campaign`;

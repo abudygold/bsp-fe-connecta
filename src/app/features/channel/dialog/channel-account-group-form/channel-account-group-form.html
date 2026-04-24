@@ -18,19 +18,21 @@
 				</div>
 
 				<div class="tw:mb-3">
-					<mat-form-field class="no-hint tw:w-full" appearance="outline">
-						<mat-label>Accounts</mat-label>
-						<mat-select
-							multiple
-							[formField]="formData.accounts"
-							(selectionChange)="addMember($event.value)">
-							@for (account of opt.accounts(); track account) {
-								<mat-option [value]="account.id">
-									{{ account.accountName }} ({{ account.accountNo }})
-								</mat-option>
-							}
-						</mat-select>
-					</mat-form-field>
+					<lib-dropdown
+						class="no-hint"
+						[field]="{
+							key: 'accounts',
+							type: 'dropdown',
+							control: $any(formData.accounts),
+							config: {
+								label: 'Accounts',
+								options: {
+									labelKey: 'label',
+									valueKey: 'value',
+									data: opt.accounts(),
+								},
+							},
+						}" />
 
 					<app-message-validation [fieldState]="formData.name()" />
 				</div>

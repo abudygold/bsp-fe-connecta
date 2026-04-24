@@ -1,1 +1,244 @@
-<p>campaign-form works!</p>
+<div class="tw:flex tw:flex-col tw:gap-4">
+	<div class="tw:bg-white tw:rounded-xl tw:shadow-sm tw:p-8 tw:border tw:border-gray-200">
+		<div class="tw:mb-5">
+			<lib-textbox
+				class="no-hint"
+				[field]="{
+					key: 'name',
+					type: 'textbox',
+					control: $any(formData.name),
+					config: {
+						label: 'Campaign Name',
+					},
+				}" />
+
+			<app-message-validation [fieldState]="formData.name()" />
+		</div>
+
+		<div class="tw:relative tw:flex tw:pb-5 tw:items-center">
+			<div class="tw:grow tw:border-t tw:border-gray-400"></div>
+			<span class="tw:shrink tw:mx-4 tw:text-gray-400">Channel & Account</span>
+			<div class="tw:grow tw:border-t tw:border-gray-400"></div>
+		</div>
+
+		<div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+			<div class="tw:mb-5">
+				<lib-dropdown
+					class="no-hint"
+					[field]="{
+						key: 'channel',
+						type: 'dropdown',
+						control: $any(formData.channel),
+						config: {
+							label: 'Channel',
+							options: {
+								labelKey: 'label',
+								valueKey: 'value',
+								data: opt.channel(),
+							},
+						},
+					}" />
+
+				<app-message-validation [fieldState]="formData.channel()" />
+			</div>
+
+			<div class="tw:mb-5">
+				<lib-dropdown
+					class="no-hint"
+					[field]="{
+						key: 'from',
+						type: 'dropdown',
+						control: $any(formData.from),
+						config: {
+							label: 'Account No',
+							options: {
+								labelKey: 'label',
+								valueKey: 'value',
+								data: opt.accountNo(),
+							},
+						},
+					}" />
+
+				<app-message-validation [fieldState]="formData.from()" />
+			</div>
+		</div>
+
+		<div class="tw:relative tw:flex tw:pb-5 tw:items-center">
+			<div class="tw:grow tw:border-t tw:border-gray-400"></div>
+			<span class="tw:shrink tw:mx-4 tw:text-gray-400">Message</span>
+			<div class="tw:grow tw:border-t tw:border-gray-400"></div>
+		</div>
+
+		<div class="tw:mb-5">
+			<lib-dropdown
+				class="no-hint"
+				[field]="{
+					key: 'msgType',
+					type: 'dropdown',
+					control: $any(formData.payload.msgType),
+					config: {
+						label: 'Message Type',
+						options: {
+							valueKey: 'value',
+							labelKey: 'label',
+							data: [
+								{
+									value: 'text',
+									label: 'Text',
+								},
+								{
+									value: 'template',
+									label: 'Template',
+								},
+							],
+						},
+					},
+				}" />
+
+			<app-message-validation [fieldState]="formData.payload.msgType()" />
+		</div>
+
+		<div class="tw:mb-5">
+			<lib-textarea
+				class="no-hint"
+				[field]="{
+					key: 'text',
+					type: 'textarea',
+					control: $any(formData.payload.text),
+					config: {
+						label: 'Message Text',
+						placeholder: `Enter your message... Use {{1}}, {{2}} for variables`,
+					},
+				}" />
+
+			<app-message-validation [fieldState]="formData.payload.text()" />
+		</div>
+
+		<div class="tw:relative tw:flex tw:pb-5 tw:items-center">
+			<div class="tw:grow tw:border-t tw:border-gray-400"></div>
+			<span class="tw:shrink tw:mx-4 tw:text-gray-400">Target</span>
+			<div class="tw:grow tw:border-t tw:border-gray-400"></div>
+		</div>
+
+		<div class="tw:mb-5">
+			<lib-dropdown
+				class="no-hint"
+				[field]="{
+					key: 'targetType',
+					type: 'dropdown',
+					control: $any(formData.targetType),
+					config: {
+						label: 'Target Type',
+						options: {
+							valueKey: 'value',
+							labelKey: 'label',
+							data: [
+								{
+									value: 'file',
+									label: 'File',
+								},
+								{
+									value: 'group',
+									label: 'Customer Group',
+								},
+							],
+						},
+					},
+				}" />
+		</div>
+
+		<!-- <div class="tw:mb-6">
+			<label class="tw:block tw:text-sm tw:font-medium tw:text-gray-700 tw:mb-2">
+				Target File
+			</label>
+
+			<input
+				class="tw:block tw:w-full tw:text-sm tw:text-gray-700 tw:border tw:border-gray-300 tw:rounded-lg tw:px-3 tw:py-2 tw:file:mr-4 tw:file:border-0 tw:file:bg-gray-100 tw:file:px-4 tw:file:py-2 tw:file:text-sm tw:file:font-medium"
+				type="file"
+				accept=".xlsx,.xls,.csv"
+				(change)="onFileChange($event)" />
+
+			@if (selectedFile()) {
+				<p class="tw:mt-2 tw:text-xs tw:text-gray-500">
+					File selected: {{ selectedFile()?.name }}
+				</p>
+			}
+
+			@if (uploadedFileName()) {
+				<p class="tw:mt-1 tw:text-xs tw:text-green-600">
+					Last uploaded file: {{ uploadedFileName() }}
+				</p>
+			}
+		</div> -->
+
+		@if (formData.targetType().value() === 'file') {
+			<div class="tw:mb-5">
+				<lib-button [config]="btn.downloadTemplate()" />
+			</div>
+
+			<div class="tw:mb-6">
+				<label class="tw:block tw:text-sm tw:font-medium tw:text-gray-700 tw:mb-2">
+					Upload File
+				</label>
+
+				<div
+					for="uploadFile"
+					class="tw:bg-white tw:text-slate-600 tw:font-semibold tw:text-sm tw:rounded-md tw:h-48 tw:flex tw:flex-col tw:items-center tw:justify-center tw:cursor-pointer tw:border-2 tw:border-slate-300 tw:border-dashed tw:focus-within:ring-2 tw:focus-within:ring-blue-500 tw:dark:bg-neutral-900 tw:dark:text-slate-300 tw:dark:border-neutral-700"
+					(click)="openFileBrowser()">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="tw:size-10 tw:mb-4 tw:fill-gray-400"
+						viewBox="0 0 32 32"
+						aria-hidden="true">
+						<path
+							d="M23.75 11.044a7.99 7.99 0 0 0-15.5-.009A8 8 0 0 0 9 27h3a1 1 0 0 0 0-2H9a6 6 0 0 1-.035-12 1.038 1.038 0 0 0 1.1-.854 5.991 5.991 0 0 1 11.862 0A1.08 1.08 0 0 0 23 13a6 6 0 0 1 0 12h-3a1 1 0 0 0 0 2h3a8 8 0 0 0 .75-15.956z"
+							data-original="#000000" />
+						<path
+							d="M20.293 19.707a1 1 0 0 0 1.414-1.414l-5-5a1 1 0 0 0-1.414 0l-5 5a1 1 0 0 0 1.414 1.414L15 16.414V29a1 1 0 0 0 2 0V16.414z"
+							data-original="#000000" />
+					</svg>
+					Upload file
+
+					<input
+						type="file"
+						id="campaign-file-upload"
+						accept=".xlsx,.xls,.csv"
+						class="tw:sr-only"
+						(change)="onFileChange($event)" />
+					<p class="tw:text-xs tw:font-normal tw:text-slate-400 tw:text-center tw:mt-2">
+						.XLSX, .XLS, .CSV are Allowed.
+					</p>
+
+					@if (selectedFile()) {
+						<p class="tw:mt-2 tw:text-xs tw:text-gray-500">
+							File selected: {{ selectedFile()?.name }}
+						</p>
+					}
+				</div>
+			</div>
+		} @else {
+			<div class="tw:mb-5">
+				<lib-dropdown
+					class="no-hint"
+					[field]="{
+						key: 'groupId',
+						type: 'dropdown',
+						control: $any(formData.groupId),
+						config: {
+							label: 'Customer Group',
+							options: {
+								labelKey: 'label',
+								valueKey: 'value',
+								data: [],
+							},
+						},
+					}" />
+			</div>
+		}
+
+		<div class="tw:flex tw:justify-between tw:my-4">
+			<lib-button [config]="btn.cancel()" />
+			<lib-button [config]="btn.save()" />
+		</div>
+	</div>
+</div>

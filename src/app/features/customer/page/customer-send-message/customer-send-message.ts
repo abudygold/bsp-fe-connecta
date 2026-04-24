@@ -19,7 +19,8 @@ import {
 	CHANNEL_URL,
 	MESSAGE_URL,
 	SAVE_BUTTON,
-	TEMPLATE_URL,
+	TEMPLATE_SMS_URL,
+	TEMPLATE_WAU_URL,
 } from '../../../../shared/constant/global';
 import { IHttpResponse, IOptionList } from '../../../../shared/interface/base';
 
@@ -69,29 +70,22 @@ export class CustomerSendMessage extends BaseForm<ISendMessageForm> implements O
 				: null,
 		);
 
-		this.getOptionService();
+		this.#getOptionService();
+		this.#getTemplateOptionService();
 	}
 
 	ngOnInit(): void {
 		this.toOptions();
 	}
 
-	getOptionService(): void {
+	#getOptionService(): void {
 		forkJoin({
-			channel: this.api.get<IHttpResponse>(CHANNEL_URL, { itemPerPage: 100 }),
+			channel: this.api.get<IHttpResponse>(CHANNEL_URL),
 			account: this.api.get<IHttpResponse>(ACCOUNTS_URL, { itemPerPage: 100 }),
-			template: this.api.get<IHttpResponse>(TEMPLATE_URL, { itemPerPage: 100 }),
 			accountGroup: this.api.get<IHttpResponse>(ACCOUNTS_GROUP_URL, { itemPerPage: 100 }),
 		}).subscribe({
 			next: (res) => {
 				this.opt.channel.set(res.channel?.data?.list || []);
-				this.opt.template.set([
-					{
-						id: 'randomOTP',
-						name: 'Random OTP',
-					},
-					...(res.template?.data?.list || []),
-				]);
 				this.opt.from.update((from) => [
 					...from,
 					{
@@ -117,9 +111,43 @@ export class CustomerSendMessage extends BaseForm<ISendMessageForm> implements O
 		});
 	}
 
+	#getTemplateOptionService(): void {
+		let URL = '';
+		const channel = this.formData.channel().value();
+
+		switch (channel) {
+			case 'WA':
+			case 'WAU':
+				URL = TEMPLATE_WAU_URL;
+				break;
+			case 'SMS':
+				URL = TEMPLATE_SMS_URL;
+				break;
+			default:
+				URL = '';
+		}
+
+		this.api.get<IHttpResponse>(URL, { itemPerPage: 100 }).subscribe({
+			next: (res) => {
+				this.opt.template.set(res?.data?.list || []);
+
+				if (['WA', 'WAU'].includes(channel)) {
+					this.opt.template.update((template) => [
+						{
+							id: 'randomOTP',
+							name: 'Random OTP',
+						},
+						...template,
+					]);
+				}
+			},
+		});
+	}
+
 	changeChannelHandler(event: MatSelectChange): void {
 		this.formData.to().value.set('');
 		this.toOptions();
+		this.#getTemplateOptionService();
 	}
 
 	changeMsgTypeHandler(event: MatSelectChange): void {

@@ -1,9 +1,6 @@
 import { TableModel } from '@devkitify/angular-ui-kit';
 
 export const CHANNEL_TEMPLATE_CUSTOM_TYPE = {
-	selection: {
-		type: 'custom',
-	},
 	name: {
 		type: 'custom',
 	},
@@ -21,11 +18,6 @@ export const CHANNEL_TEMPLATE_CUSTOM_TYPE = {
 /* CHANNEL TEMPLATE WHATSAPP LIST */
 export const CHANNEL_TEMPLATE_WA_TABLE: TableModel = new TableModel();
 CHANNEL_TEMPLATE_WA_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
 	{
 		key: 'name',
 		label: 'Name',
@@ -55,11 +47,6 @@ CHANNEL_TEMPLATE_WA_TABLE.isPagination.set(true);
 /* CHANNEL TEMPLATE WHATSAPP UNOFICIAL LIST */
 export const CHANNEL_TEMPLATE_WAU_TABLE: TableModel = new TableModel();
 CHANNEL_TEMPLATE_WAU_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
 	{
 		key: 'name',
 		label: 'Name',

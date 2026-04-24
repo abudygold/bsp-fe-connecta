@@ -4,22 +4,21 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Button, ButtonModel, Dialog, Formly, FormlyFormConfig } from '@devkitify/angular-ui-kit';
 import { BaseForm } from '../../../../core/common';
 import {
-	ACCOUNT_WAU_CREATE_SCHEMA_FORM,
-	ACCOUNT_WAU_EDIT_SCHEMA_FORM,
-	ACCOUNT_WAU_EDIT_STATE,
-	ACCOUNT_WAU_INIT_FORM,
-	IAccountWAUForm,
+	ACCOUNT_EDIT_STATE,
+	ACCOUNT_INIT_FORM,
+	ACCOUNT_SCHEMA_FORM,
+	IAccountForm,
 } from '../../../../shared/constant/formly/channel';
 import { ACCOUNTS_URL, CANCEL_BUTTON, SAVE_BUTTON } from '../../../../shared/constant/global';
 
 @Component({
-	selector: 'app-channel-account-wau-form',
+	selector: 'app-channel-account-form',
 	imports: [Formly, Dialog, Button],
-	templateUrl: './channel-account-wau-form.html',
-	styleUrl: './channel-account-wau-form.css',
+	templateUrl: './channel-account-form.html',
+	styleUrl: './channel-account-form.css',
 })
-export class ChannelAccountWAUForm extends BaseForm<IAccountWAUForm> {
-	protected dialogRef = inject(MatDialogRef<ChannelAccountWAUForm>);
+export class ChannelAccountForm extends BaseForm<IAccountForm> {
+	protected dialogRef = inject(MatDialogRef<ChannelAccountForm>);
 	protected data = inject(MAT_DIALOG_DATA);
 
 	btn = {
@@ -30,17 +29,33 @@ export class ChannelAccountWAUForm extends BaseForm<IAccountWAUForm> {
 	formConfig!: WritableSignal<FormlyFormConfig>;
 
 	constructor() {
-		super(null, (schemaPath) => ACCOUNT_WAU_CREATE_SCHEMA_FORM(schemaPath));
-
+		super(null, () => {});
 		this.id.set(this.data?.row?.id || null);
-		this.id() &&
-			(this.formData = form(this.formModel, (schemaPath) =>
-				ACCOUNT_WAU_EDIT_SCHEMA_FORM(schemaPath),
-			));
+		this.initFormByChannel();
+	}
 
-		this.formModel.set(ACCOUNT_WAU_EDIT_STATE(this.data?.row));
-		this.formData.channel().value.set(this.data?.channel || '');
-		this.formConfig = signal(ACCOUNT_WAU_INIT_FORM(this.formData));
+	initFormByChannel(): void {
+		const channel = this.data?.channel || '';
+
+		this.formData = form(this.formModel, (schemaPath) =>
+			ACCOUNT_SCHEMA_FORM(schemaPath, this.id() ? true : false, channel),
+		);
+		this.formModel.set(ACCOUNT_EDIT_STATE(this.data?.row));
+		this.formConfig = signal(ACCOUNT_INIT_FORM(this.formData));
+		this.formData.channel().value.set(channel);
+
+		if (channel === 'SMS') {
+			this.formConfig.update((config) => {
+				const accountNoField = config.fields?.find((f) => f.key === 'accountNo');
+				if (accountNoField) {
+					accountNoField.config = {
+						...accountNoField.config,
+						label: 'Phone No',
+					};
+				}
+				return config;
+			});
+		}
 	}
 
 	handleSubmit(): void {

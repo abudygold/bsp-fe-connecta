@@ -22,7 +22,6 @@ import {
 import {
 	ADD_NEW_BUTTON,
 	CANCEL_BUTTON,
-	CHANNEL_URL,
 	CUSTOMER_GROUP_URL,
 	FORM_SM_DIALOG_CONFIG,
 	SAVE_BUTTON,
@@ -31,7 +30,7 @@ import {
 	CUSTOMER_GROUP_MEMBERS_CUSTOM_TYPE,
 	CUSTOMER_GROUP_MEMBERS_TABLE,
 } from '../../../../shared/constant/table/customer';
-import { IHttpResponse, IOptionList } from '../../../../shared/interface/base';
+import { IHttpResponse } from '../../../../shared/interface/base';
 import { CustomerGroupMembers } from '../../dialog/customer-group-members/customer-group-members';
 
 @Component({
@@ -54,10 +53,6 @@ export class CustomerGroupForm extends BaseForm<ICustomerGroupForm> {
 
 	tableModel: TableModel = CUSTOMER_GROUP_MEMBERS_TABLE;
 
-	opt = {
-		channel: signal<IOptionList[]>([]),
-	};
-
 	btn = {
 		save: signal<ButtonModel>(SAVE_BUTTON('Submit', () => this.handleSubmit())),
 		cancel: signal<ButtonModel>(CANCEL_BUTTON('Cancel', () => this.navigateToList())),
@@ -72,20 +67,10 @@ export class CustomerGroupForm extends BaseForm<ICustomerGroupForm> {
 	constructor() {
 		super(CUSTOMER_GROUP_DEFAULT_STATE, (schemaPath) => CUSTOMER_GROUP_SCHEMA_FORM(schemaPath));
 
-		this.getChannelOptionService();
 		this.id() && this.getDetailService(CUSTOMER_GROUP_URL, CUSTOMER_EDIT_STATE);
 		this.id() && this.getMembersService();
 
 		setTimeout(() => this.tableModel.isLoading.set(false), 600);
-	}
-
-	getChannelOptionService(): void {
-		this.api.get<IHttpResponse>(CHANNEL_URL).subscribe({
-			next: (res) => {
-				const data = (res?.data?.list || []) as IOptionList[];
-				this.opt.channel.set(data);
-			},
-		});
 	}
 
 	getMembersService() {
@@ -179,6 +164,6 @@ export class CustomerGroupForm extends BaseForm<ICustomerGroupForm> {
 	}
 
 	navigateToList(): void {
-		this.router.navigate(['../../'], { relativeTo: this.activatedRoute });
+		this.router.navigate([this.id() ? '../../' : '../'], { relativeTo: this.activatedRoute });
 	}
 }

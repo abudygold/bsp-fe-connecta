@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { Button, Table } from '@devkitify/angular-ui-kit';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -13,15 +12,7 @@ import { ApiKeysForm } from '../../dialog/api-keys-form';
 
 @Component({
 	selector: 'app-api-keys-list',
-	imports: [
-		Table,
-		Search,
-		Button,
-		MatIconModule,
-		MatCheckboxModule,
-		FontAwesomeModule,
-		TruncatePipe,
-	],
+	imports: [Table, Search, Button, MatIconModule, FontAwesomeModule, TruncatePipe],
 	templateUrl: './api-keys-list.html',
 	styleUrl: './api-keys-list.css',
 })

@@ -12,19 +12,16 @@
 	(sortChange)="sortChange($event)"
 	(pageChange)="pageChange($event)">
 	<ng-template #customTemplate let-data="data" let-key="key">
-		@if (key === 'selection') {
-			<div [class.show-checkbox]="data.isSelected">
-				<mat-checkbox
-					class="check-box check__file"
-					[checked]="tableModel.isSelected(data)"
-					(change)="onRowSelection(data)" />
-			</div>
-		} @else if (key === 'name') {
+		@if (key === 'name') {
 			{{ data.name }}
 		} @else if (key === 'members') {
-			@for (item of data.accounts; track $index) {
-				<div class="tw:text-sm"> {{ item?.accountName }} ({{ item.accountNo }}) </div>
-			}
+			<div class="tw:flex tw:flex-col">
+				@for (item of data.accounts; track $index) {
+					<span class="tw:text-xs tw:text-gray-500">
+						{{ item?.accountName }} ({{ item.accountNo }})
+					</span>
+				}
+			</div>
 		} @else if (key === 'actions') {
 			<div class="tw:flex tw:gap-3">
 				<fa-icon
@@ -39,11 +36,5 @@
 					(click)="onAction('delete', data?.id)" />
 			</div>
 		}
-	</ng-template>
-
-	<ng-template #selectionTemplate>
-		<div class="filter-list">
-			<mat-checkbox class="check__file" (change)="onAllSelection($event.checked)" />
-		</div>
 	</ng-template>
 </lib-table>

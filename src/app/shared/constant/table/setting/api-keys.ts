@@ -2,9 +2,6 @@ import { TableModel } from '@devkitify/angular-ui-kit';
 
 /* API KEYS LIST */
 export const API_KEYS_CUSTOM_TYPE = {
-	selection: {
-		type: 'custom',
-	},
 	token: {
 		type: 'custom',
 	},
@@ -19,11 +16,6 @@ export const API_KEYS_CUSTOM_TYPE = {
 
 export const API_KEYS_TABLE: TableModel = new TableModel();
 API_KEYS_TABLE.columns = [
-	{
-		key: 'selection',
-		label: '',
-		sortable: false,
-	},
 	{
 		key: 'name',
 		label: 'Name',

@@ -1,4 +1,6 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { CampaignForm } from './campaign-form';
 
@@ -9,6 +11,7 @@ describe('CampaignForm', () => {
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [CampaignForm],
+			providers: [provideRouter([]), provideHttpClient()],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(CampaignForm);
