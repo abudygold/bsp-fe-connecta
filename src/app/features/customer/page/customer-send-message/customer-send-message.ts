@@ -70,6 +70,7 @@ export class CustomerSendMessage extends BaseForm<ISendMessageForm> implements O
 				: null,
 		);
 
+		this.#loadOptions();
 		this.#getOptionService();
 		this.#getTemplateOptionService();
 	}
@@ -78,16 +79,20 @@ export class CustomerSendMessage extends BaseForm<ISendMessageForm> implements O
 		this.toOptions();
 	}
 
+	#loadOptions(): void {
+		this.mapOptions(CHANNEL_URL, this.opt.channel);
+	}
+
 	#getOptionService(): void {
 		forkJoin({
-			channel: this.api.get<IHttpResponse>(CHANNEL_URL),
-			account: this.api.get<IHttpResponse>(ACCOUNTS_URL, { itemPerPage: 100 }),
+			account: this.api.get<IHttpResponse>(ACCOUNTS_URL, {
+				itemPerPage: 100,
+				channel: this.formData.channel().value(),
+			}),
 			accountGroup: this.api.get<IHttpResponse>(ACCOUNTS_GROUP_URL, { itemPerPage: 100 }),
 		}).subscribe({
 			next: (res) => {
-				this.opt.channel.set(res.channel?.data?.list || []);
-				this.opt.from.update((from) => [
-					...from,
+				this.opt.from.set([
 					{
 						name: 'Accounts',
 						options:
@@ -96,16 +101,19 @@ export class CustomerSendMessage extends BaseForm<ISendMessageForm> implements O
 								label: `${item.accountName} (${item.accountNo})`,
 							})) || [],
 					},
-					{
-						name: 'Groups',
-						options:
-							res.accountGroup?.data?.list?.map((item: any) => ({
-								value: item.name,
-								label: `${item.name} [Group]`,
-							})) || [],
-					},
+					...(['WA', 'WAU'].includes(this.formData.channel().value())
+						? [
+								{
+									name: 'Groups',
+									options:
+										res.accountGroup?.data?.list?.map((item: any) => ({
+											value: item.name,
+											label: `${item.name} [Group]`,
+										})) || [],
+								},
+							]
+						: []),
 				]);
-
 				this.formData.from().value.set(res.account?.data?.list.at(0).accountNo);
 			},
 		});
@@ -147,6 +155,7 @@ export class CustomerSendMessage extends BaseForm<ISendMessageForm> implements O
 	changeChannelHandler(event: MatSelectChange): void {
 		this.formData.to().value.set('');
 		this.toOptions();
+		this.#getOptionService();
 		this.#getTemplateOptionService();
 	}
 
