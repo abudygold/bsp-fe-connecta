@@ -18,10 +18,11 @@ import {
 	FILE_URL,
 	SAVE_BUTTON,
 } from '../../../../shared/constant/global';
+import { ChannelTemplatePreview } from '../../../channel/components/channel-template-preview';
 
 @Component({
 	selector: 'app-campaign-form',
-	imports: [Textbox, Dropdown, Textarea, Button, MessageValidation],
+	imports: [Textbox, Dropdown, Textarea, Button, MessageValidation, ChannelTemplatePreview],
 	templateUrl: './campaign-form.html',
 	styleUrl: './campaign-form.css',
 })
@@ -64,7 +65,7 @@ export class CampaignForm extends BaseForm<ICampaignForm> {
 	}
 
 	openFileBrowser(): void {
-		document.getElementById('campaign-file-upload')?.click()
+		document.getElementById('campaign-file-upload')?.click();
 	}
 
 	onFileChange(event: Event): void {
