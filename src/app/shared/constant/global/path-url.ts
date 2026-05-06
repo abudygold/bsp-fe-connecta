@@ -32,3 +32,12 @@ export const FILE_URL = `${environment.api.baseUrl}file`;
 
 /* CAMPAIGN */
 export const CAMPAIGN_URL = `${environment.api.baseUrl}campaign`;
+
+/* USERS */
+export const USERS_URL = `${environment.api.baseUrl}users`;
+
+/* ORGS */
+export const ORGS_URL = `${environment.api.baseUrl}orgs`;
+
+/* ROLES */
+export const ROLES_URL = `${environment.api.baseUrl}roles`;

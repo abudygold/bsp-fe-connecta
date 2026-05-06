@@ -38,7 +38,7 @@ export class Auth {
 		localStorage.clear();
 	}
 
-	refreshTokenApi() {
+	refreshTokenService() {
 		return this.#api
 			.post<RefreshToken>(REFRESH_TOKEN_URL, {
 				refreshToken: this.refreshToken,
@@ -50,7 +50,7 @@ export class Auth {
 			);
 	}
 
-	logoutApi() {
+	logoutService() {
 		return this.#api.post(LOGOUT_URL, {}).pipe(
 			tap(() => {
 				this.clearTokens();

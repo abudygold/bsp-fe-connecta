@@ -118,57 +118,22 @@ export const NAVIGATION_MENU: NavItem[] = [
 		label: 'Setting',
 		icon: faGear,
 		submenu: [
-			{
+			/* {
 				label: 'Users',
 				path: '/secure/setting/users',
 			},
+			{
+				label: 'Roles',
+				path: '/secure/setting/role',
+			},
+			{
+				label: 'Organizations',
+				path: '/secure/setting/organization',
+			}, */
 			{
 				label: 'API Keys',
 				path: '/secure/setting/api-keys',
 			},
 		],
 	},
-	/* {
-		label: 'Accounts',
-		icon: faCircleUser,
-		submenu: [
-			{
-				label: 'Whatsapp',
-				icon: faWhatsapp,
-				submenu: [
-					{
-						label: 'Accounts',
-						icon: faChevronRight,
-						path: '/secure/account/wa',
-					},
-				],
-			},
-		],
-	},
-	{
-		label: 'Campaign',
-		icon: faFacebookMessenger,
-		path: '/secure/campaign',
-	},
-	{
-		label: 'Administration',
-		icon: 'analytics',
-		submenu: [
-			{
-				label: 'Menu Management',
-				icon: 'view_list',
-				path: '/secure/menu',
-			},
-			{
-				label: 'Role Management',
-				icon: 'view_list',
-				path: '/secure/role',
-			},
-			{
-				label: 'Organization Management',
-				icon: 'view_list',
-				path: '/secure/organization',
-			},
-		],
-	}, */
 ];

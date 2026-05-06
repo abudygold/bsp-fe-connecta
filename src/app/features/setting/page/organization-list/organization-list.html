@@ -12,16 +12,7 @@
 	(sortChange)="sortChange($event)"
 	(pageChange)="pageChange($event)">
 	<ng-template #customTemplate let-data="data" let-key="key">
-		@if (key === 'token') {
-			<div class="tw:flex tw:gap-3">
-				{{ data.token | truncate: 40 : '...' }}
-				<fa-icon
-					[icon]="faIcon.faCopy"
-					size="lg"
-					class="tw:cursor-pointer"
-					(click)="onClipboardClick(data.token)" />
-			</div>
-		} @else if (key === 'actions') {
+		@if (key === 'actions') {
 			<div class="tw:flex tw:gap-3">
 				<fa-icon
 					[icon]="faIcon.faEdit"

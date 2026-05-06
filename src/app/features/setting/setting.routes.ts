@@ -14,6 +14,25 @@ export const SETTING_ROUTES: Routes = [
 				],
 			},
 			{
+				path: 'role',
+				children: [
+					{
+						path: '',
+						loadComponent: () => import('./page/role-list').then((m) => m.RoleList),
+					},
+				],
+			},
+			{
+				path: 'organization',
+				children: [
+					{
+						path: '',
+						loadComponent: () =>
+							import('./page/organization-list').then((m) => m.OrganizationList),
+					},
+				],
+			},
+			{
 				path: 'api-keys',
 				children: [
 					{

@@ -6,29 +6,28 @@ import { Router } from '@angular/router';
 import { API, Auth } from '../../../services';
 
 @Component({
-  selector: 'app-admin-header',
-  imports: [NgClass, MatToolbarModule, MatIconModule],
-  templateUrl: './admin-header.html',
-  styleUrl: './admin-header.css',
+	selector: 'app-admin-header',
+	imports: [NgClass, MatToolbarModule, MatIconModule],
+	templateUrl: './admin-header.html',
+	styleUrl: './admin-header.css',
 })
 export class AdminHeader {
-  #router = inject(Router);
-  #api = inject(API);
-  #auth = inject(Auth);
+	#router = inject(Router);
+	#api = inject(API);
+	#auth = inject(Auth);
 
-  toggleMenu = output<void>();
-  isMobile = input<boolean>(false);
+	toggleMenu = output<void>();
+	isMobile = input<boolean>(false);
 
-  onLogout(): void {
-    this.#auth.clearTokens();
-    this.#router.navigate(['./auth']);
-    /* this.#auth.logoutApi().subscribe({
-      next: () => {
-        console.log('Logged out successfully');
-      },
-      error: (err) => {
-        console.error('Logout failed', err);
-      },
-    }); */
-  }
+	onLogout(): void {
+		this.#auth.logoutService().subscribe({
+			next: () => {
+				this.#auth.clearTokens();
+				this.#router.navigate(['./auth']);
+			},
+			error: (err) => {
+				console.error('Logout failed', err);
+			},
+		});
+	}
 }
